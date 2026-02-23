@@ -534,7 +534,215 @@ def predict_quantile(M_train, base_predict_fn=None):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-#  BLEND: BenchReg + KNN
+#  LOGIT HELPERS
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _is_pct_bench(j, M):
+    """Heuristic: benchmark j uses a percentage scale [0,100]."""
+    vals = M[~np.isnan(M[:, j]), j]
+    if len(vals) == 0:
+        return False
+    return vals.min() >= -1 and vals.max() <= 101
+
+def _to_logit(x, eps=0.5):
+    """Convert percentage [0,100] → logit space. Clips to [eps, 100-eps] first."""
+    p = np.clip(x, eps, 100 - eps) / 100.0
+    return np.log(p / (1 - p))
+
+def _from_logit(z):
+    """Convert logit → percentage [0,100]."""
+    return 100.0 / (1 + np.exp(-z))
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  LOGIT-BENCHREG
+# ══════════════════════════════════════════════════════════════════════════════
+
+def predict_logit_benchreg(M_train, top_k=5, min_r2=0.2):
+    """BenchReg in logit space for percentage benchmarks, raw space for others.
+
+    The logit transform logit(p) = log(p/(1-p)) linearises the sigmoid-shaped
+    relationships between benchmark scores near ceilings and floors.  This
+    naturally handles bimodal benchmarks (scores near 0 map to large negative
+    logits, cleanly separating from the "capable" cluster).
+    """
+    obs = ~np.isnan(M_train)
+    is_pct = np.array([_is_pct_bench(j, M_train) for j in range(N_BENCH)])
+
+    # Transform to logit where applicable
+    M_work = M_train.copy()
+    for j in range(N_BENCH):
+        if is_pct[j]:
+            valid = obs[:, j]
+            M_work[valid, j] = _to_logit(M_train[valid, j])
+
+    # Run standard BenchReg in the transformed space
+    M_pred_work = M_work.copy()
+
+    for j in range(N_BENCH):
+        targets_obs = np.where(obs[:, j])[0]
+        if len(targets_obs) < 5:
+            continue
+        correlations = []
+        for j2 in range(N_BENCH):
+            if j2 == j:
+                continue
+            shared = obs[:, j] & obs[:, j2]
+            if shared.sum() < 5:
+                correlations.append((j2, -1))
+                continue
+            x, y = M_work[shared, j2], M_work[shared, j]
+            ss_tot = np.sum((y - y.mean())**2)
+            if ss_tot < 1e-10:
+                correlations.append((j2, -1))
+                continue
+            var_x = np.sum((x - x.mean())**2)
+            if var_x < 1e-10:
+                correlations.append((j2, -1))
+                continue
+            slope = np.sum((x - x.mean()) * (y - y.mean())) / var_x
+            intercept = y.mean() - slope * x.mean()
+            ss_res = np.sum((y - (slope * x + intercept))**2)
+            r2 = 1 - ss_res / ss_tot
+            correlations.append((j2, r2))
+        correlations.sort(key=lambda x: -x[1])
+        best = [(j2, r2) for j2, r2 in correlations[:top_k] if r2 >= min_r2]
+        if not best:
+            continue
+        for i in range(N_MODELS):
+            if not np.isnan(M_train[i, j]):
+                continue
+            preds, weights = [], []
+            for j2, r2 in best:
+                if np.isnan(M_work[i, j2]):
+                    continue
+                shared = obs[:, j] & obs[:, j2]
+                if shared.sum() < 5:
+                    continue
+                x, y = M_work[shared, j2], M_work[shared, j]
+                var_x = np.sum((x - x.mean())**2)
+                if var_x < 1e-10:
+                    continue
+                slope = np.sum((x - x.mean()) * (y - y.mean())) / var_x
+                intercept = y.mean() - slope * x.mean()
+                preds.append(slope * M_work[i, j2] + intercept)
+                weights.append(r2)
+            if preds:
+                pred_val = np.average(preds, weights=weights)
+                if is_pct[j]:
+                    M_pred_work[i, j] = _from_logit(pred_val)
+                else:
+                    M_pred_work[i, j] = pred_val
+
+    M_pred_work[obs] = M_train[obs]
+    return M_pred_work
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  SVD-LOGIT  (Soft-Impute in logit space)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def predict_svd_logit(M_train, rank=2, max_iter=100, tol=1e-4):
+    """Soft-Impute SVD in logit space for percentage benchmarks, z-score for others.
+
+    Percentage scores are first mapped through logit(score/100).  The SVD is
+    then run in z-scored logit space.  After convergence the inverse-logit maps
+    predictions back to [0, 100].  Non-percentage benchmarks (e.g. Elo ratings)
+    use the standard z-score path.
+    """
+    obs = ~np.isnan(M_train)
+    is_pct = np.array([_is_pct_bench(j, M_train) for j in range(N_BENCH)])
+
+    # Transform to logit where applicable
+    M_work = M_train.copy()
+    for j in range(N_BENCH):
+        if is_pct[j]:
+            valid = obs[:, j]
+            M_work[valid, j] = _to_logit(M_train[valid, j])
+
+    # Z-score the working space
+    cm = np.nanmean(M_work, axis=0)
+    cs = np.nanstd(M_work, axis=0)
+    cs[cs < 1e-8] = 1.0
+    M_norm = (M_work - cm) / cs
+    M_norm[np.isnan(M_work)] = np.nan
+
+    # Soft-Impute iteration
+    M_imp = M_norm.copy()
+    M_imp[np.isnan(M_imp)] = 0
+    converged = False
+    for it in range(max_iter):
+        M_old = M_imp.copy()
+        try:
+            U, s, Vt = np.linalg.svd(M_imp, full_matrices=False)
+        except np.linalg.LinAlgError:
+            break
+        M_approx = U[:, :rank] @ np.diag(s[:rank]) @ Vt[:rank, :]
+        M_imp = np.where(obs, M_norm, M_approx)
+        M_imp[np.isnan(M_imp)] = 0
+        rel_diff = np.sqrt(np.mean((M_imp - M_old)**2)) / (np.sqrt(np.mean(M_old**2)) + 1e-12)
+        if rel_diff < tol:
+            converged = True
+            break
+    if not converged:
+        warnings.warn(f"SVD-Logit rank-{rank} did not converge after {max_iter} iters "
+                       f"(final rel_diff={rel_diff:.3e})")
+
+    # Denormalize then inverse-logit
+    M_pred_work = M_imp * cs + cm
+    M_pred = np.full_like(M_train, np.nan)
+    for j in range(N_BENCH):
+        if is_pct[j]:
+            M_pred[:, j] = _from_logit(M_pred_work[:, j])
+        else:
+            M_pred[:, j] = M_pred_work[:, j]
+    M_pred[obs] = M_train[obs]
+    return M_pred
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  LOGIT-SVD BLEND  (recommended default method)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def predict_logit_svd_blend(M_train, alpha=0.6):
+    """0.6 × LogitBenchReg + 0.4 × SVD-Logit(r=2).  Recommended default.
+
+    Combines a local method (LogitBenchReg: each benchmark predicted from its
+    top-5 correlated benchmarks via regression in logit space) with a global
+    method (SVD-Logit: rank-2 Soft-Impute in logit space).  The two methods
+    are complementary: BenchReg captures per-benchmark structure while SVD
+    captures the overall low-rank pattern.
+
+    If LogitBenchReg returns NaN for a cell, falls back to SVD-Logit alone.
+    If both return NaN, falls back to the column mean.
+    """
+    M_breg = predict_logit_benchreg(M_train)
+    M_svd = predict_svd_logit(M_train, rank=2)
+    obs = ~np.isnan(M_train)
+    col_mean = np.nanmean(M_train, axis=0)
+
+    M_pred = M_train.copy()
+    for i in range(N_MODELS):
+        for j in range(N_BENCH):
+            if obs[i, j]:
+                continue
+            b = M_breg[i, j]
+            s = M_svd[i, j]
+            b_ok = np.isfinite(b)
+            s_ok = np.isfinite(s)
+            if b_ok and s_ok:
+                M_pred[i, j] = alpha * b + (1 - alpha) * s
+            elif b_ok:
+                M_pred[i, j] = b
+            elif s_ok:
+                M_pred[i, j] = s
+            else:
+                M_pred[i, j] = col_mean[j]
+    return M_pred
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+#  BLEND: BenchReg + KNN  (previous default)
 # ══════════════════════════════════════════════════════════════════════════════
 
 def predict_blend(M_train, alpha=0.6):
@@ -704,6 +912,9 @@ if __name__ == "__main__":
         ("BenchReg+KNN(α=0.6)",     lambda M: predict_blend(M, 0.6)),
         ("LogBenchReg",              predict_log_benchreg),
         ("LogBlend(α=0.65)",        lambda M: predict_log_blend(M, 0.65)),
+        ("LogitBenchReg",            predict_logit_benchreg),
+        ("SVD-Logit(r=2)",           lambda M: predict_svd_logit(M, rank=2)),
+        ("LogitSVD Blend(0.6/0.4)",  predict_logit_svd_blend),
         ("SVD(r=2)",                 lambda M: predict_svd(M, rank=2)),
         ("SVD(r=3)",                 lambda M: predict_svd(M, rank=3)),
         ("SVD(r=5)",                 lambda M: predict_svd(M, rank=5)),
@@ -806,7 +1017,7 @@ if __name__ == "__main__":
         bench_is_pct.append("%" in metric or "pass@" in metric.replace("%",""))
     bench_is_pct = np.array(bench_is_pct)
 
-    M_pred_best = predict_blend(M_FULL, alpha=0.6)
+    M_pred_best = predict_logit_svd_blend(M_FULL)
 
     # Clamp percentage benchmarks to [0, 100]
     for j in range(N_BENCH):
@@ -832,7 +1043,7 @@ if __name__ == "__main__":
                     val = M_pred_best[i, j]
                     if np.isfinite(val):
                         writer.writerow([MODEL_NAMES[MODEL_IDS[i]], BENCH_NAMES[BENCH_IDS[j]],
-                                        f"{val:.1f}", 'BenchReg+KNN(a=0.6)'])
+                                        f"{val:.1f}", 'LogitSVD(0.6/0.4)'])
                         n_written += 1
                     else:
                         writer.writerow([MODEL_NAMES[MODEL_IDS[i]], BENCH_NAMES[BENCH_IDS[j]],

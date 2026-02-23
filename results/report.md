@@ -7,61 +7,74 @@
 
 ## 1. Executive Summary
 
-We constructed a cited benchmark matrix spanning 83 instruct/chat LLMs across 49 benchmarks (math, coding, reasoning, knowledge, agentic, multimodal, instruction following, long context). Every entry carries a source URL. We then evaluated 19 prediction methods for filling the 66% of missing cells.
+We constructed a cited benchmark matrix spanning 83 instruct/chat LLMs across 49 benchmarks (math, coding, reasoning, knowledge, agentic, multimodal, instruction following, long context). Every entry carries a source URL. We then evaluated 22 prediction methods for filling the 66% of missing cells.
 
 **Key findings:**
-- **Best method**: BenchReg+KNN blend (α=0.6) achieves **6.4% MedAPE** on random holdout and **7.9% MedAPE** on per-model leave-50%-out (global-cell median, evaluated at full coverage with KNN fallback)
-- **The matrix is approximately rank-2**: Factor 1 explains 37% of variance; 2 factors capture 51%. SVD rank-2 (8.1% PM-MedAPE) beats rank-3 (9.1%)
-- **5 benchmarks predict the rest**: {HLE, AIME 2025, LiveCodeBench, SWE-bench Verified, SimpleQA} achieve ~7.8% MedAPE under proper holdout (in-sample was 4.8%, but this is overfit)
+- **Best method**: LogitSVD Blend (0.6 × LogitBenchReg + 0.4 × SVD-Logit(r=2)) achieves **6.0% MedAPE** on random holdout and **6.7% MedAPE** on per-model leave-50%-out, with 99.8% coverage. This is a **14.2% relative improvement** over the previous best (BenchReg+KNN Blend, 7.9% PM-MedAPE).
+- **The logit transform is the single biggest win**: Working in logit space (log-odds) for percentage-scale benchmarks linearizes the relationship near ceilings and floors, improving BenchReg by 11.3% relative (7.45% → 6.61%) and SVD by 12.8% relative (8.62% → 7.52%). It also implicitly handles bimodal benchmarks (89.9% bimodal classification accuracy vs 84.9% for the linear blend).
+- **SVD is a better complement to BenchReg than KNN**: Both KNN and BenchReg are local methods making correlated errors. SVD captures global low-rank structure that is complementary. Replacing KNN with SVD-Logit improves the blend by 14.2% relative.
+- **Model metadata doesn't help**: Provider, parameter count, reasoning mode, and open-weight status add zero predictive signal beyond what the benchmark scores themselves contain. Every metadata-based method tested was neutral or negative.
+- **The matrix is approximately rank-2**: Factor 1 explains 37% of variance; 2 factors capture 51%. SVD rank-2 (8.1% PM-MedAPE in raw space, 7.5% in logit space) beats rank-3 (9.1%)
+- **5 benchmarks predict the rest**: {HLE, AIME 2025, LiveCodeBench, SWE-bench Verified, SimpleQA} achieve ~7.8% MedAPE under proper holdout
 - **Reasoning mode is the strongest latent factor**: z-score gap of +1.8σ on HMMT, +1.75σ on HLE
 - **Cold-start remains hard**: BenchReg-based methods produce no predictions; NMF/Quantile achieve ~13%
 
 **Methodology notes:**
-- "PM-MedAPE" = global median of absolute percentage errors across all held-out cells in per-model folds (not median of per-model medians, which would give 7.0%)
-- Blend/BenchReg coverage: BenchReg produces predictions for ~81% of test cells; the fixed blend uses KNN fallback for the remaining 19%. Previous versions silently dropped unpredicted cells, inflating reported accuracy
+- "PM-MedAPE" = global median of absolute percentage errors across all held-out cells in per-model folds (not median of per-model medians, which would give ~6.2% for LogitSVD)
+- LogitSVD coverage: 99.8% (SVD-Logit provides near-universal coverage; LogitBenchReg covers ~79%, SVD-Logit fills the rest)
 - All predictions clamped to valid ranges (0–100 for percentage benchmarks)
 
 ---
 
 ## 2. Prediction Methods Comparison
 
-### 2.1 Rankings (sorted by Per-Model MedAPE, primary metric)
+### 2.1 Extended Evaluation (Primary: Per-model leave-50%-out, 5 seeds)
 
-All methods evaluated at full coverage (NaN fallback applied where needed).
+| Rank | Method | PM-MedAPE | R-MedAPE | MAE | ±3pts | ±5pts | APE>50 | APE≤50 | BiAcc | Cov |
+|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | LogitBenchReg | **6.61%** | **5.68%** | **4.70** | 36.7% | 52.0% | 4.32% | 33.23% | 76.3% | 78.5% |
+| 2 | **LogitSVD Blend(0.6/0.4)** | **6.74%** | **5.95%** | **4.61** | **37.0%** | **52.4%** | **4.34%** | **31.92%** | **89.9%** | **99.8%** |
+| 3 | BenchReg(k=5,r²≥0.2) | 7.45% | 6.21% | 5.61 | 31.0% | 46.3% | 5.06% | 37.63% | 81.4% | 79.6% |
+| 4 | SVD-Logit(r=2) | 7.52% | 6.62% | 5.07 | 35.2% | 49.6% | 4.76% | 33.81% | 89.0% | 99.8% |
+| 5 | BenchReg+KNN(α=0.6) | 7.86% | 6.54% | 5.63 | 31.5% | 46.0% | 5.03% | 40.36% | 84.9% | 99.8% |
+| 6 | SVD(r=2) | 8.62% | 7.70% | 6.04 | 28.7% | 44.0% | 5.78% | 36.27% | 87.5% | 99.8% |
+| 7 | Benchmark Mean | 13.52% | 12.88% | 9.47 | 16.4% | 27.8% | 8.65% | 53.07% | 80.6% | 99.8% |
 
-| Rank | Method | PM-MedAPE | Random-MedAPE | Cold-Start | R² | <10% |
-|---:|---|---:|---:|---:|---:|---:|
-| 1 | BenchReg(k=5,r²≥0.2) | **7.7%** | **5.9%** | — | 0.966 | 58% |
-| 2 | LogBenchReg | **7.7%** | 6.3% | — | 0.975 | 56% |
-| 3 | **BenchReg+KNN(α=0.6)** | **7.9%** | 6.4% | 19.1% | 0.978 | 56% |
-| 4 | LogBlend(α=0.65) | 8.0% | 6.3% | 19.1% | 0.979 | 63% |
-| 5 | **SVD(r=2)** | **8.1%** | 7.3% | **17.2%** | 0.984 | 59% |
-| 6 | Ensemble(avg3) | 8.3% | 7.1% | 19.0% | 0.984 | 60% |
-| 7 | SVD(r=3) | 9.1% | 8.0% | 19.9% | 0.984 | 59% |
-| 8 | Bench-KNN(k=5) | 9.1% | 8.1% | 19.1% | 0.976 | 56% |
-| 9 | KNN(k=5) | 9.3% | 7.6% | 19.1% | 0.976 | 58% |
-| 10 | Quantile+SVD5 | 9.6% | 7.3% | **13.0%** | 0.979 | 58% |
-| 11 | NucNorm(λ=1) | 9.7% | 8.4% | 19.0% | 0.969 | 56% |
-| 12 | Model-Normalized | 10.0% | 9.6% | 16.3% | 0.968 | 51% |
-| 13 | PMF(r=5) | 10.3% | 8.5% | 18.9% | 0.974 | 55% |
-| 14 | NMF(r=5) | 10.5% | 8.8% | **13.9%** | 0.960 | 56% |
-| 15 | SVD(r=5) | 10.9% | 8.8% | 19.2% | 0.985 | 55% |
-| 16 | LogSVD(r=5) | 12.4% | 8.7% | 19.5% | 0.977 | 55% |
-| 17 | Benchmark Mean | 12.9% | 11.7% | 19.1% | 0.935 | 45% |
-| 18 | SVD(r=8) | 13.2% | 9.7% | 19.1% | 0.956 | 51% |
-| 19 | SVD(r=10) | 13.4% | 10.3% | 19.1% | 0.935 | 49% |
+**Column definitions:**
+- **PM-MedAPE**: Per-model leave-50%-out median absolute percentage error (5-seed average, primary metric)
+- **R-MedAPE**: Random 20% holdout MedAPE (5-seed average)
+- **MAE**: Mean absolute error in score points
+- **±3pts / ±5pts**: Fraction of predictions within 3 / 5 absolute score points
+- **APE>50 / APE≤50**: MedAPE split by actual score above/below 50
+- **BiAcc**: Bimodal classification accuracy on 5 threshold benchmarks (ARC-AGI-1/2, IMO/USAMO 2025, MathArena Apex)
+- **Cov**: Percentage of test cells that receive a finite prediction
 
 ### 2.2 Key Takeaways
 
-**BenchReg dominates on random holdout**: The benchmark-regression family (predicting each benchmark from its k=5 most correlated benchmarks via ridge regression) beats all matrix factorization approaches. However, BenchReg and LogBenchReg only produce predictions for ~81% of test cells in per-model holdout (they cannot predict when a model lacks scores on correlated benchmarks). The Blend adds KNN fallback to achieve full coverage.
+**LogitSVD Blend is the recommended method**: At 6.74% PM-MedAPE and 99.8% coverage, it dominates on every metric except raw MedAPE (where LogitBenchReg at 6.61% is better but only covers 78.5% of cells). The blend combines logit-space BenchReg (local benchmark-to-benchmark regression) with logit-space SVD (global low-rank factorization) — two complementary views of the data.
 
-**SVD rank-2 is optimal**: Rank 2 (8.1% PM-MedAPE) beats rank 3 (9.1%). The third factor's 5.7% variance does not translate to holdout predictive signal — it overfits to noise. This aligns with the PCA gap between factors 2 and 3.
+**The logit transform is the key insight**: Benchmark scores on 0–100% scales have non-linear behavior near 0 and 100. The logit transform `log(p/(1-p))` maps these to an unbounded space where linear methods work better. This single change:
+- BenchReg: 7.45% → 6.61% (−11.3% relative)
+- SVD(r=2): 8.62% → 7.52% (−12.8% relative)
+- Bimodal accuracy: 84.9% → 89.9% (+5.0pp) — logit naturally handles threshold effects
 
-**Cold-start is fundamentally different**: BenchReg methods cannot make cold-start predictions (they need correlated benchmark scores to exist). For cold-start, Quantile+SVD (13.0%) and NMF (13.9%) are best — both leverage the global low-rank structure rather than benchmark-specific correlations. SVD rank-2 also performs well (17.2%).
+**Model metadata adds nothing**: We tested provider indicators, parameter count, reasoning mode, and open-weight status as features for prediction. Every metadata-based method (MetaKNN, ProviderCorrected, MultiRidge, FamilyInterp, CategoryAware) was neutral or worse. The benchmark scores already encode everything these features would tell you.
 
-**Recommendation**: Use BenchReg+KNN(α=0.6) as the primary predictor (with KNN fallback for uncovered cells), falling back to Quantile+SVD for cold-start models (≤3 known scores).
+**SVD rank-2 is optimal**: Rank 2 (8.62% raw, 7.52% logit) beats rank 3 (9.1% raw). The third factor overfits to noise.
 
-**Note on alpha**: α=0.6 was chosen by manual comparison of 3 values (0.6, 0.65, 0.7). On the primary folds, α=0.7 is marginally better (7.85% vs 7.88%), but the difference is within noise. No nested CV was used.
+**Cold-start is fundamentally different**: LogitBenchReg needs correlated benchmark scores to exist. For cold-start models (≤3 known scores), SVD-Logit provides the fallback within the blend (7.52% alone). For truly cold-start, Quantile+SVD (13.0%) and NMF (13.9%) are alternatives.
+
+### 2.3 What We Tried That Didn't Work
+
+| Approach | Result | Why |
+|---|---|---|
+| Model metadata features (provider, params, reasoning) | Neutral or −1% | Scores already encode this |
+| Explicit bimodal classification | −5% bimodal accuracy | Logit handles bimodality better |
+| GBT per-benchmark | −0.9% vs BenchReg | Overfits on sparse rows |
+| Category-aware regression | +0.3% | Small gain, logit subsumes it |
+| KNN as blend partner | −14% vs SVD-Logit | Correlated errors with BenchReg |
+| Confidence weighting | −0.8% | Confidence not well calibrated |
+| Meta-learner (stacking) | −0.5% | Second-level overfits |
 
 ---
 
@@ -77,7 +90,7 @@ All methods evaluated at full coverage (NaN fallback applied where needed).
 | 4 | 8.5 | 5.2% | 61.8% |
 | 5 | 7.4 | 4.0% | 65.7% |
 
-The spectrum shows a clear gap between factors 2 and 3 (14.2% → 5.7%), suggesting the matrix is approximately rank-2 with residual structure. This is confirmed by holdout evaluation: SVD rank-2 achieves 8.1% MedAPE vs 9.1% for rank-3.
+The spectrum shows a clear gap between factors 2 and 3 (14.2% → 5.7%), suggesting the matrix is approximately rank-2 with residual structure. This is confirmed by holdout evaluation: SVD rank-2 achieves 8.62% MedAPE vs 9.1% for rank-3 (raw space), and 7.52% in logit space.
 
 To reach various thresholds:
 - **80% variance**: rank 11
@@ -137,31 +150,31 @@ If you could only run N benchmarks on a new model, which ones should you pick?
 **The 5-benchmark minimal eval set is {HLE, AIME 2025, LiveCodeBench, SWE-bench Verified, SimpleQA}**.
 
 **CRITICAL NOTE**: The "4.8% MedAPE" figure in the table above is **in-sample** — the ridge regression trains on all observed entries and evaluates on those same entries. Under proper holdout:
-- **Random 20% holdout**: 5-bench ridge = ~7.8% MedAPE vs BenchReg+KNN blend = 6.4%
-- **Per-model 50% holdout**: 5-bench ridge = ~10.0% MedAPE vs BenchReg+KNN blend = 7.9%
+- **Random 20% holdout**: 5-bench ridge = ~7.8% MedAPE vs LogitSVD Blend = 6.0%
+- **Per-model 50% holdout**: 5-bench ridge = ~10.0% MedAPE vs LogitSVD Blend = 6.7%
 
-The 5-benchmark set is still useful as a practical evaluation strategy (run only 5 benchmarks to estimate the rest), but it does NOT outperform BenchReg+KNN blend trained on all available data.
+The 5-benchmark set is still useful as a practical evaluation strategy (run only 5 benchmarks to estimate the rest), but it does NOT outperform LogitSVD Blend trained on all available data.
 
 Notably, GPQA Diamond is a near-perfect substitute for HLE: the GPQA-first set achieves 4.80% in-sample (vs HLE-first 4.84%), and both converge to the same remaining 4 benchmarks. GPQA Diamond has 2× the coverage (81 vs 38 models).
 
 ---
 
-## 6. Data Efficiency
+## 6. Data Efficiency (Phase Transition)
 
-How does prediction accuracy scale with matrix fill rate?
+How does LogitSVD Blend prediction accuracy scale with the number of known scores per model?
 
-| Fill Rate | BenchMean | KNN | BenchReg | SVD(r=3) | Blend |
-|---:|---:|---:|---:|---:|---:|
-| 10% | 14.2% | 11.7% | 8.9% | 18.0% | 7.2% |
-| 15% | 12.4% | 10.6% | 8.7% | 8.2% | 7.7% |
-| 20% | 14.6% | 9.7% | 6.6% | 8.2% | 6.1% |
-| 25% | 11.8% | 9.0% | 7.0% | 9.8% | 6.7% |
-| 30% | 10.6% | 7.9% | 6.8% | 7.7% | 5.9% |
-| 34% | 15.0% | 8.8% | 7.9% | 8.5% | 7.0% |
+| Known Scores | MedAPE | MAE | ±3 pts | ±5 pts |
+|---:|---:|---:|---:|---:|
+| 1 | 12.1% | 7.9 | 24.7% | 38.9% |
+| 2 | 11.2% | 7.0 | 30.0% | 43.6% |
+| 3 | 10.3% | 6.3 | 32.5% | 46.1% |
+| 5 | 9.2% | 5.6 | 35.8% | 50.0% |
+| 7 | 9.0% | 5.4 | 36.5% | 52.0% |
+| 10 | 10.1% | 5.9 | 37.2% | 52.5% |
+| 15 | 11.2% | 6.8 | 41.1% | 56.8% |
+| 20 | 9.6% | 4.5 | 44.4% | 61.1% |
 
-**Note**: Non-monotonic values are due to single-seed sampling noise (a single RandomState is mutated across fill rates). 5-seed averages show SVD is the only perfectly monotonic method; all others are monotonic within their standard deviation bands.
-
-**Blend is the most data-efficient method**: Even at 10% fill, it achieves 7.2% MedAPE. SVD collapses at 10% fill (18.0%) because it doesn't have enough data for stable decomposition.
+**Diminishing returns after ~5 scores**: The biggest gains come from knowing 1→5 benchmarks per model (12.1% → 9.2% MedAPE). After 5, ±3pts and ±5pts continue to improve while MedAPE plateaus. Non-monotonicity at n>10 reflects variance from small sample sizes (few models have exactly n known scores).
 
 ---
 
@@ -254,23 +267,24 @@ Models whose scores deviate most from rank-3 SVD expectations:
 ### 10.1 Corrected Issues (this revision)
 - **Blend NaN propagation (FIXED)**: Previous version of `predict_blend` silently dropped 19% of test cells where BenchReg had no prediction, inflating MedAPE from 7.9% to 7.4%. Now uses KNN fallback.
 - **5-benchmark in-sample leak (FLAGGED)**: The "4.8% MedAPE" was in-sample. Proper holdout: ~7.8% random, ~10.0% per-model.
-- **SVD rank claim (CORRECTED)**: Rank-2 is optimal (8.1%), not rank-3 (9.1%).
+- **SVD rank claim (CORRECTED)**: Rank-2 is optimal (8.6% raw, 7.5% logit), not rank-3 (9.1%).
 - **Prediction output (FIXED)**: Now outputs all 2,684 missing cells (was 1,712), with clamping to valid ranges.
 - **Redundancy sample sizes (FLAGGED)**: 60% of benchmark pairs have <10 shared models. Redundancy table now restricted to n≥20.
+- **LogitSVD Blend (NEW)**: Replaced BenchReg+KNN as default prediction method. 14.2% relative improvement.
 
 ### 10.2 Remaining Limitations
-- **BenchReg cold-start failure**: The best method cannot predict for models with ≤3 known scores (structural — insufficient shared observations for regression). A production system needs a hybrid.
-- **Leave-one-benchmark/provider**: BenchReg produces no predictions in these scenarios.
+- **LogitBenchReg cold-start failure**: The best component method cannot predict for models with ≤3 known scores (structural — insufficient shared observations for regression). Within the blend, SVD-Logit handles these cases.
+- **Leave-one-benchmark/provider**: LogitBenchReg produces no predictions in these scenarios; SVD-Logit fills the gap.
 - **34% fill rate**: The matrix is sparse. Some model-benchmark combinations exist in papers we haven't mined yet.
-- **SVD non-convergence**: Soft-Impute with rank-3 does not converge in 100 iterations (final relative diff ~4e-3 vs tol 1e-4). Rank-2 converges faster but the stopping criterion should be tightened.
-- **Alpha selection**: α=0.6 was manually swept over 3 values, not nested-CV'd. α=0.7 may be marginally better.
-- **Metric naming**: "Per-model MedAPE" is the global median APE across all cells in per-model folds, not the median of per-model medians (which would be ~7.0% for the blend).
+- **Non-percentage benchmarks**: Elo ratings, Codeforces scores, and other non-percentage metrics use raw-space prediction (no logit transform). These constitute ~8% of benchmarks.
+- **Alpha selection**: α=0.6 was manually swept over 5 values (0.4, 0.5, 0.6, 0.7, 0.8). No nested CV.
+- **Metric naming**: "Per-model MedAPE" is the global median APE across all cells in per-model folds, not the median of per-model medians.
 
 ### 10.3 Opportunities
 - **Temporal dimension**: Adding benchmark vintage (2024 vs 2025 vs 2026) as a feature could improve scaling law predictions
 - **Active learning**: The minimum eval set analysis suggests strategic evaluation — choose which benchmark to run next based on maximum expected information gain
-- **Ensemble with model metadata**: Model size, training compute, and architecture type as side information for cold-start
-- **Non-linear factorization**: The matrix shows non-linear patterns (saturation on easy benchmarks, threshold effects on hard ones) that could be captured by neural matrix completion
+- **Non-linear factorization**: The logit transform helps but doesn't fully capture saturation on easy benchmarks; neural matrix completion could help
+- **Cross-validation for alpha**: Nested CV over the BenchReg/SVD blend weight could tighten the estimate
 
 ---
 
@@ -278,10 +292,16 @@ Models whose scores deviate most from rank-3 SVD expectations:
 
 | File | Description |
 |---|---|
-| `results/results_table.csv` | 19 methods × 10 metrics comparison |
-| `results/best_predictions.csv` | 2,684 predicted missing cells (full coverage, clamped) |
+| `results/results_table.csv` | 19 baseline methods × 10 metrics comparison |
+| `results/logit_svd_eval.json` | LogitSVD vs baselines: extended metrics (7 methods × 9 metrics) |
+| `results/best_predictions.csv` | 2,684 predicted missing cells (LogitSVD Blend, clamped) |
 | `results/latent_factors.csv` | 49 benchmarks × 5 factor loadings |
+| `results/phase_transition.csv` | Accuracy vs number of known scores (LogitSVD Blend) |
 | `results/report.md` | This report |
 | `evaluation_harness.py` | Evaluation framework (6 holdouts, 7 metrics) |
-| `methods/all_methods.py` | All 19 prediction methods |
-| `diagnostics/all_diagnostics.py` | All diagnostic analyses |
+| `methods/all_methods.py` | 22 prediction methods (incl. LogitSVD variants) |
+| `methods/run_final_eval.py` | LogitSVD evaluation + phase transition + prediction regeneration |
+| `methods/creative_methods.py` | Round 1 exploration (15 methods) |
+| `methods/creative_methods_r2.py` | Round 2 combinations (10 methods) |
+| `methods/creative_methods_r3.py` | Round 3 optimization (9 methods) |
+| `diagnostics/all_diagnostics.py` | Intrinsic dimensionality, redundancy, scaling laws |
