@@ -1,6 +1,6 @@
 # LLM Benchmark Matrix Completion
 
-A cited 83-model x 49-benchmark matrix of LLM evaluation scores, with every entry backed by a source URL. Includes a full matrix completion evaluation framework comparing 18 prediction methods across 6 holdout strategies.
+A cited 83-model x 49-benchmark matrix of LLM evaluation scores, with every entry backed by a source URL. Includes a full matrix completion evaluation framework comparing 19 prediction methods across 6 holdout strategies.
 
 ## Matrix Statistics
 
@@ -13,13 +13,14 @@ A cited 83-model x 49-benchmark matrix of LLM evaluation scores, with every entr
 
 | Method | Per-Model MedAPE | R² | % Within 10% |
 |--------|----------------:|---:|-------------:|
-| BenchReg+KNN (alpha=0.6) | 7.4% | 0.978 | 58.6% |
-| LogBlend (alpha=0.65) | 7.4% | 0.976 | 58.0% |
+| BenchReg+KNN (alpha=0.6) | 7.9% | 0.979 | 56.0% |
+| LogBlend (alpha=0.65) | 8.0% | 0.977 | 55.9% |
 | BenchReg (k=5, r²>=0.2) | 7.7% | 0.976 | 57.9% |
+| SVD (rank=2) | 8.1% | 0.979 | 54.9% |
 | SVD (rank=3) | 9.1% | 0.972 | 52.1% |
 | Benchmark Mean (baseline) | 12.9% | 0.928 | 43.4% |
 
-**Minimum eval set**: Just 5 benchmarks (HLE, AIME 2025, LiveCodeBench, SWE-bench Verified, SimpleQA) predict the other 44 with 4.8% MedAPE.
+**Minimum eval set**: 5 benchmarks (HLE, AIME 2025, LiveCodeBench, SWE-bench Verified, SimpleQA) predict the other 44 with ~7.8% MedAPE on proper holdout (LOO cross-validation within the 5-benchmark ridge model).
 
 ## Repository Structure
 
@@ -33,7 +34,7 @@ llm-benchmark-matrix/
 │   ├── merge_extra_scores.py        # Tool to merge additional scores
 │   └── extra_scores_{1-5}.py        # Supplementary score batches with citations
 ├── methods/
-│   └── all_methods.py               # 18 prediction methods (BenchReg, SVD, NMF, etc.)
+│   └── all_methods.py               # 19 prediction methods (BenchReg, SVD, NMF, etc.)
 ├── diagnostics/
 │   └── all_diagnostics.py           # Intrinsic dimensionality, redundancy, scaling laws
 ├── analysis/
@@ -44,9 +45,9 @@ llm-benchmark-matrix/
 │   ├── q10_benchreg_coldstart.py         # Cold-start failure investigation
 │   └── phase_transition.py               # How accuracy improves with more known scores
 └── results/
-    ├── results_table.csv            # 18 methods x 10 metrics comparison
+    ├── results_table.csv            # 19 methods x 10 metrics comparison
     ├── latent_factors.csv           # SVD factor loadings for 49 benchmarks
-    ├── best_predictions.csv         # 1,712 predicted missing cells
+    ├── best_predictions.csv         # 2,684 predicted missing cells (all unobserved, clamped)
     ├── five_bench_predictions.csv   # 665 LOO predictions from 5-benchmark set
     ├── phase_transition.csv         # Accuracy vs number of known scores
     └── report.md                    # Full analysis report
@@ -60,7 +61,7 @@ pip install -r requirements.txt
 # Run the evaluation harness (loads data, prints matrix stats)
 python evaluation_harness.py
 
-# Run all 18 methods and produce results_table.csv
+# Run all 19 methods and produce results_table.csv
 python methods/all_methods.py
 
 # Run diagnostics (intrinsic dimensionality, redundancy, minimum eval set, etc.)
@@ -79,7 +80,7 @@ python analysis/walkthrough_single_prediction.py
 - B3: Bench-KNN (k=5 benchmark similarity)
 
 **Matrix factorization:**
-- SVD (soft-impute, ranks 3/5/8/10)
+- SVD (soft-impute, ranks 2/3/5/8/10)
 - NMF, PMF, Nuclear norm minimization
 
 **Regression-based:**

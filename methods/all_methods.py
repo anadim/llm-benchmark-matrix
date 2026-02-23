@@ -250,6 +250,7 @@ def predict_svd(M_train, rank=5, max_iter=100, tol=1e-4):
     M_imp = M_norm.copy()
     M_imp[np.isnan(M_imp)] = 0
 
+    converged = False
     for it in range(max_iter):
         M_old = M_imp.copy()
         try:
@@ -264,8 +265,13 @@ def predict_svd(M_train, rank=5, max_iter=100, tol=1e-4):
         M_imp = np.where(obs, M_norm, M_approx)
         M_imp[np.isnan(M_imp)] = 0  # safety
         diff = np.sqrt(np.mean((M_imp - M_old)**2))
-        if diff < tol:
+        rel_diff = diff / (np.sqrt(np.mean(M_old**2)) + 1e-12)
+        if rel_diff < tol:
+            converged = True
             break
+    if not converged:
+        warnings.warn(f"SVD rank-{rank} did not converge after {max_iter} iters "
+                       f"(final rel_diff={rel_diff:.3e}, tol={tol:.0e})")
 
     # Denormalize
     M_pred = M_imp * cs + cm
@@ -532,12 +538,36 @@ def predict_quantile(M_train, base_predict_fn=None):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def predict_blend(M_train, alpha=0.6):
-    """Blend BenchReg and KNN predictions."""
+    """Blend BenchReg and KNN predictions with proper NaN fallback.
+
+    When BenchReg has no prediction for a cell, falls back to KNN alone
+    (and vice versa). Only returns NaN if neither method can predict.
+
+    NOTE on alpha: alpha=0.6 was chosen by manual comparison of 3 values
+    (0.6, 0.65, 0.7) on a 20% per-model holdout in matrix_completion_v8.py.
+    Not selected via nested CV. On primary per-model 50% folds, alpha=0.7
+    is marginally better (7.35% vs 7.41%), but the difference is within noise.
+    """
     M_breg = predict_benchreg(M_train)
     M_knn = predict_B2(M_train, k=5)
     obs = ~np.isnan(M_train)
-    M_pred = alpha * M_breg + (1 - alpha) * M_knn
-    M_pred[obs] = M_train[obs]
+    col_mean = np.nanmean(M_train, axis=0)
+
+    M_pred = M_train.copy()
+    for i in range(N_MODELS):
+        for j in range(N_BENCH):
+            if obs[i, j]:
+                continue
+            b, k = M_breg[i, j], M_knn[i, j]
+            b_ok, k_ok = np.isfinite(b), np.isfinite(k)
+            if b_ok and k_ok:
+                M_pred[i, j] = alpha * b + (1 - alpha) * k
+            elif b_ok:
+                M_pred[i, j] = b
+            elif k_ok:
+                M_pred[i, j] = k
+            else:
+                M_pred[i, j] = col_mean[j]
     return M_pred
 
 
@@ -632,12 +662,27 @@ def predict_log_benchreg(M_train, top_k=5, min_r2=0.2):
 # ══════════════════════════════════════════════════════════════════════════════
 
 def predict_log_blend(M_train, alpha=0.65):
-    """Blend of log-BenchReg and KNN."""
+    """Blend of log-BenchReg and KNN with proper NaN fallback."""
     M_lbreg = predict_log_benchreg(M_train)
     M_knn = predict_B2(M_train, k=5)
     obs = ~np.isnan(M_train)
-    M_pred = alpha * M_lbreg + (1 - alpha) * M_knn
-    M_pred[obs] = M_train[obs]
+    col_mean = np.nanmean(M_train, axis=0)
+
+    M_pred = M_train.copy()
+    for i in range(N_MODELS):
+        for j in range(N_BENCH):
+            if obs[i, j]:
+                continue
+            b, k = M_lbreg[i, j], M_knn[i, j]
+            b_ok, k_ok = np.isfinite(b), np.isfinite(k)
+            if b_ok and k_ok:
+                M_pred[i, j] = alpha * b + (1 - alpha) * k
+            elif b_ok:
+                M_pred[i, j] = b
+            elif k_ok:
+                M_pred[i, j] = k
+            else:
+                M_pred[i, j] = col_mean[j]
     return M_pred
 
 
@@ -659,6 +704,7 @@ if __name__ == "__main__":
         ("BenchReg+KNN(α=0.6)",     lambda M: predict_blend(M, 0.6)),
         ("LogBenchReg",              predict_log_benchreg),
         ("LogBlend(α=0.65)",        lambda M: predict_log_blend(M, 0.65)),
+        ("SVD(r=2)",                 lambda M: predict_svd(M, rank=2)),
         ("SVD(r=3)",                 lambda M: predict_svd(M, rank=3)),
         ("SVD(r=5)",                 lambda M: predict_svd(M, rank=5)),
         ("SVD(r=8)",                 lambda M: predict_svd(M, rank=8)),
@@ -746,3 +792,53 @@ if __name__ == "__main__":
         for r in results_table:
             writer.writerow(r)
     print(f"\n  Results saved to {results_path}")
+
+    # ── Generate best_predictions.csv: full completion matrix with clamping ──
+    print("\n" + "="*90)
+    print("  GENERATING FULL PREDICTIONS (best_predictions.csv)")
+    print("="*90)
+
+    from build_benchmark_matrix import BENCHMARKS
+    # Determine valid ranges per benchmark from metric field
+    bench_is_pct = []
+    for b in BENCHMARKS:
+        metric = b[3].lower() if len(b) > 3 else ""
+        bench_is_pct.append("%" in metric or "pass@" in metric.replace("%",""))
+    bench_is_pct = np.array(bench_is_pct)
+
+    M_pred_best = predict_blend(M_FULL, alpha=0.6)
+
+    # Clamp percentage benchmarks to [0, 100]
+    for j in range(N_BENCH):
+        if bench_is_pct[j]:
+            M_pred_best[:, j] = np.clip(M_pred_best[:, j], 0.0, 100.0)
+        else:
+            # For Elo/rating benchmarks, clamp to observed range with margin
+            obs_vals = M_FULL[OBSERVED[:, j], j]
+            if len(obs_vals) > 0:
+                lo = max(0, obs_vals.min() - 200)
+                hi = obs_vals.max() + 200
+                M_pred_best[:, j] = np.clip(M_pred_best[:, j], lo, hi)
+
+    # Write all missing cells
+    pred_path = os.path.join(REPO_ROOT, 'results', 'best_predictions.csv')
+    n_written = 0
+    with open(pred_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['model', 'benchmark', 'predicted_score', 'method'])
+        for i in range(N_MODELS):
+            for j in range(N_BENCH):
+                if not OBSERVED[i, j]:
+                    val = M_pred_best[i, j]
+                    if np.isfinite(val):
+                        writer.writerow([MODEL_NAMES[MODEL_IDS[i]], BENCH_NAMES[BENCH_IDS[j]],
+                                        f"{val:.1f}", 'BenchReg+KNN(a=0.6)'])
+                        n_written += 1
+                    else:
+                        writer.writerow([MODEL_NAMES[MODEL_IDS[i]], BENCH_NAMES[BENCH_IDS[j]],
+                                        '', 'no_prediction'])
+                        n_written += 1
+
+    total_missing = (~OBSERVED).sum()
+    print(f"  Written {n_written}/{total_missing} missing cells to {pred_path}")
+    print(f"  ({n_written - sum(1 for i in range(N_MODELS) for j in range(N_BENCH) if not OBSERVED[i,j] and np.isfinite(M_pred_best[i,j]))} cells with no prediction)")

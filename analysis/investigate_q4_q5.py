@@ -10,7 +10,7 @@ Q5: What happens if greedy forward selection starts with GPQA Diamond or MMLU
 """
 
 import numpy as np
-import sys, warnings
+import sys, warnings, os
 from sklearn.linear_model import Ridge
 from collections import defaultdict
 

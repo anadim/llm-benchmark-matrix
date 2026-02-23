@@ -9,7 +9,7 @@ benchmark observed. Predicts all other observed entries and computes APE.
 """
 
 import numpy as np
-import sys, warnings, csv
+import sys, warnings, csv, os
 from collections import defaultdict
 from sklearn.linear_model import Ridge
 

@@ -109,9 +109,11 @@ def analyze_benchmark_redundancy():
 
     # Compute pairwise correlations between benchmarks
     corr = np.full((N_BENCH, N_BENCH), np.nan)
+    n_shared = np.zeros((N_BENCH, N_BENCH), dtype=int)
     for j1 in range(N_BENCH):
         for j2 in range(j1, N_BENCH):
             shared = OBSERVED[:, j1] & OBSERVED[:, j2]
+            n_shared[j1, j2] = n_shared[j2, j1] = int(shared.sum())
             if shared.sum() < 5:
                 corr[j1, j2] = corr[j2, j1] = 0
                 continue
@@ -120,17 +122,27 @@ def analyze_benchmark_redundancy():
                 r = 0
             corr[j1, j2] = corr[j2, j1] = r
 
-    # Most correlated pairs
+    # Most correlated pairs (require n_shared >= 20 for reliable claims)
     pairs = []
+    pairs_all = []
     for j1 in range(N_BENCH):
         for j2 in range(j1+1, N_BENCH):
-            pairs.append((corr[j1, j2], j1, j2))
+            pairs_all.append((corr[j1, j2], j1, j2, n_shared[j1, j2]))
+            if n_shared[j1, j2] >= 20:
+                pairs.append((corr[j1, j2], j1, j2, n_shared[j1, j2]))
     pairs.sort(key=lambda x: -x[0])
+    pairs_all.sort(key=lambda x: -x[0])
 
-    print("\n  Most correlated benchmark pairs (potential redundancy):")
-    print(f"  {'Benchmark A':<30s}  {'Benchmark B':<30s}  {'Corr':>6s}")
-    for r, j1, j2 in pairs[:15]:
-        print(f"  {BENCH_NAMES[BENCH_IDS[j1]]:<30s}  {BENCH_NAMES[BENCH_IDS[j2]]:<30s}  {r:>6.3f}")
+    # Report sample size stats
+    all_n = [ns for _, _, _, ns in pairs_all]
+    print(f"\n  Pairwise sample sizes: median={np.median(all_n):.0f}, "
+          f"<10: {sum(1 for n in all_n if n<10)}/{len(all_n)} ({100*sum(1 for n in all_n if n<10)/len(all_n):.0f}%), "
+          f">=20: {sum(1 for n in all_n if n>=20)}/{len(all_n)} ({100*sum(1 for n in all_n if n>=20)/len(all_n):.0f}%)")
+
+    print("\n  Most correlated benchmark pairs (n_shared >= 20 for reliability):")
+    print(f"  {'Benchmark A':<30s}  {'Benchmark B':<30s}  {'Corr':>6s}  {'n':>4s}")
+    for r, j1, j2, ns in pairs[:15]:
+        print(f"  {BENCH_NAMES[BENCH_IDS[j1]]:<30s}  {BENCH_NAMES[BENCH_IDS[j2]]:<30s}  {r:>6.3f}  {ns:>4d}")
 
     print("\n  Least correlated / anti-correlated pairs:")
     for r, j1, j2 in pairs[-10:]:
@@ -290,7 +302,53 @@ def analyze_minimum_eval_set():
             remaining.remove(best_j)
             names = [BENCH_NAMES[BENCH_IDS[j]] for j in selected]
             print(f"    Step {step+1}: +{BENCH_NAMES[BENCH_IDS[best_j]]:<30s}  "
-                  f"MedAPE={best_err*100:.1f}%  Set: {', '.join(names)}")
+                  f"In-sample MedAPE={best_err*100:.1f}%  Set: {', '.join(names)}")
+
+    # ── Proper holdout evaluation of top-5 set ──
+    # The in-sample MedAPE above is OPTIMISTIC because ridge trains and evaluates
+    # on the same observed entries. Compute proper holdout here.
+    from sklearn.linear_model import Ridge as _Ridge
+    top5 = selected[:5]
+    print(f"\n  Proper holdout evaluation of top-5 set: {[BENCH_NAMES[BENCH_IDS[j]] for j in top5]}")
+
+    def predict_5bench_ridge(M_train, sel_idx=top5):
+        """Predict all benchmarks from 5-benchmark subset using per-target ridge."""
+        obs_t = ~np.isnan(M_train)
+        M_pred = M_train.copy()
+        for j_target in range(N_BENCH):
+            if j_target in sel_idx:
+                continue
+            has_selected = np.ones(N_MODELS, dtype=bool)
+            for jj in sel_idx:
+                has_selected &= obs_t[:, jj]
+            has_target = obs_t[:, j_target]
+            train_mask = has_selected & has_target
+            if train_mask.sum() < 3:
+                M_pred[:, j_target] = np.where(
+                    np.isnan(M_pred[:, j_target]),
+                    np.nanmean(M_train[:, j_target]),
+                    M_pred[:, j_target])
+                continue
+            X_train = M_train[train_mask][:, sel_idx]
+            y_train = M_train[train_mask, j_target]
+            ridge = _Ridge(alpha=1.0)
+            ridge.fit(X_train, y_train)
+            for i in range(N_MODELS):
+                if np.isnan(M_train[i, j_target]) and has_selected[i]:
+                    M_pred[i, j_target] = ridge.predict(M_train[i, sel_idx].reshape(1, -1))[0]
+        return M_pred
+
+    folds_r = holdout_random_cells(frac=0.2, n_folds=3, seed=42)
+    overall_5r, _ = evaluate_method(predict_5bench_ridge, folds_r)
+    overall_br, _ = evaluate_method(lambda M: predict_blend(M, 0.6), folds_r)
+
+    folds_m = holdout_per_model(k_frac=0.5, min_scores=8, n_folds=3, seed=42)
+    overall_5m, _ = evaluate_method(predict_5bench_ridge, folds_m)
+    overall_bm, _ = evaluate_method(lambda M: predict_blend(M, 0.6), folds_m)
+
+    print(f"    Random 20% holdout:     5-bench ridge = {overall_5r['medape']:.1f}%   vs  BenchReg+KNN blend = {overall_br['medape']:.1f}%")
+    print(f"    Per-model 50% holdout:  5-bench ridge = {overall_5m['medape']:.1f}%   vs  BenchReg+KNN blend = {overall_bm['medape']:.1f}%")
+    print(f"    (NOTE: in-sample number above is optimistic; holdout is the reliable metric)")
 
     return bench_info, selected
 
