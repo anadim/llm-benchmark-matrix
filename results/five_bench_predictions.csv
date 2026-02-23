@@ -1,0 +1,668 @@
+model,benchmark,category,actual,predicted,ape_pct
+Claude Sonnet 4,GPQA Diamond,Science,75.4,75.4,0.0
+Qwen3-235B-A22B,IFEval,Instruction Following,87.8,87.81,0.01
+Claude Sonnet 4.6,HumanEval,Coding,93.0,93.01,0.01
+Claude Sonnet 4.5,BRUMO 2025,Math,90.83,90.82,0.01
+Gemini 3 Pro,BRUMO 2025,Math,98.33,98.31,0.02
+Seed-Thinking-v1.5,IFEval,Instruction Following,85.0,85.03,0.03
+Gemini 2.5 Flash,BRUMO 2025,Math,83.33,83.35,0.03
+Claude Sonnet 4.5,MATH-500,Math,95.8,95.83,0.04
+Qwen3.5-397B-A17B,HumanEval,Coding,92.0,92.03,0.04
+Seed-Thinking-v1.5,GPQA Diamond,Science,77.3,77.34,0.05
+Grok 4,MATH-500,Math,98.0,97.95,0.05
+MiniMax-M2,HumanEval,Coding,90.0,90.06,0.06
+GPT-5,CMIMC 2025,Math,90.0,89.95,0.06
+Claude Sonnet 4.6,Terminal-Bench 2.0,Agentic,58.2,58.24,0.07
+Qwen3-235B-A22B,MMLU,Knowledge,87.81,87.74,0.08
+DeepSeek-V3-0324,MATH-500,Math,94.0,94.09,0.09
+Qwen3-235B-A22B,MATH-500,Math,98.2,98.11,0.09
+o3 (high),MMMU,Multimodal,80.1,80.03,0.09
+Gemini 3 Flash,LiveBench,Composite,72.4,72.48,0.12
+Kimi K2.5,SMT 2025,Math,90.57,90.45,0.13
+Qwen3.5-397B-A17B,AIME 2024,Math,94.0,93.86,0.15
+DeepSeek-V3.2,MathArena Apex 2025,Math,2.08,2.08,0.15
+GPT-5.1,Chatbot Arena Elo,Human Preference,1464.0,1461.63,0.16
+Claude Sonnet 4.5,GPQA Diamond,Science,83.4,83.57,0.2
+Claude Opus 4.5,MMLU,Knowledge,90.8,90.99,0.21
+Gemini 3 Flash,Chatbot Arena Elo,Human Preference,1473.0,1469.59,0.23
+Claude Sonnet 4,MMLU-Pro,Knowledge,83.7,83.5,0.24
+Grok 3 Beta,Chatbot Arena Elo,Human Preference,1402.0,1398.58,0.24
+Gemini 3 Pro,AIME 2024,Math,97.0,97.23,0.24
+Claude Sonnet 4,MATH-500,Math,94.0,93.76,0.26
+GPT-5,GPQA Diamond,Science,88.4,88.15,0.28
+GPT-5,IFEval,Instruction Following,90.0,90.26,0.29
+Gemini 2.5 Flash,HumanEval,Coding,90.2,89.94,0.29
+Gemini 3 Pro,HumanEval,Coding,93.0,93.28,0.3
+Gemini 2.5 Pro,Chatbot Arena Elo,Human Preference,1437.0,1432.67,0.3
+GPT-5,Chatbot Arena Elo,Human Preference,1460.0,1464.7,0.32
+Kimi K2 Thinking,MMLU-Pro,Knowledge,84.6,84.31,0.34
+Gemini 3.1 Pro,Chatbot Arena Elo,Human Preference,1490.0,1495.2,0.35
+DeepSeek-R1,MATH-500,Math,97.3,96.95,0.36
+Qwen3-235B-A22B,HumanEval,Coding,90.0,89.65,0.38
+GPT-5.1,SMT 2025,Math,91.04,90.66,0.42
+Gemini 3 Pro,MMLU,Knowledge,91.8,91.41,0.43
+Gemini 3.1 Pro,BrowseComp,Agentic,85.9,85.53,0.43
+Qwen3-235B-A22B,Codeforces Rating,Coding,2056.0,2047.06,0.43
+GPT-5.2,BRUMO 2025,Math,98.33,97.91,0.43
+Claude Sonnet 4,HumanEval,Coding,88.0,88.39,0.44
+DeepSeek-R1-0528,MATH-500,Math,97.3,97.73,0.45
+GPT-5.1,GPQA Diamond,Science,88.1,87.7,0.46
+GPT-5,MMLU,Knowledge,91.0,90.56,0.48
+Gemini 3 Flash,MMMU-Pro,Multimodal,81.2,80.81,0.48
+Nemotron Ultra 253B,GPQA Diamond,Science,76.01,76.39,0.5
+Grok 3 Beta,MMLU-Pro,Knowledge,79.9,80.31,0.51
+GPT-4.1,MATH-500,Math,92.4,92.87,0.51
+GPT-5.1,HMMT Nov 2025,Math,91.67,91.19,0.52
+Claude Opus 4.6,MMLU,Knowledge,90.8,91.28,0.53
+Gemini 2.5 Pro,MMLU,Knowledge,89.8,90.28,0.54
+GPT-5.1,SWE-bench Pro,Coding,45.0,45.24,0.54
+Claude Opus 4.6,Tau-Bench Telecom,Agentic,98.2,98.75,0.56
+o3-mini (high),MMLU-Pro,Knowledge,80.0,80.46,0.57
+o3-mini (high),Codeforces Rating,Coding,2130.0,2142.15,0.57
+Grok 4.1,Chatbot Arena Elo,Human Preference,1483.0,1473.63,0.63
+GLM-4.7,Chatbot Arena Elo,Human Preference,1445.0,1454.1,0.63
+Claude Sonnet 4.5,SMT 2025,Math,83.96,84.49,0.63
+DeepSeek-V3.2,MMLU-Pro,Knowledge,85.0,85.55,0.65
+DeepSeek-V3.2,IFEval,Instruction Following,89.0,89.58,0.65
+GPT-5.1,MMLU,Knowledge,90.0,90.6,0.67
+Grok 3 Beta,MATH-500,Math,99.2,98.53,0.68
+Seed-Thinking-v1.5,MATH-500,Math,95.0,95.67,0.7
+Gemini 3 Flash,MMLU,Knowledge,91.8,91.13,0.72
+DeepSeek-V3.2,AIME 2024,Math,93.0,92.31,0.74
+Nemotron Ultra 253B,MATH-500,Math,97.0,96.27,0.75
+Claude Opus 4.5,AIME 2024,Math,90.0,90.7,0.78
+Claude Opus 4.5,MMMU,Multimodal,80.7,81.36,0.81
+GPT-5.2,CMIMC 2025,Math,91.25,91.99,0.82
+Kimi K2.5,MATH-500,Math,98.0,97.17,0.85
+Claude Sonnet 4.6,IFEval,Instruction Following,92.0,91.22,0.85
+Qwen3.5-397B-A17B,MATH-500,Math,98.0,98.87,0.88
+Claude Sonnet 4.6,Tau-Bench Retail,Agentic,89.0,89.78,0.88
+Claude Opus 4.1,MMLU,Knowledge,88.8,89.59,0.89
+Qwen3.5-397B-A17B,MMLU,Knowledge,88.6,89.39,0.9
+Kimi K2 Thinking,MATH-500,Math,97.0,97.88,0.91
+GPT-5,Terminal-Bench 1.0,Agentic,41.3,40.92,0.93
+Claude Opus 4.6,GPQA Diamond,Science,91.3,90.43,0.95
+GPT-5.2,MMLU-Pro,Knowledge,86.7,85.87,0.95
+Grok 4.1,BRUMO 2025,Math,97.5,96.53,0.99
+GPT-4.1,MMLU-Pro,Knowledge,81.8,82.63,1.01
+GPT-5,SMT 2025,Math,91.98,91.05,1.01
+DeepSeek-R1-0528,GPQA Diamond,Science,81.0,80.15,1.05
+Kimi K2 Thinking,GPQA Diamond,Science,85.7,86.61,1.06
+Claude Sonnet 4.6,Tau-Bench Telecom,Agentic,97.0,98.03,1.06
+Grok 4.1,IFEval,Instruction Following,91.0,90.02,1.07
+Grok 4.1,HMMT Nov 2025,Math,93.33,92.32,1.08
+o3-mini (high),MATH-500,Math,97.9,98.98,1.1
+Claude Sonnet 4.5,MMMU,Multimodal,77.8,78.66,1.11
+Grok 4.1,MMLU-Pro,Knowledge,85.3,86.25,1.12
+Claude Opus 4.6,Chatbot Arena Elo,Human Preference,1502.0,1485.24,1.12
+DeepSeek-R1-0528,CMIMC 2025,Math,69.38,68.59,1.13
+Gemini 2.5 Flash,MATH-500,Math,95.2,96.28,1.14
+Claude Sonnet 4,MMLU,Knowledge,86.5,87.5,1.15
+Gemini 3.1 Pro,Tau-Bench Retail,Agentic,90.5,89.46,1.15
+GPT-5.2,Terminal-Bench 2.0,Agentic,54.0,53.38,1.15
+Claude Sonnet 4.6,MMLU,Knowledge,90.0,91.06,1.17
+Claude Opus 4,IFEval,Instruction Following,89.7,90.76,1.18
+Kimi K2.5,HumanEval,Coding,95.0,93.88,1.18
+Gemini 3 Pro,MRCR v2,Long Context,77.0,77.92,1.19
+DeepSeek-R1-0528,SMT 2025,Math,83.02,82.02,1.2
+Gemini 3 Pro,LiveBench,Composite,73.4,74.3,1.22
+GPT-5.2,Tau-Bench Retail,Agentic,88.0,86.9,1.25
+Grok 4,IFEval,Instruction Following,89.2,90.32,1.26
+Grok 4,Terminal-Bench 1.0,Agentic,39.0,39.49,1.26
+DeepSeek-V3.2,MMLU,Knowledge,90.5,89.35,1.27
+Grok 4,BRUMO 2025,Math,95.0,93.8,1.27
+DeepSeek-V3-0324,GPQA Diamond,Science,68.4,67.5,1.32
+Kimi K2.5,MathArena Apex 2025,Math,8.85,8.97,1.33
+Kimi K2,MMLU,Knowledge,89.5,88.29,1.35
+GLM-4.7,MMLU-Pro,Knowledge,86.0,84.83,1.36
+Gemini 3.1 Pro,HumanEval,Coding,95.0,93.71,1.36
+DeepSeek-R1-0528,Chatbot Arena Elo,Human Preference,1420.0,1400.73,1.36
+GPT-5,MMMU,Multimodal,84.2,83.05,1.37
+Kimi K2 Thinking,BRUMO 2025,Math,93.33,94.62,1.38
+GLM-4.7,MMLU,Knowledge,88.0,89.22,1.39
+Claude Sonnet 4,IFEval,Instruction Following,87.6,88.82,1.39
+Gemini 3 Pro,IFEval,Instruction Following,90.0,91.26,1.4
+GPT-5,HumanEval,Coding,94.0,92.69,1.4
+DeepSeek-R1,Chatbot Arena Elo,Human Preference,1382.0,1401.37,1.4
+Gemini 2.5 Pro,MATH-500,Math,97.3,95.93,1.41
+Gemini 3 Flash,MMLU-Pro,Knowledge,88.59,87.32,1.43
+o4-mini (high),GPQA Diamond,Science,81.4,82.57,1.44
+Claude Opus 4.1,MMLU-Pro,Knowledge,87.92,86.65,1.44
+Seed-Thinking-v1.5,MMLU-Pro,Knowledge,80.0,81.16,1.46
+Gemini 3 Pro,MATH-500,Math,97.3,95.88,1.46
+Gemini 3 Pro,Chatbot Arena Elo,Human Preference,1501.0,1479.06,1.46
+Grok 4,HMMT Feb 2025,Math,90.0,88.68,1.46
+o3-mini (high),MMLU,Knowledge,86.9,88.18,1.47
+GPT-5,MMLU-Pro,Knowledge,87.0,85.72,1.47
+GPT-5.1,MATH-500,Math,99.0,97.55,1.47
+Nemotron Ultra 253B,HumanEval,Coding,92.0,90.64,1.48
+GLM-4.7,GPQA Diamond,Science,85.7,87.0,1.52
+Gemini 3.1 Pro,MMLU,Knowledge,92.6,91.18,1.53
+o4-mini (high),MMMU,Multimodal,79.7,80.92,1.53
+Gemini 2.5 Flash,GPQA Diamond,Science,78.3,77.09,1.54
+Claude Sonnet 4,MMMU,Multimodal,74.4,73.24,1.55
+o4-mini (high),MATH-500,Math,98.2,99.73,1.56
+GPT-5,MATH-500,Math,99.4,97.85,1.56
+o4-mini (high),CMIMC 2025,Math,84.38,83.04,1.59
+o3-mini (high),Chatbot Arena Elo,Human Preference,1364.0,1385.92,1.61
+Gemini 2.5 Pro,GPQA Diamond,Science,84.0,82.6,1.67
+Grok 3 Beta,MMLU,Knowledge,88.0,89.47,1.67
+o3 (high),MMLU-Pro,Knowledge,85.9,84.46,1.68
+Kimi K2.5,GPQA Diamond,Science,87.6,89.08,1.69
+Grok 4,Chatbot Arena Elo,Human Preference,1465.0,1440.22,1.69
+Kimi K2,HMMT Feb 2025,Math,38.8,38.14,1.71
+Kimi K2 Thinking,HMMT Feb 2025,Math,89.4,90.97,1.75
+Grok 4,MMLU-Pro,Knowledge,87.0,85.46,1.76
+Kimi K2.5,IFEval,Instruction Following,90.0,88.42,1.76
+Grok 4.1,HumanEval,Coding,95.0,93.33,1.76
+DeepSeek-V3.2,HumanEval,Coding,90.0,91.61,1.79
+Seed-Thinking-v1.5,HumanEval,Coding,90.0,91.61,1.79
+GPT-5.2,AA Intelligence Index,Composite,70.0,71.26,1.8
+Claude Opus 4.5,GPQA Diamond,Science,87.0,88.59,1.83
+Gemini 2.5 Pro,BRUMO 2025,Math,90.0,91.66,1.85
+GPT-5.1,MMLU-Pro,Knowledge,87.5,85.87,1.86
+GPT-5.2,Tau-Bench Telecom,Agentic,98.7,96.87,1.86
+GPT-4.1,MMLU,Knowledge,90.2,88.52,1.87
+Claude Sonnet 4.6,MMMU-Pro,Multimodal,74.5,75.89,1.87
+Claude Sonnet 4.6,MATH-500,Math,96.5,94.65,1.92
+o4-mini (high),SMT 2025,Math,88.68,86.95,1.95
+Grok 4.1,MATH-500,Math,98.5,96.55,1.98
+o3 (high),MATH-500,Math,99.2,97.22,2.0
+DeepSeek-V3-0324,MMLU,Knowledge,89.4,87.59,2.03
+MiniMax-M2,Chatbot Arena Elo,Human Preference,1408.0,1436.71,2.04
+Claude Opus 4.5,Chatbot Arena Elo,Human Preference,1468.0,1498.06,2.05
+Claude Opus 4.6,Tau-Bench Retail,Agentic,91.9,90.01,2.05
+Claude Opus 4.5,IFEval,Instruction Following,90.0,91.87,2.07
+o3 (high),SMT 2025,Math,87.74,85.92,2.07
+GPT-5,Tau-Bench Telecom,Agentic,97.0,99.03,2.1
+Claude Opus 4.6,HumanEval,Coding,95.0,93.0,2.11
+Gemini 3 Flash,GPQA Diamond,Science,90.4,88.49,2.12
+DeepSeek-V3.2,HMMT Nov 2025,Math,90.0,88.08,2.13
+DeepSeek-V3.2,MATH-500,Math,97.3,99.42,2.18
+Kimi K2 Thinking,HumanEval,Coding,92.0,94.0,2.18
+GPT-5.1,ARC-AGI-1,Reasoning,72.8,74.39,2.18
+Kimi K2.5,MMLU-Pro,Knowledge,87.1,85.19,2.2
+GPT-4.1,IFEval,Instruction Following,87.4,85.38,2.31
+Gemini 2.5 Flash,Codeforces Rating,Coding,1995.0,1948.62,2.32
+Qwen3-235B-A22B,Chatbot Arena Elo,Human Preference,1410.0,1377.06,2.34
+Claude Opus 4.5,Tau-Bench Telecom,Agentic,98.2,95.91,2.34
+Grok 3 Beta,IFEval,Instruction Following,84.0,85.98,2.35
+GPT-5.1,MMMU,Multimodal,84.2,82.18,2.4
+Seed-Thinking-v1.5,MMLU,Knowledge,87.0,89.11,2.42
+Kimi K2.5,Terminal-Bench 2.0,Agentic,43.2,44.25,2.43
+o4-mini (high),MMLU,Knowledge,90.3,88.1,2.44
+Qwen3.5-397B-A17B,MMLU-Pro,Knowledge,87.8,85.66,2.44
+Claude Sonnet 4.5,MMLU-Pro,Knowledge,87.5,85.36,2.45
+DeepSeek-R1,MMLU,Knowledge,90.8,88.57,2.46
+Claude Opus 4.6,MATH-500,Math,93.0,95.32,2.5
+Gemini 2.5 Pro,IFEval,Instruction Following,90.8,88.53,2.5
+DeepSeek-V3-0324,IFEval,Instruction Following,81.1,83.13,2.5
+Gemini 3 Flash,IFEval,Instruction Following,89.5,91.75,2.51
+GPT-5.2,AA Long Context Reasoning,Long Context,75.7,77.6,2.51
+DeepSeek-R1-0528,MMLU,Knowledge,90.8,88.5,2.54
+Qwen3.5-397B-A17B,GPQA Diamond,Science,88.4,86.12,2.58
+Gemini 3 Pro,Tau-Bench Telecom,Agentic,99.3,96.74,2.58
+Grok 4.1,GPQA Diamond,Science,91.0,88.61,2.63
+DeepSeek-R1,IFEval,Instruction Following,83.3,85.51,2.65
+GPT-5.2,HumanEval,Coding,95.0,92.46,2.68
+Nemotron Ultra 253B,MMLU,Knowledge,87.0,89.34,2.69
+GPT-5.2,HMMT Feb 2025,Math,99.4,96.73,2.69
+GPT-5,AIME 2024,Math,94.6,97.18,2.72
+GPT-5,HMMT Nov 2025,Math,89.17,91.61,2.73
+Claude Opus 4,MMLU,Knowledge,88.8,86.35,2.76
+Claude Sonnet 4.5,IFEval,Instruction Following,88.5,90.96,2.78
+Gemini 2.5 Pro,SMT 2025,Math,84.91,82.55,2.78
+o3-mini (high),AIME 2024,Math,87.3,89.76,2.82
+DeepSeek-R1,AIME 2024,Math,79.8,77.53,2.84
+DeepSeek-V3-0324,Codeforces Rating,Coding,1650.0,1602.97,2.85
+Claude Opus 4.6,IFEval,Instruction Following,94.0,91.32,2.86
+GPT-5.2,Chatbot Arena Elo,Human Preference,1440.0,1481.37,2.87
+DeepSeek-V3.2,SMT 2025,Math,87.74,90.27,2.88
+Kimi K2,MMLU-Pro,Knowledge,87.1,84.59,2.89
+GPT-5.2,MATH-500,Math,99.4,96.52,2.9
+Gemini 3.1 Pro,MATH-500,Math,98.5,95.64,2.9
+Kimi K2.5,BRUMO 2025,Math,98.33,95.46,2.92
+o3 (high),IFEval,Instruction Following,92.1,89.4,2.93
+Kimi K2.5,MMMU,Multimodal,84.0,86.52,3.0
+Gemini 3 Pro,GPQA Diamond,Science,91.9,89.13,3.01
+Gemini 3.1 Pro,IFEval,Instruction Following,89.2,91.9,3.03
+MiniMax-M2,IFEval,Instruction Following,88.0,90.66,3.03
+GPT-5.2,SMT 2025,Math,91.98,94.77,3.03
+Grok 4,SMT 2025,Math,85.85,88.46,3.04
+o3-mini (high),GPQA Diamond,Science,79.7,77.24,3.09
+Claude Opus 4.5,HumanEval,Coding,95.1,92.14,3.11
+DeepSeek-R1-0528,AIME 2024,Math,91.4,88.55,3.12
+Gemini 2.5 Pro,MMLU-Pro,Knowledge,85.6,82.9,3.15
+DeepSeek-V3-0324,MMLU-Pro,Knowledge,81.2,78.65,3.15
+GPT-5.2,MMLU,Knowledge,88.0,90.78,3.16
+Grok 4,GPQA Diamond,Science,88.0,85.2,3.18
+Claude Opus 4.6,Terminal-Bench 2.0,Agentic,62.9,60.86,3.25
+Gemini 2.5 Flash,MMLU-Pro,Knowledge,81.1,83.75,3.27
+GPT-5.1,AA Long Context Reasoning,Long Context,75.0,72.55,3.27
+Claude Opus 4,MATH-500,Math,94.4,91.3,3.28
+o4-mini (high),MMLU-Pro,Knowledge,81.9,84.6,3.29
+GPT-5.2,AIME 2024,Math,100.0,96.64,3.36
+Claude Opus 4,Terminal-Bench 1.0,Agentic,39.0,37.69,3.36
+Gemini 3.1 Pro,GPQA Diamond,Science,94.3,91.11,3.38
+o3 (high),HumanEval,Coding,88.4,91.41,3.41
+Grok 4,CMIMC 2025,Math,83.75,80.88,3.42
+Gemini 3.1 Pro,AIME 2024,Math,98.0,101.37,3.44
+DeepSeek-V3.2,Codeforces Rating,Coding,2386.0,2302.56,3.5
+Claude Opus 4.5,Tau-Bench Retail,Agentic,88.9,92.05,3.54
+GPT-5.1,Terminal-Bench 2.0,Agentic,47.6,45.91,3.55
+Qwen3.5-397B-A17B,IFEval,Instruction Following,92.6,89.29,3.58
+Kimi K2.5,MMLU,Knowledge,92.0,88.69,3.6
+Gemini 2.5 Flash,IFEval,Instruction Following,84.3,87.38,3.65
+o3 (high),MMLU,Knowledge,93.3,89.87,3.67
+Kimi K2,MATH-500,Math,97.4,93.82,3.67
+GPT-5.1,BRUMO 2025,Math,93.33,96.75,3.67
+DeepSeek-V3.2,GPQA Diamond,Science,82.4,85.43,3.68
+Claude Sonnet 4.5,Tau-Bench Telecom,Agentic,98.0,101.64,3.72
+Kimi K2,IFEval,Instruction Following,89.8,86.44,3.74
+DeepSeek-R1,MMLU-Pro,Knowledge,84.0,80.85,3.75
+Gemini 3 Pro,SMT 2025,Math,93.4,89.88,3.76
+Gemini 3 Flash,AIME 2024,Math,93.0,96.6,3.87
+Kimi K2.5,CMIMC 2025,Math,91.25,94.78,3.87
+Qwen3.5-397B-A17B,MMMU,Multimodal,85.0,81.7,3.88
+o3 (high),BRUMO 2025,Math,95.83,92.04,3.95
+Claude Sonnet 4.6,BrowseComp,Agentic,78.0,74.91,3.96
+Claude Opus 4.6,BrowseComp,Agentic,84.0,80.66,3.98
+GLM-4.7,LiveBench,Composite,58.1,55.78,3.99
+DeepSeek-R1-0528,MMLU-Pro,Knowledge,85.0,81.59,4.01
+DeepSeek-V3.2,BRUMO 2025,Math,96.67,92.76,4.04
+Gemini 2.5 Flash,LiveBench,Composite,47.7,45.77,4.05
+Grok 4,AIME 2024,Math,94.0,90.15,4.09
+Claude Sonnet 4.5,MMLU,Knowledge,86.5,90.06,4.12
+Claude Opus 4.1,HumanEval,Coding,93.0,89.11,4.18
+Grok 4,HMMT Nov 2025,Math,88.33,84.62,4.2
+GPT-5.2,IFEval,Instruction Following,95.0,91.0,4.21
+Gemini 3.1 Pro,MMLU-Pro,Knowledge,89.5,85.66,4.29
+Grok 4,HumanEval,Coding,88.0,91.78,4.29
+o4-mini (high),AIME 2024,Math,93.4,89.39,4.3
+GPT-5.2,MathArena Apex 2025,Math,13.54,12.96,4.31
+Claude Sonnet 4.6,SWE-bench Pro,Coding,48.2,50.28,4.32
+Gemini 2.5 Flash,MMLU,Knowledge,85.0,88.7,4.35
+Grok 4,MMLU,Knowledge,94.0,89.87,4.39
+GLM-4.7,IFEval,Instruction Following,85.5,89.25,4.39
+GPT-5.2,GPQA Diamond,Science,93.2,89.08,4.42
+GPT-4.1,Arena-Hard Auto,Instruction Following,61.5,58.76,4.45
+o3 (high),BrowseComp,Agentic,49.7,51.92,4.46
+Claude Opus 4.6,AA Intelligence Index,Composite,53.0,55.36,4.46
+Gemini 3.1 Pro,MMMU,Multimodal,87.5,83.59,4.47
+Kimi K2 Thinking,BrowseComp,Agentic,60.2,62.91,4.51
+Gemini 3 Flash,HMMT Nov 2025,Math,93.33,97.53,4.51
+o3 (high),GPQA Diamond,Science,87.7,83.68,4.58
+Gemini 3 Pro,Codeforces Rating,Coding,2512.0,2394.72,4.67
+DeepSeek-R1,Codeforces Rating,Coding,2029.0,1933.63,4.7
+GPT-5,LiveBench,Composite,70.5,67.16,4.74
+GPT-5,AA Long Context Reasoning,Long Context,75.6,79.2,4.76
+Claude Opus 4.6,MMMU-Pro,Multimodal,77.3,81.02,4.81
+o3-mini (high),IFEval,Instruction Following,88.0,83.72,4.86
+Kimi K2,HumanEval,Coding,85.0,89.18,4.92
+Kimi K2.5,BrowseComp,Agentic,74.9,71.19,4.95
+Grok 4,AA Intelligence Index,Composite,73.0,69.38,4.96
+Kimi K2 Thinking,SMT 2025,Math,91.04,86.51,4.97
+DeepSeek-V3.2,HMMT Feb 2025,Math,92.5,87.86,5.02
+GLM-4.7,Terminal-Bench 2.0,Agentic,33.4,35.1,5.1
+GPT-5.2,MMMU,Multimodal,86.67,82.23,5.12
+Grok 3 Beta,GPQA Diamond,Science,84.6,80.21,5.19
+GPT-4.1,HumanEval,Coding,92.0,87.22,5.2
+MiniMax-M2,MATH-500,Math,97.0,102.08,5.23
+Gemini 2.5 Pro,AIME 2024,Math,92.0,87.18,5.24
+Gemini 3 Flash,ARC-AGI-1,Reasoning,84.7,89.16,5.27
+Claude Opus 4.6,MMLU-Pro,Knowledge,82.0,86.33,5.28
+Gemini 3 Pro,MMLU-Pro,Knowledge,89.8,85.06,5.28
+DeepSeek-R1,BRUMO 2025,Math,80.83,85.09,5.28
+DeepSeek-V3.2,MMMU-Pro,Multimodal,81.0,76.7,5.31
+Gemini 2.5 Pro,Arena-Hard Auto,Instruction Following,90.8,95.64,5.33
+o4-mini (high),Terminal-Bench 1.0,Agentic,18.5,17.51,5.34
+Claude Sonnet 4.5,CMIMC 2025,Math,66.88,70.47,5.37
+o4-mini (high),IFEval,Instruction Following,92.4,87.43,5.38
+MiniMax-M2,MMLU,Knowledge,87.0,91.72,5.42
+Gemini 2.5 Flash,Arena-Hard Auto,Instruction Following,83.9,79.3,5.48
+GPT-5.1,CMIMC 2025,Math,91.88,86.83,5.5
+Gemini 2.5 Pro,MMMU,Multimodal,81.7,77.2,5.51
+Claude Sonnet 4.5,Tau-Bench Retail,Agentic,86.2,81.44,5.52
+Kimi K2,OSWorld,Agentic,38.0,35.9,5.54
+Kimi K2,GPQA Diamond,Science,75.1,70.93,5.55
+Gemini 3.1 Pro,MMMU-Pro,Multimodal,80.5,85.01,5.6
+Gemini 3 Flash,BRUMO 2025,Math,100.0,94.39,5.61
+Kimi K2.5,AIME 2024,Math,96.1,101.51,5.63
+Grok 4,AA Long Context Reasoning,Long Context,68.0,71.83,5.63
+Grok 4,ARC-AGI-1,Reasoning,66.6,70.38,5.67
+GPT-5,Codeforces Rating,Coding,2537.0,2391.87,5.72
+Gemini 3 Pro,ARC-AGI-1,Reasoning,75.0,79.32,5.76
+DeepSeek-R1,GPQA Diamond,Science,71.5,75.65,5.8
+GLM-4.7,BrowseComp,Agentic,65.0,61.2,5.85
+Claude Sonnet 4.5,ARC-AGI-1,Reasoning,63.7,67.43,5.85
+Gemini 3 Pro,MMMU-Pro,Multimodal,81.0,76.25,5.86
+GLM-4.7,HMMT Feb 2025,Math,97.1,91.41,5.86
+Kimi K2 Thinking,CMIMC 2025,Math,91.88,86.44,5.92
+Nemotron Ultra 253B,IFEval,Instruction Following,89.45,84.12,5.96
+Kimi K2 Thinking,AIME 2024,Math,94.0,99.64,6.0
+Gemini 3 Pro,MMMU,Multimodal,87.51,82.22,6.04
+Kimi K2.5,Codeforces Rating,Coding,2350.0,2492.8,6.08
+Gemini 3 Flash,SMT 2025,Math,92.92,87.26,6.09
+Grok 4,ARC-AGI-2,Reasoning,15.9,16.87,6.12
+MiniMax-M2,SWE-bench Pro,Coding,32.0,33.99,6.2
+Gemini 2.5 Pro,USAMO 2025,Math,24.0,22.51,6.22
+Claude Opus 4.5,OSWorld,Agentic,66.3,70.44,6.24
+Gemini 3 Pro,Tau-Bench Retail,Agentic,88.5,94.03,6.25
+Seed-Thinking-v1.5,AIME 2024,Math,86.7,81.24,6.29
+Grok 4,MMMU,Multimodal,76.5,81.33,6.31
+o3 (high),HMMT Feb 2025,Math,77.5,82.41,6.33
+DeepSeek-V3.2,CMIMC 2025,Math,83.75,89.06,6.35
+GPT-5.2,HMMT Nov 2025,Math,95.83,101.96,6.39
+GPT-5.2,BrowseComp,Agentic,77.9,72.91,6.4
+Claude Opus 4,MMLU-Pro,Knowledge,86.6,81.02,6.45
+Gemini 2.5 Flash,MMMU,Multimodal,73.5,78.25,6.47
+Grok 4.1,ARC-AGI-2,Reasoning,42.0,44.73,6.5
+Grok 4.1,CMIMC 2025,Math,84.38,89.95,6.6
+o3 (high),CMIMC 2025,Math,79.38,74.11,6.65
+Claude Opus 4.5,SimpleBench,Reasoning,62.0,66.14,6.67
+GPT-5,BRUMO 2025,Math,91.67,97.8,6.68
+Gemini 2.5 Pro,AA Intelligence Index,Composite,70.0,65.31,6.7
+Gemini 3 Flash,BrowseComp,Agentic,75.0,69.93,6.76
+Grok 3 Beta,HumanEval,Coding,87.3,93.21,6.77
+Grok 4.1,MMMU-Pro,Multimodal,81.0,75.47,6.82
+Claude Opus 4,MMMU,Multimodal,76.5,71.28,6.83
+Grok 3 Beta,AIME 2024,Math,93.3,99.69,6.85
+DeepSeek-R1-0528,HumanEval,Coding,85.6,91.55,6.95
+DeepSeek-V3-0324,AIME 2024,Math,59.4,63.57,7.02
+Qwen3-235B-A22B,MMLU-Pro,Knowledge,79.8,85.42,7.04
+Claude Sonnet 4.5,AIME 2024,Math,88.0,81.81,7.04
+Kimi K2.5,HMMT Nov 2025,Math,89.17,95.49,7.09
+Nemotron Ultra 253B,MMLU-Pro,Knowledge,76.0,81.42,7.14
+Gemini 3 Pro,Terminal-Bench 2.0,Agentic,56.9,52.82,7.17
+DeepSeek-R1-0528,BRUMO 2025,Math,92.5,85.86,7.17
+MiniMax-M2,GPQA Diamond,Science,78.0,83.64,7.23
+DeepSeek-V3-0324,HumanEval,Coding,85.0,91.22,7.31
+Gemini 3.1 Pro,FrontierMath,Math,40.0,37.07,7.33
+DeepSeek-R1,HumanEval,Coding,96.1,89.04,7.35
+GLM-4.7,HumanEval,Coding,88.0,94.49,7.38
+Gemini 3 Flash,MMMU,Multimodal,87.63,81.15,7.39
+Gemini 3 Flash,CMIMC 2025,Math,90.62,97.33,7.41
+Claude Opus 4.5,SWE-bench Pro,Coding,45.89,49.3,7.43
+Claude Sonnet 4.5,HumanEval,Coding,85.0,91.35,7.47
+DeepSeek-V3.2,BrowseComp,Agentic,51.4,55.3,7.58
+Qwen3.5-397B-A17B,Codeforces Rating,Coding,2200.0,2368.34,7.65
+Grok 4.1,Video-MMU,Multimodal,87.6,80.88,7.67
+Grok 4,SWE-bench Pro,Coding,46.5,42.91,7.71
+Grok 4,OSWorld,Agentic,48.0,44.28,7.76
+Claude Sonnet 4.6,FrontierMath,Math,35.0,32.26,7.82
+GPT-4.1,GPQA Diamond,Science,66.3,71.51,7.86
+Claude Sonnet 4.6,MMLU-Pro,Knowledge,80.0,86.29,7.87
+MiniMax-M2,MMLU-Pro,Knowledge,82.0,88.51,7.94
+Gemini 3 Pro,CMIMC 2025,Math,90.0,82.68,8.14
+Claude Opus 4,Codeforces Rating,Coding,1886.0,2039.62,8.15
+Grok 4.1,SMT 2025,Math,84.6,91.5,8.16
+Claude Sonnet 4,Arena-Hard Auto,Instruction Following,51.6,55.85,8.23
+Gemini 3 Pro,HMMT Feb 2025,Math,97.5,105.56,8.27
+GPT-4.1,Terminal-Bench 1.0,Agentic,30.3,27.79,8.28
+GPT-5.2,MMMU-Pro,Multimodal,86.5,79.32,8.3
+Claude Opus 4.5,MMLU-Pro,Knowledge,80.0,86.82,8.53
+GPT-5,ARC-AGI-1,Reasoning,65.7,71.38,8.65
+Claude Sonnet 4.6,AA Intelligence Index,Composite,51.0,55.43,8.68
+GPT-5.1,MMMU-Pro,Multimodal,85.4,77.87,8.81
+Gemini 3.1 Pro,SWE-bench Pro,Coding,54.2,49.39,8.87
+Claude Opus 4.1,GPQA Diamond,Science,80.9,73.7,8.9
+o3-mini (high),HumanEval,Coding,97.6,88.92,8.9
+o3 (high),AIME 2024,Math,96.7,88.08,8.91
+Gemini 3 Flash,Tau-Bench Retail,Agentic,82.0,89.4,9.02
+Gemini 3.1 Pro,Codeforces Rating,Coding,2700.0,2455.85,9.04
+Gemini 3 Pro,HMMT Nov 2025,Math,93.33,84.87,9.07
+Grok 4.1,OSWorld,Agentic,52.0,56.73,9.1
+Kimi K2 Thinking,HMMT Nov 2025,Math,89.17,80.93,9.24
+Claude Opus 4.6,MMMU,Multimodal,77.0,84.12,9.25
+o4-mini (high),BRUMO 2025,Math,86.67,94.73,9.3
+Claude Opus 4,Tau-Bench Retail,Agentic,81.4,88.98,9.32
+Claude Sonnet 4.5,Terminal-Bench 2.0,Agentic,42.8,46.79,9.33
+o4-mini (high),HumanEval,Coding,98.5,89.27,9.37
+Kimi K2.5,HMMT Feb 2025,Math,95.4,104.35,9.39
+GPT-5,AA Intelligence Index,Composite,68.0,74.46,9.51
+Claude Opus 4.6,Codeforces Rating,Coding,2650.0,2391.35,9.76
+Claude Opus 4,GPQA Diamond,Science,83.3,75.14,9.8
+o3 (high),AA Long Context Reasoning,Long Context,69.0,62.24,9.8
+Qwen3-235B-A22B,AIME 2024,Math,85.7,77.26,9.84
+Gemini 3.1 Pro,AA Intelligence Index,Composite,57.0,51.35,9.92
+Claude Sonnet 4.5,SWE-bench Pro,Coding,43.6,39.27,9.94
+Claude Opus 4,Terminal-Bench 2.0,Agentic,43.2,47.52,9.99
+GPT-5,FrontierMath,Math,25.2,27.75,10.14
+DeepSeek-R1-0528,FrontierMath,Math,10.0,8.96,10.37
+Claude Opus 4.6,OSWorld,Agentic,72.7,65.16,10.37
+DeepSeek-R1-0528,IFEval,Instruction Following,79.1,87.37,10.45
+Claude Opus 4.6,SWE-bench Pro,Coding,55.6,49.73,10.55
+Gemini 2.5 Flash,SMT 2025,Math,75.47,67.42,10.66
+Claude Opus 4,AIME 2024,Math,75.5,67.44,10.67
+Gemini 3.1 Pro,ARC-AGI-1,Reasoning,90.0,80.36,10.72
+MiniMax-M2,MMMU,Multimodal,75.0,83.09,10.79
+Grok 4.1,Codeforces Rating,Coding,2650.0,2363.7,10.8
+Claude Sonnet 4,Tau-Bench Retail,Agentic,80.5,71.79,10.83
+Kimi K2 Thinking,Terminal-Bench 2.0,Agentic,35.7,31.8,10.92
+Claude Opus 4.5,Terminal-Bench 2.0,Agentic,57.8,64.17,11.02
+Claude Opus 4.1,LiveBench,Composite,54.5,48.5,11.02
+Claude Opus 4.5,ARC-AGI-1,Reasoning,80.0,71.17,11.04
+Gemini 2.5 Pro,Codeforces Rating,Coding,2001.0,2222.03,11.05
+GPT-5.2,Video-MMU,Multimodal,90.5,80.48,11.07
+DeepSeek-V3.2,LiveBench,Composite,62.2,55.3,11.1
+Claude Sonnet 4.6,MRCR v2,Long Context,82.0,91.19,11.21
+Claude Opus 4.6,SimpleBench,Reasoning,67.6,75.35,11.47
+Gemini 2.5 Pro,LiveBench,Composite,58.3,65.0,11.5
+Gemini 3 Flash,Terminal-Bench 2.0,Agentic,51.7,45.72,11.57
+Claude Opus 4.5,HMMT Feb 2025,Math,92.9,82.14,11.58
+DeepSeek-R1-0528,USAMO 2025,Math,30.06,26.54,11.72
+Gemini 3.1 Pro,OSWorld,Agentic,72.0,63.54,11.75
+MiniMax-M2,Terminal-Bench 2.0,Agentic,30.0,26.44,11.86
+Kimi K2.5,MMMU-Pro,Multimodal,78.5,87.87,11.94
+Claude Opus 4.5,MATH-500,Math,85.0,95.48,12.32
+Claude Sonnet 4.6,MMMU,Multimodal,74.2,83.56,12.62
+Claude Sonnet 4.6,OSWorld,Agentic,72.5,63.27,12.73
+Claude Sonnet 4,OSWorld,Agentic,42.0,36.64,12.77
+GPT-4.1,MMMU,Multimodal,74.8,65.23,12.79
+Qwen3-235B-A22B,HMMT Feb 2025,Math,62.5,54.5,12.79
+Claude Sonnet 4.5,HMMT Feb 2025,Math,79.2,69.0,12.88
+Claude Sonnet 4.5,MMMU-Pro,Multimodal,63.4,55.19,12.94
+Qwen3-235B-A22B,GPQA Diamond,Science,71.1,80.33,12.98
+Gemini 2.5 Pro,HMMT Feb 2025,Math,82.5,71.72,13.07
+o4-mini (high),Arena-Hard Auto,Instruction Following,79.1,89.46,13.1
+Kimi K2,Codeforces Rating,Coding,1780.0,1546.4,13.12
+o4-mini (high),HMMT Feb 2025,Math,66.7,75.45,13.12
+GPT-5.1,BrowseComp,Agentic,60.0,68.2,13.67
+Claude Opus 4.6,FrontierMath,Math,40.0,34.46,13.86
+o3 (high),IMO 2025,Math,16.67,18.99,13.91
+Claude Opus 4.5,Codeforces Rating,Coding,2070.0,2358.19,13.92
+Kimi K2.5,Video-MMU,Multimodal,86.6,98.67,13.94
+Claude Opus 4,Arena-Hard Auto,Instruction Following,59.7,51.36,13.97
+Claude Sonnet 4.5,Terminal-Bench 1.0,Agentic,51.0,43.72,14.28
+GPT-5.2,ARC-AGI-1,Reasoning,90.5,77.35,14.53
+DeepSeek-R1-0528,Codeforces Rating,Coding,1930.0,2211.9,14.61
+o3 (high),IFBench,Instruction Following,69.3,59.11,14.71
+GPT-5.2,Codeforces Rating,Coding,2800.0,2384.84,14.83
+Gemini 3.1 Pro,Terminal-Bench 2.0,Agentic,68.5,58.14,15.13
+DeepSeek-R1,SMT 2025,Math,66.51,76.66,15.27
+o3 (high),MMMU-Pro,Multimodal,75.0,63.44,15.41
+Gemini 2.5 Pro,Terminal-Bench 2.0,Agentic,32.6,27.47,15.72
+Gemini 3.1 Pro,SimpleBench,Reasoning,79.6,66.98,15.85
+Kimi K2 Thinking,Codeforces Rating,Coding,2150.0,2493.03,15.96
+Gemini 3.1 Pro,MRCR v2,Long Context,84.9,98.5,16.02
+Gemini 3 Flash,FrontierMath,Math,30.0,25.17,16.1
+Gemini 2.5 Flash,AIME 2024,Math,88.0,73.58,16.39
+Grok 4.1,FrontierMath,Math,38.0,31.72,16.53
+Claude Opus 4.6,ARC-AGI-1,Reasoning,94.0,78.17,16.85
+Grok 4.1,LiveBench,Composite,60.0,70.18,16.97
+GPT-5.2,SWE-bench Pro,Coding,55.6,46.15,17.0
+Grok 4,Codeforces Rating,Coding,2708.0,2243.72,17.14
+Gemini 3 Pro,BrowseComp,Agentic,85.9,71.03,17.31
+Claude Sonnet 4,SWE-bench Pro,Coding,42.7,35.3,17.34
+GPT-5.1,FrontierMath,Math,31.0,25.57,17.53
+Claude Opus 4.6,CritPt,Science,12.6,14.85,17.85
+Claude Opus 4.6,MRCR v2,Long Context,93.0,76.29,17.97
+DeepSeek-R1,IFBench,Instruction Following,38.0,31.13,18.08
+o3 (high),ARC-AGI-1,Reasoning,75.7,61.99,18.11
+Nemotron Ultra 253B,Codeforces Rating,Coding,1750.0,2069.84,18.28
+GPT-4.1,Codeforces Rating,Coding,1807.0,1475.59,18.34
+o4-mini (high),BrowseComp,Agentic,45.0,36.74,18.37
+Gemini 2.5 Flash,CMIMC 2025,Math,50.62,41.27,18.48
+GPT-5,HMMT Feb 2025,Math,88.3,104.69,18.56
+Gemini 3 Flash,SWE-bench Pro,Coding,34.63,41.16,18.87
+Gemini 3 Pro,FrontierMath,Math,38.0,30.75,19.08
+Gemini 3 Flash,Codeforces Rating,Coding,2100.0,2504.37,19.26
+o3 (high),Codeforces Rating,Coding,2706.0,2179.17,19.47
+o3-mini (high),HMMT Feb 2025,Math,50.0,59.79,19.58
+DeepSeek-V3.2,Terminal-Bench 2.0,Agentic,39.6,31.76,19.79
+Claude Opus 4.1,Terminal-Bench 2.0,Agentic,38.0,45.54,19.84
+Claude Opus 4.5,LiveBench,Composite,76.0,60.78,20.03
+DeepSeek-R1,ARC-AGI-1,Reasoning,15.0,11.98,20.12
+Gemini 2.5 Flash,HMMT Feb 2025,Math,64.2,51.23,20.19
+MiniMax-M2,AA Intelligence Index,Composite,61.0,73.51,20.52
+Gemini 3 Pro,SWE-bench Pro,Coding,43.3,52.39,20.98
+Claude Sonnet 4.6,Codeforces Rating,Coding,2010.0,2432.47,21.02
+o4-mini (high),Codeforces Rating,Coding,2719.0,2144.69,21.12
+Kimi K2,Terminal-Bench 2.0,Agentic,27.8,21.8,21.58
+GPT-5,SWE-bench Pro,Coding,41.78,50.84,21.68
+Gemini 3 Pro,CritPt,Science,9.1,11.08,21.77
+Claude Opus 4.5,AA Long Context Reasoning,Long Context,75.0,91.43,21.91
+Gemini 3 Pro,OSWorld,Agentic,55.0,67.11,22.02
+Gemini 3 Flash,OSWorld,Agentic,50.0,38.65,22.7
+Claude Opus 4.5,BrowseComp,Agentic,67.8,83.27,22.82
+o3 (high),Arena-Hard Auto,Instruction Following,85.9,105.54,22.86
+DeepSeek-R1-0528,HMMT Feb 2025,Math,79.4,61.07,23.09
+Claude Sonnet 4.6,ARC-AGI-2,Reasoning,60.4,46.4,23.18
+Claude Sonnet 4.6,GPQA Diamond,Science,74.1,91.39,23.33
+Gemini 2.5 Pro,CMIMC 2025,Math,58.13,71.76,23.44
+Gemini 3.1 Pro,CritPt,Science,17.7,13.49,23.77
+Nemotron Ultra 253B,Arena-Hard Auto,Instruction Following,92.7,70.03,24.46
+MiniMax-M2,BrowseComp,Agentic,44.0,33.22,24.51
+GPT-5.2,CritPt,Science,11.6,8.71,24.94
+Gemini 2.5 Pro,IFBench,Instruction Following,52.3,65.54,25.31
+Gemini 2.5 Pro,HMMT Nov 2025,Math,66.67,83.79,25.68
+Claude Sonnet 4,Terminal-Bench 2.0,Agentic,38.5,28.61,25.7
+Gemini 3 Pro,Video-MMU,Multimodal,87.6,64.63,26.22
+o3 (high),Terminal-Bench 1.0,Agentic,30.2,38.19,26.45
+Claude Sonnet 4.5,OSWorld,Agentic,61.4,45.02,26.68
+GPT-5,Terminal-Bench 2.0,Agentic,35.2,44.66,26.87
+GPT-5.2,FrontierMath,Math,40.3,29.46,26.91
+Kimi K2,SWE-bench Pro,Coding,27.67,20.15,27.18
+Claude Sonnet 4,IFBench,Instruction Following,42.3,53.85,27.3
+DeepSeek-V3-0324,HMMT Feb 2025,Math,27.5,19.98,27.35
+Claude Sonnet 4.5,LiveBench,Composite,53.7,68.46,27.49
+Gemini 2.5 Flash,ARC-AGI-1,Reasoning,33.3,24.07,27.72
+Gemini 3 Flash,Video-MMU,Multimodal,86.9,111.58,28.4
+o4-mini (high),ARC-AGI-1,Reasoning,58.7,41.98,28.49
+Claude Opus 4.6,ARC-AGI-2,Reasoning,68.8,48.52,29.48
+GPT-4.1,AIME 2024,Math,46.5,60.56,30.23
+Kimi K2,AIME 2024,Math,69.6,48.42,30.43
+Claude Opus 4.5,Video-MMU,Multimodal,68.4,89.4,30.71
+DeepSeek-R1-0528,ARC-AGI-1,Reasoning,21.2,27.74,30.84
+DeepSeek-R1,HMMT Feb 2025,Math,41.7,54.62,30.99
+GPT-5.2,ARC-AGI-2,Reasoning,52.9,36.48,31.04
+Grok 4,MMMU-Pro,Multimodal,59.2,77.62,31.12
+Qwen3-235B-A22B,Arena-Hard Auto,Instruction Following,95.6,65.48,31.5
+Claude Sonnet 4,Terminal-Bench 1.0,Agentic,36.4,24.89,31.63
+GPT-5,BrowseComp,Agentic,54.9,72.39,31.86
+Kimi K2.5,FrontierMath,Math,28.0,37.21,32.9
+Qwen3.5-397B-A17B,IFBench,Instruction Following,76.5,101.94,33.25
+Gemini 2.5 Pro,ARC-AGI-1,Reasoning,41.0,54.88,33.84
+Gemini 2.5 Flash,Terminal-Bench 2.0,Agentic,16.9,22.72,34.42
+Grok 4,FrontierMath,Math,15.0,20.22,34.81
+GPT-5.2,MRCR v2,Long Context,70.0,45.58,34.89
+GPT-5,OSWorld,Agentic,40.0,54.39,35.99
+GPT-5,SimpleBench,Reasoning,61.6,84.11,36.55
+Gemini 3.1 Pro,ARC-AGI-2,Reasoning,77.1,48.53,37.06
+Grok 4,USAMO 2025,Math,61.9,38.36,38.02
+Gemini 2.5 Pro,MRCR v2,Long Context,83.1,115.08,38.49
+o3 (high),USAMO 2025,Math,21.9,30.62,39.83
+MiniMax-M2,Codeforces Rating,Coding,1700.0,2380.86,40.05
+Kimi K2.5,OSWorld,Agentic,62.0,37.02,40.29
+o4-mini (high),FrontierMath,Math,17.0,9.96,41.39
+Claude Opus 4,OSWorld,Agentic,38.2,54.11,41.66
+Gemini 2.5 Flash,Terminal-Bench 1.0,Agentic,16.8,23.83,41.84
+MiniMax-M2,AIME 2024,Math,65.0,92.2,41.85
+Kimi K2.5,ARC-AGI-1,Reasoning,65.3,37.66,42.33
+Claude Sonnet 4.6,ARC-AGI-1,Reasoning,55.0,78.32,42.39
+Gemini 3 Pro,MathArena Apex 2025,Math,23.4,13.23,43.45
+Qwen3-235B-A22B,AA Long Context Reasoning,Long Context,67.0,37.56,43.94
+Gemini 3 Pro,ARC-AGI-2,Reasoning,31.1,45.21,45.36
+Claude Sonnet 4.5,ARC-AGI-2,Reasoning,13.6,19.79,45.49
+Claude Sonnet 4,HMMT Feb 2025,Math,15.9,23.2,45.89
+Claude Opus 4.1,OSWorld,Agentic,44.4,64.97,46.32
+Claude Sonnet 4,ARC-AGI-1,Reasoning,40.0,21.44,46.41
+Claude Opus 4.1,Terminal-Bench 1.0,Agentic,43.8,22.84,47.85
+Gemini 3 Flash,ARC-AGI-2,Reasoning,33.6,17.51,47.9
+Claude Opus 4.5,ARC-AGI-2,Reasoning,37.6,56.18,49.41
+Claude Sonnet 4.5,Codeforces Rating,Coding,1480.0,2228.43,50.57
+Claude Opus 4,SWE-bench Pro,Coding,35.8,54.14,51.22
+Gemini 2.5 Pro,Terminal-Bench 1.0,Agentic,25.3,38.41,51.82
+GPT-5.2,OSWorld,Agentic,38.2,58.0,51.83
+Gemini 2.5 Pro,SimpleBench,Reasoning,62.4,28.94,53.62
+o4-mini (high),USAMO 2025,Math,19.3,29.69,53.82
+Kimi K2,Arena-Hard Auto,Instruction Following,54.5,84.07,54.26
+Gemini 2.5 Flash,ARC-AGI-2,Reasoning,2.5,3.89,55.61
+GPT-5,CritPt,Science,5.7,8.93,56.65
+GLM-4.7,FrontierMath,Math,20.0,31.42,57.08
+Claude Opus 4.1,SWE-bench Pro,Coding,22.7,35.71,57.33
+GPT-4.1,HMMT Feb 2025,Math,19.4,30.63,57.91
+DeepSeek-R1,Arena-Hard Auto,Instruction Following,92.3,38.48,58.31
+Claude Opus 4,ARC-AGI-1,Reasoning,35.7,56.7,58.82
+Gemini 3.1 Pro,MathArena Apex 2025,Math,33.5,11.74,64.95
+Gemini 2.5 Pro,IMO 2025,Math,31.55,10.56,66.53
+MiniMax-M2,Terminal-Bench 1.0,Agentic,42.0,13.37,68.16
+GPT-5.1,ARC-AGI-2,Reasoning,17.6,29.65,68.49
+Kimi K2.5,ARC-AGI-2,Reasoning,35.0,59.3,69.43
+Claude Opus 4.5,FrontierMath,Math,21.0,35.58,69.45
+Claude Sonnet 4,AIME 2024,Math,43.4,75.12,73.08
+o3 (high),FrontierMath,Math,10.0,17.36,73.64
+DeepSeek-V3-0324,Arena-Hard Auto,Instruction Following,39.9,69.63,74.5
+Grok 4,Terminal-Bench 2.0,Agentic,23.1,41.31,78.81
+Claude Sonnet 4,ARC-AGI-2,Reasoning,5.9,0.5,91.46
+Gemini 2.5 Pro,Video-MMU,Multimodal,84.8,6.65,92.16
+Claude Opus 4,HMMT Feb 2025,Math,15.9,31.45,97.82
+GPT-4.1,ARC-AGI-1,Reasoning,5.5,10.91,98.41
+o3-mini (high),ARC-AGI-1,Reasoning,34.5,-2.12,106.16
+o4-mini (high),ARC-AGI-2,Reasoning,6.1,-0.44,107.28
+Grok 4,IMO 2025,Math,11.9,24.85,108.86
+o3-mini (high),Arena-Hard Auto,Instruction Following,43.0,89.93,109.13
+Gemini 2.5 Pro,CritPt,Science,2.0,4.24,112.21
+Claude Opus 4,ARC-AGI-2,Reasoning,8.6,18.89,119.7
+Gemini 3 Flash,MathArena Apex 2025,Math,15.62,-4.15,126.56
+o3 (high),ARC-AGI-2,Reasoning,6.5,14.84,128.35
+DeepSeek-R1,Terminal-Bench 1.0,Agentic,5.7,13.4,135.05
+Claude Opus 4,FrontierMath,Math,10.0,-3.85,138.46
+GPT-5,IMO 2025,Math,38.1,-15.11,139.67
+o3-mini (high),USAMO 2025,Math,2.08,5.11,145.6
+Gemini 2.5 Flash,CritPt,Science,1.1,2.72,147.27
+o3-mini (high),FrontierMath,Math,11.0,-6.53,159.33
+DeepSeek-V3.2,FrontierMath,Math,8.0,21.08,163.54
+GPT-4.1,MRCR v2,Long Context,80.0,-59.43,174.29
+Grok 4.1,MathArena Apex 2025,Math,5.21,14.3,174.52
+Grok 3 Beta,Terminal-Bench 1.0,Agentic,17.5,-13.69,178.24
+GPT-5,ARC-AGI-2,Reasoning,9.9,32.76,230.9
+Grok 4,MathArena Apex 2025,Math,2.08,6.95,234.32
+o4-mini (high),IMO 2025,Math,14.29,-24.07,268.47
+Gemini 2.5 Pro,FrontierMath,Math,5.0,18.69,273.7
+Qwen3-235B-A22B,Terminal-Bench 1.0,Agentic,6.6,25.02,279.16
+Qwen3-235B-A22B,ARC-AGI-1,Reasoning,11.0,41.75,279.56
+Gemini 2.5 Pro,ARC-AGI-2,Reasoning,4.9,19.45,296.96
+o3 (high),CritPt,Science,1.4,-2.86,304.47
+Kimi K2 Thinking,ARC-AGI-1,Reasoning,12.0,49.85,315.41
+DeepSeek-R1,CritPt,Science,1.1,-3.27,397.72
+Qwen3-235B-A22B,ARC-AGI-2,Reasoning,1.3,-3.94,402.74
+Claude Opus 4.1,FrontierMath,Math,15.0,-50.42,436.16
+Claude Sonnet 4.5,MRCR v2,Long Context,10.8,58.85,444.92
+DeepSeek-R1-0528,ARC-AGI-2,Reasoning,1.1,6.11,455.57
+o3-mini (high),ARC-AGI-2,Reasoning,3.0,-10.69,456.39
+Grok 3 Beta,ARC-AGI-1,Reasoning,5.5,33.37,506.81
+DeepSeek-R1-0528,IMO 2025,Math,6.85,43.28,531.76
+Qwen3-235B-A22B,MathArena Apex 2025,Math,5.21,-23.02,541.84
+o4-mini (high),CritPt,Science,0.6,4.15,590.98
+Claude Opus 4,CritPt,Science,0.3,2.11,604.11
+DeepSeek-R1,USAMO 2025,Math,4.76,-35.29,841.46
+DeepSeek-R1,ARC-AGI-2,Reasoning,1.3,-10.2,884.52
+Claude Sonnet 4.5,MathArena Apex 2025,Math,1.56,15.56,897.64
+GPT-5,MathArena Apex 2025,Math,1.04,10.9,948.41
+GPT-5.1,MathArena Apex 2025,Math,1.04,11.03,960.72
+DeepSeek-R1-0528,MathArena Apex 2025,Math,1.04,-10.81,1139.49
+Gemini 2.5 Pro,MathArena Apex 2025,Math,0.5,11.3,2160.62
+GPT-4.1,ARC-AGI-2,Reasoning,0.4,-9.62,2505.26
+Grok 3 Beta,ARC-AGI-2,Reasoning,0.0,7.15,nan
+Kimi K2 Thinking,MathArena Apex 2025,Math,0.0,7.24,nan
