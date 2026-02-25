@@ -42,7 +42,9 @@ All results use **per-model leave-50%-out** holdout: for each model, hide 50% of
 - **MedianAE** = median( |predicted - actual| ) in raw score points
 - **Within ±3** = % of predictions within 3 points of actual
 - **Within ±5** = % of predictions within 5 points of actual
-- **Coverage** = % of held-out cells that received a prediction
+- **Coverage** = % of held-out cells that received a prediction (see note below)
+
+**Why coverage varies across methods:** Not every method can predict every cell. LogitBenchReg predicts a target benchmark by fitting a regression from the k=5 most correlated benchmarks — but this only works if the model has scores for enough of those correlated benchmarks. When a model has very few known scores, there may not be enough overlap to fit the regression, so LogitBenchReg returns no prediction for that cell (~79% coverage at 50% hiding). SVD-based methods, by contrast, work on the full matrix simultaneously and can predict nearly every cell (~99% coverage). The ~1% SVD misses come from models with so few scores that even the iterative imputation fails to converge. BenchPress inherits SVD's high coverage because it falls back to SVD-Logit whenever LogitBenchReg can't produce a prediction.
 
 ---
 
