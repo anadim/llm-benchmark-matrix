@@ -339,6 +339,10 @@ llm-benchmark-matrix/
 │   ├── phase_transition_per_model.png
 │   ├── claude_vs_algorithm.png     # Claude vs BenchPress comparison
 │   └── ...                         # 11 publication-ready figures
+├── audit/
+│   ├── audit_rebuttal.md                 # Claude Code's rebuttal to Codex audit
+│   ├── audit_response_2.md               # Codex counter-rebuttal
+│   └── before_after_audit.py             # Pre/post-audit comparison
 ├── analysis/
 │   ├── walkthrough_single_prediction.py  # Step-by-step prediction walkthrough
 │   ├── component_analysis.py             # Component-level evaluation
