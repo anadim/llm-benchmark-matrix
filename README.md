@@ -192,28 +192,49 @@ Note: BenchReg/LogBenchReg have <100% coverage. BenchPress (not shown here — e
 
 ## Claude as Predictor
 
-We tested whether LLMs can predict benchmark scores by giving Claude the full matrix as CSV context and asking it to fill in held-out cells.
+We tested whether LLMs can predict benchmark scores by giving Claude the full matrix as CSV context and asking it to fill in held-out cells. All Claude runs use 20% holdout (seed=42).
 
-### Claude Models (20% holdout, seed=42)
+**Important caveat**: Some models in the matrix were released before Claude's training cutoff, so Claude may "know" certain scores from its training data. The pre-audit run (5.33%) was on a matrix that contained some data entry errors — Claude may have memorized the correct values. The post-audit run (6.08%) is on the corrected matrix and is the fairer number.
+
+### Claude Models
 
 | Model | MedAPE | Within ±3 | Within ±5 | Coverage | Cost |
 |-------|-------:|----------:|----------:|---------:|-----:|
-| **Sonnet 4.5** (full matrix) | **5.33%** | **48.9%** | **62.3%** | **100%** | **$0.84** |
+| Sonnet 4.5 (pre-audit matrix) | 5.33% | 48.9% | 62.3% | 100% | $0.84 |
 | Sonnet 4.5 (row only) | 6.58% | 40.9% | 54.7% | 100% | $0.67 |
-| Sonnet 4.5 (post-audit) | 6.08% | 41.5% | 56.4% | 100% | $0.86 |
+| **Sonnet 4.5 (post-audit matrix)** | **6.08%** | **41.5%** | **56.4%** | **100%** | **$0.86** |
 | Opus 4 (no thinking) | 7.73% | 39.6% | 48.9% | 81.5% | $3.36 |
 | Opus 4 (with thinking) | 9.01% | 33.9% | 46.1% | 59.8% | $15.29 |
 
-### Comparison: Claude vs BenchPress (same holdout)
+### Fair Comparison: Claude vs BenchPress (same post-audit holdout)
 
 | Method | MedAPE | Within ±5 | Coverage |
 |--------|-------:|----------:|---------:|
-| **Claude Sonnet 4.5** | **5.33%** | **62.3%** | **100%** |
-| BenchPress | 5.81% | 58.2% | 100% |
+| **BenchPress** | **5.81%** | **58.2%** | **100%** |
+| Claude Sonnet 4.5 | 6.08% | 56.4% | 100% |
 | BenchReg | 6.35% | 51.5% | 84.0% |
 | Benchmark Mean | 11.91% | 25.5% | 100% |
 
-Claude Sonnet 4.5 beats BenchPress on MedAPE (5.33% vs 5.81%) when given the full matrix as context. However, BenchPress runs in <1 second and costs nothing, while Claude takes ~6 minutes and ~$0.85 per run.
+On the same post-audit data, **BenchPress edges out Claude** (5.81% vs 6.08%). BenchPress also runs in <1 second and costs nothing, while Claude takes ~6 minutes and ~$0.85 per run.
+
+### Phase Transition: World Knowledge vs Linear Algebra
+
+The more interesting comparison is how they behave as you vary the amount of data. Take a model, hide all its scores, then reveal them one at a time:
+
+| Known scores | BenchPress | Claude | Winner |
+|-------------:|-----------:|-------:|--------|
+| 0 (name only) | 16.8% | 2.5% | Claude |
+| 1 | 12.0% | 2.9% | Claude |
+| 2 | 7.2% | 3.2% | Claude |
+| 3 | 4.9% | 3.7% | Claude |
+| 5 | 4.9% | 4.7% | ~Tie |
+| 7 | 3.7% | 4.9% | BenchPress |
+| 10 | 2.7% | 4.2% | BenchPress |
+| 15 | 2.4% | 4.7% | BenchPress |
+
+*(MedAPE averaged over Gemini 3.1 Pro and Claude Sonnet 4.6, 3 random trials each)*
+
+At k=0 (just the model's name), Claude already predicts within 2.5% — its world knowledge is worth about 5 benchmark scores of information. But by k=5 BenchPress catches up, and beyond that linear algebra wins decisively. Interestingly, Claude's accuracy *plateaus* around 4-5% regardless of how much data it sees, suggesting that providing partial data via CSV creates a conflict between Claude's prior knowledge and the prompt context.
 
 ---
 
