@@ -68,7 +68,7 @@ EXTRA_SCORES = [
 
     ("claude-sonnet-4.6", "swe_bench_pro", 48.2, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
     ("claude-sonnet-4.6", "math_500", 96.5, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
-    ("claude-sonnet-4.6", "terminal_bench_2", 58.2, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
+    ("claude-sonnet-4.6", "terminal_bench_2", 59.1, "https://www.anthropic.com/research/claude-sonnet-4-6-system-card"),
     ("claude-sonnet-4.6", "codeforces_rating", 2010, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
     ("claude-sonnet-4.6", "arc_agi_1", 55.0, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
 
@@ -103,7 +103,7 @@ EXTRA_SCORES = [
 
     ("gemini-3-flash", "aime_2024", 93.0, "https://medium.com/@leucopsis/gemini-3-flash-preliminary-review-34e7420e3be7"),
     ("gemini-3-flash", "terminal_bench", 52.0, "https://medium.com/@leucopsis/gemini-3-flash-preliminary-review-34e7420e3be7"),
-    ("gemini-3-flash", "ifeval", 89.5, "https://automatio.ai/models/gemini-3-flash"),
+    ("gemini-3-flash", "ifeval", 88.2, "https://automatio.ai/models/gemini-3-flash"),
     ("gemini-3-flash", "codeforces_rating", 2100, "https://medium.com/@leucopsis/gemini-3-flash-preliminary-review-34e7420e3be7"),
     ("gemini-3-flash", "tau_bench_retail", 82.0, "https://artificialanalysis.ai/articles/gemini-3-flash-everything-you-need-to-know"),
 
@@ -310,9 +310,10 @@ EXTRA_SCORES = [
     ("seed-thinking-v1.5", "hle", 22.0, "https://llm-stats.com/benchmarks"),
     ("seed-thinking-v1.5", "simpleqa", 35.0, "https://llm-stats.com/benchmarks"),
 
-    ("glm-4.7", "mmlu", 88.0, "https://llm-stats.com/models/glm-4.7"),
-    ("glm-4.7", "humaneval", 88.0, "https://llm-stats.com/models/glm-4.7"),
-    ("glm-4.7", "ifeval", 85.5, "https://llm-stats.com/models/glm-4.7"),
+    # REMOVED: moved to unverified_cells.py (llm-stats.com JS tables unverifiable)
+    # ("glm-4.7", "mmlu", 88.0, "https://llm-stats.com/models/glm-4.7"),
+    # ("glm-4.7", "humaneval", 88.0, "https://llm-stats.com/models/glm-4.7"),
+    # ("glm-4.7", "ifeval", 85.5, "https://llm-stats.com/models/glm-4.7"),
     ("glm-4.7", "simpleqa", 32.0, "https://llm-stats.com/models/glm-4.7"),
 
     ("glm-4.6", "mmlu", 85.0, "https://llm-stats.com/models/glm-4.7"),

@@ -242,7 +242,7 @@ DATA = [
     ("gpt-4.1", "ifeval", 87.4, "https://www.helicone.ai/blog/gpt-4.1-full-developer-guide"),
 
     # GPT-4.1 mini
-    ("gpt-4.1-mini", "ifeval", 84.0, "https://www.helicone.ai/blog/gpt-4.1-full-developer-guide"),
+    ("gpt-4.1-mini", "ifeval", 84.1, "https://openai.com/index/gpt-4-1/"),
 
     # GPT-4.1 nano
     ("gpt-4.1-nano", "mmlu", 80.1, "https://www.datacamp.com/blog/gpt-4-1"),
@@ -297,9 +297,9 @@ DATA = [
 
     # GPT-5.1
     ("gpt-5.1", "aime_2025", 94.0, "https://www.vellum.ai/blog/gpt-5-2-benchmarks"),
-    ("gpt-5.1", "gpqa_diamond", 88.1, "https://www.vellum.ai/blog/gpt-5-2-benchmarks"),
+    ("gpt-5.1", "gpqa_diamond", 88.1, "https://artificialanalysis.ai/evaluations/gpqa-diamond"),
     ("gpt-5.1", "frontiermath", 31.0, "https://www.vellum.ai/blog/gpt-5-2-benchmarks"),
-    ("gpt-5.1", "arc_agi_2", 17.6, "https://www.vellum.ai/blog/gpt-5-2-benchmarks"),
+    ("gpt-5.1", "arc_agi_2", 17.6, "https://openai.com/index/introducing-gpt-5-2/"),
     ("gpt-5.1", "swe_bench_verified", 76.3, "https://www.vellum.ai/blog/flagship-model-report"),
     ("gpt-5.1", "aa_lcr", 75.0, "https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning"),
 
@@ -374,7 +374,7 @@ DATA = [
     ("claude-opus-4.5", "mmlu_pro", 80.0, "https://www.anthropic.com/news/claude-opus-4-5"),
     ("claude-opus-4.5", "osworld", 66.3, "https://www.anthropic.com/news/claude-opus-4-5"),
     ("claude-opus-4.5", "arc_agi_2", 37.6, "https://arcprize.org/arc-agi/2/"),
-    ("claude-opus-4.5", "browsecomp", 67.8, "https://www.anthropic.com/news/claude-opus-4-5"),
+    ("claude-opus-4.5", "browsecomp", 67.8, "https://www.vellum.ai/blog/claude-opus-4-6-benchmarks"),
     ("claude-opus-4.5", "frontiermath", 21.0, "https://epoch.ai/benchmarks/frontiermath"),
     ("claude-opus-4.5", "hle", 37.6, "https://www.anthropic.com/news/claude-opus-4-5"),
     ("claude-opus-4.5", "tau_bench_telecom", 98.2, "https://www.anthropic.com/news/claude-opus-4-5"),
@@ -663,7 +663,7 @@ DATA = [
 
     ("phi-4-reasoning", "aime_2025", 71.4, "https://www.analyticsvidhya.com/blog/2025/05/phi-4-reasoning-models/"),
     ("phi-4-reasoning", "gpqa_diamond", 63.4, "https://ashishchadha11944.medium.com/microsofts-phi-4-reasoning-models/"),
-    ("phi-4-reasoning", "livecodebench", 53.8, "https://www.microsoft.com/en-us/research/articles/phi-reasoning/"),
+    ("phi-4-reasoning", "livecodebench", 53.8, "https://huggingface.co/microsoft/Phi-4-reasoning"),
 
     ("phi-4-reasoning-plus", "aime_2025", 77.7, "https://huggingface.co/microsoft/Phi-4-reasoning-plus"),
     ("phi-4-reasoning-plus", "gpqa_diamond", 69.3, "https://www.gocodeo.com/post/phi-4-reasoning-models/"),
@@ -976,7 +976,7 @@ DATA = [
     ("grok-4", "humaneval", 88.0, "https://automatio.ai/models/grok-4"),
     ("grok-4", "simpleqa", 48.0, "https://automatio.ai/models/grok-4"),
     ("grok-4", "ifeval", 89.2, "https://automatio.ai/models/grok-4"),
-    ("grok-4", "mmmu", 76.5, "https://automatio.ai/models/grok-4"),
+    ("grok-4", "mmmu", 75.0, "https://automatio.ai/models/grok-4"),
     ("grok-4", "mmmu_pro", 59.2, "https://automatio.ai/models/grok-4"),
     ("grok-4", "codeforces_rating", 2708, "https://x.ai/news/grok-4"),
     ("grok-4", "chatbot_arena_elo", 1465, "https://lmarena.ai/"),
@@ -1237,7 +1237,7 @@ DATA = [
     ("gemini-3.1-pro", "arc_agi_1", 90.0, "https://techcrunch.com/2026/02/19/googles-new-gemini-pro-model-has-record-benchmark-scores-again/"),
     ("claude-opus-4.6", "arc_agi_1", 94.0, "https://arcprize.org/arc-agi/1/"),
     ("o3-high", "arc_agi_1", 75.7, "https://arcprize.org/blog/oai-o3-pub-breakthrough"),
-    ("grok-4", "arc_agi_1", 66.6, "https://the-decoder.com/grok-4-edges-out-gpt-5-in-complex-reasoning-benchmark-arc-agi/"),
+    ("grok-4", "arc_agi_1", 66.6, "https://x.ai/news/grok-4"),
     ("gpt-5", "arc_agi_1", 65.7, "https://x.com/arcprize/status/1953508813182767321"),
     ("deepseek-r1", "arc_agi_1", 15.0, "https://arcprize.org/blog/r1-zero-r1-results-analysis"),
     ("kimi-k2-thinking", "arc_agi_1", 12.0, "https://moonshotai.github.io/Kimi-K2/thinking.html"),
@@ -1258,7 +1258,8 @@ DATA = [
     ("gemini-3-flash", "browsecomp", 75.0, "https://www.vellum.ai/blog/google-gemini-3-benchmarks"),
     ("glm-4.7", "browsecomp", 65.0, "https://medium.com/@leucopsis/a-technical-analysis-of-glm-4-7"),
     ("gpt-5.1", "browsecomp", 60.0, "https://www.vellum.ai/blog/gpt-5-2-benchmarks"),
-    ("o4-mini-high", "browsecomp", 45.0, "https://www.helicone.ai/blog/o3-and-o4-mini-for-developers"),
+    # REMOVED: moved to unverified_cells.py (source shows 28.3 for o4-mini, 49.7 for o3)
+    # ("o4-mini-high", "browsecomp", 45.0, "https://www.helicone.ai/blog/o3-and-o4-mini-for-developers"),
 
     # --- chatbot_arena_elo ---
     ("gpt-5", "chatbot_arena_elo", 1460, "https://lmarena.ai/"),
@@ -1283,7 +1284,7 @@ DATA = [
     ("gemini-3-flash", "frontiermath", 30.0, "https://epoch.ai/benchmarks/frontiermath"),
     ("glm-4.7", "frontiermath", 20.0, "https://epoch.ai/benchmarks/frontiermath"),
     ("claude-opus-4.1", "frontiermath", 15.0, "https://epoch.ai/benchmarks/frontiermath"),
-    ("grok-4", "frontiermath", 15.0, "https://epoch.ai/benchmarks/frontiermath"),
+    ("grok-4", "frontiermath", 13.0, "https://epoch.ai/blog/grok-4-math"),
     ("claude-opus-4", "frontiermath", 10.0, "https://epoch.ai/benchmarks/frontiermath"),
     ("deepseek-r1-0528", "frontiermath", 10.0, "https://epoch.ai/benchmarks/frontiermath"),
     ("deepseek-v3.2", "frontiermath", 8.0, "https://epoch.ai/benchmarks/frontiermath"),
@@ -1306,8 +1307,10 @@ DATA = [
     # --- gsm8k ---
     ("gpt-5.3-codex", "gsm8k", 99.0, "https://automatio.ai/models/gpt-5-3-codex"),
     ("deepseek-r1", "gsm8k", 97.3, "https://arxiv.org/html/2501.12948v1"),
-    ("gpt-5", "gsm8k", 96.8, "https://llm-stats.com/benchmarks"),
-    ("phi-4", "gsm8k", 95.3, "https://arxiv.org/html/2412.08905v1"),
+    # REMOVED: moved to unverified_cells.py (OpenAI doesn't report GSM8K for GPT-5)
+    # ("gpt-5", "gsm8k", 96.8, "https://llm-stats.com/benchmarks"),
+    # REMOVED: moved to unverified_cells.py (cited paper reports MGSM, not GSM8K)
+    # ("phi-4", "gsm8k", 95.3, "https://arxiv.org/html/2412.08905v1"),
     ("qwen3-235b", "gsm8k", 94.39, "https://arxiv.org/abs/2505.09388"),
     ("qwen3-32b", "gsm8k", 93.4, "https://arxiv.org/abs/2505.09388"),
     ("qwen3-14b", "gsm8k", 92.49, "https://arxiv.org/abs/2505.09388"),
@@ -1399,7 +1402,7 @@ DATA = [
     ("llama-4-behemoth", "ifeval", 86.0, "https://www.datacamp.com/blog/llama-4"),
     ("mistral-medium-3", "ifeval", 86.0, "https://apidog.com/blog/mistral-medium-3/"),
     ("mistral-large-3", "ifeval", 86.0, "https://intuitionlabs.ai/articles/mistral-large-3-moe-llm-explained"),
-    ("seed-thinking-v1.5", "ifeval", 85.0, "https://github.com/ByteDance-Seed/Seed-Thinking-v1.5"),
+    ("seed-thinking-v1.5", "ifeval", 87.4, "https://github.com/ByteDance-Seed/Seed-Thinking-v1.5"),
     ("gpt-oss-20b", "ifeval", 85.0, "https://arxiv.org/abs/2508.10925"),
     ("gemini-2.5-flash", "ifeval", 84.3, "https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507"),
     ("llama-4-maverick", "ifeval", 84.0, "https://ai.meta.com/blog/llama-4-multimodal-intelligence/"),
@@ -1407,13 +1410,15 @@ DATA = [
     ("amazon-nova-premier", "ifeval", 82.0, "https://aws.amazon.com/blogs/aws/amazon-nova-premier/"),
     ("deepseek-v3-0324", "ifeval", 81.1, "https://arxiv.org/abs/2507.20534"),
     ("llama-4-scout", "ifeval", 81.0, "https://ai.meta.com/blog/llama-4-multimodal-intelligence/"),
-    ("deepseek-r1-distill-llama-70b", "ifeval", 81.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
+    # REMOVED: moved to unverified_cells.py (source doesn't report IFEval for distill models)
+    # ("deepseek-r1-distill-llama-70b", "ifeval", 81.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
     ("qwq-32b", "ifeval", 80.0, "https://qwenlm.github.io/blog/qwq-32b/"),
     ("gemini-2.0-flash", "ifeval", 80.0, "https://www.helicone.ai/blog/gemini-2.0-flash"),
     ("amazon-nova-pro", "ifeval", 80.0, "https://arxiv.org/html/2506.12103v1"),
     ("qwen3-8b", "ifeval", 80.0, "https://arxiv.org/abs/2505.09388"),
     ("deepseek-r1-0528", "ifeval", 79.1, "https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507"),
-    ("deepseek-r1-distill-qwen-32b", "ifeval", 79.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
+    # REMOVED: moved to unverified_cells.py (source doesn't report IFEval for distill models)
+    # ("deepseek-r1-distill-qwen-32b", "ifeval", 79.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
     ("gpt-4.1-nano", "ifeval", 75.0, "https://www.datacamp.com/blog/gpt-4-1"),
     ("olmo-2-13b", "ifeval", 68.0, "https://allenai.org/blog/olmo2"),
 
@@ -1492,7 +1497,8 @@ DATA = [
     ("gpt-4.1-mini", "mmlu", 86.0, "https://openai.com/index/gpt-4-1/"),
     ("mistral-large-3", "mmlu", 85.5, "https://medium.com/@leucopsis/mistral-large-3-2512-review-7788c779a5e4"),
     ("gemini-2.5-flash", "mmlu", 85.0, "https://deepmind.google/technologies/gemini/flash/"),
-    ("deepseek-r1-distill-qwen-32b", "mmlu", 85.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
+    # REMOVED: moved to unverified_cells.py (source doesn't report MMLU for distill models)
+    # ("deepseek-r1-distill-qwen-32b", "mmlu", 85.0, "https://github.com/deepseek-ai/DeepSeek-R1"),
     ("exaone-4.0-32b", "mmlu", 84.0, "https://arxiv.org/html/2507.11407v1"),
     ("qwen3-32b", "mmlu", 83.61, "https://arxiv.org/abs/2505.09388"),
     ("qwen3-30b-a3b", "mmlu", 81.38, "https://arxiv.org/abs/2505.09388"),
@@ -1516,7 +1522,7 @@ DATA = [
     ("gpt-4.1", "mmlu_pro", 81.8, "https://arxiv.org/abs/2507.20534"),
     ("gemini-2.5-flash", "mmlu_pro", 81.1, "https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507"),
     ("qwen3-30b-a3b", "mmlu_pro", 80.9, "https://huggingface.co/Qwen/Qwen3-30B-A3B-Thinking-2507"),
-    ("seed-thinking-v1.5", "mmlu_pro", 80.0, "https://github.com/ByteDance-Seed/Seed-Thinking-v1.5"),
+    ("seed-thinking-v1.5", "mmlu_pro", 87.0, "https://github.com/ByteDance-Seed/Seed-Thinking-v1.5"),
     ("glm-4.6", "mmlu_pro", 80.0, "https://llm-stats.com/models/glm-4.6"),
     ("o3-mini-high", "mmlu_pro", 80.0, "https://github.com/openai/simple-evals"),
     ("claude-sonnet-4.6", "mmlu_pro", 80.0, "https://www.anthropic.com/news/claude-sonnet-4-6"),
@@ -1620,7 +1626,8 @@ DATA = [
 
 
 
-    # ── Auto-merged from extra_scores (v3): 404 entries ──
+
+    # ── Auto-merged from extra_scores (v3): 402 entries ──
     ("claude-3.7-sonnet", "arc_agi_1", 28.6, "https://arcprize.org/arc-agi/1/"),
     ("claude-3.7-sonnet", "brumo_2025", 65.83, "https://matharena.ai/"),
     ("claude-3.7-sonnet", "codeforces_rating", 1640, "https://automatio.ai/models/claude-3-7-sonnet"),
@@ -1682,7 +1689,7 @@ DATA = [
     ("claude-sonnet-4.6", "mmmu_pro", 74.5, "https://www.anthropic.com/news/claude-sonnet-4-6"),
     ("claude-sonnet-4.6", "mrcr_v2", 82, "https://awesomeagents.ai/leaderboards/long-context-benchmarks-leaderboard/"),
     ("claude-sonnet-4.6", "swe_bench_pro", 48.2, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
-    ("claude-sonnet-4.6", "terminal_bench", 58.2, "https://www.nxcode.io/resources/news/claude-sonnet-4-6-complete-guide-benchmarks-pricing-2026"),
+    ("claude-sonnet-4.6", "terminal_bench", 59.1, "https://www.anthropic.com/research/claude-sonnet-4-6-system-card"),
     ("command-a", "aime_2024", 30, "https://www.vellum.ai/llm-leaderboard"),
     ("command-a", "bigcodebench", 33.8, "https://bigcode-bench.github.io/"),
     ("command-a", "simpleqa", 32, "https://www.vellum.ai/llm-leaderboard"),
@@ -1781,7 +1788,7 @@ DATA = [
     ("gemini-3-flash", "cmimc_2025", 90.62, "https://matharena.ai/"),
     ("gemini-3-flash", "codeforces_rating", 2100, "https://medium.com/@leucopsis/gemini-3-flash-preliminary-review-34e7420e3be7"),
     ("gemini-3-flash", "hmmt_nov_2025", 93.33, "https://matharena.ai/"),
-    ("gemini-3-flash", "ifeval", 89.5, "https://automatio.ai/models/gemini-3-flash"),
+    ("gemini-3-flash", "ifeval", 88.2, "https://automatio.ai/models/gemini-3-flash"),
     ("gemini-3-flash", "livebench", 72.4, "https://livebench.ai/"),
     ("gemini-3-flash", "matharena_apex_2025", 15.62, "https://matharena.ai/"),
     ("gemini-3-flash", "smt_2025", 92.92, "https://matharena.ai/"),
@@ -1812,10 +1819,8 @@ DATA = [
     ("glm-4.6", "humaneval", 82, "https://llm-stats.com/models/glm-4.7"),
     ("glm-4.6", "ifeval", 82, "https://llm-stats.com/models/glm-4.7"),
     ("glm-4.6", "mmlu", 85, "https://llm-stats.com/models/glm-4.7"),
-    ("glm-4.7", "humaneval", 88, "https://llm-stats.com/models/glm-4.7"),
-    ("glm-4.7", "ifeval", 85.5, "https://llm-stats.com/models/glm-4.7"),
     ("glm-4.7", "livebench", 58.1, "https://livebench.ai/"),
-    ("glm-4.7", "mmlu", 88, "https://llm-stats.com/models/glm-4.7"),
+    ("glm-4.7", "mmlu", 90.1, "https://huggingface.co/zai-org/GLM-4.7"),
     ("glm-4.7", "simpleqa", 32, "https://llm-stats.com/models/glm-4.7"),
     ("gpt-4.1", "arc_agi_1", 5.5, "https://arcprize.org/arc-agi/1/"),
     ("gpt-4.1", "arc_agi_2", 0.4, "https://arcprize.org/arc-agi/2/"),
