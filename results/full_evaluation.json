@@ -1,0 +1,1063 @@
+{
+  "benchpress": {
+    "label": "BenchPress (0.6\u00d7LogitBenchReg + 0.4\u00d7SVD-Logit r=2)",
+    "pooled": {
+      "MedAPE": 7.4073,
+      "MedianAE": 4.8745,
+      "MeanAE": 16.0583,
+      "Within_3": 35.95,
+      "Within_5": 50.9,
+      "N": 5794
+    },
+    "per_seed": [
+      {
+        "seed": 42,
+        "MedAPE": 7.2476,
+        "MedianAE": 4.7268,
+        "N": 1935
+      },
+      {
+        "seed": 43,
+        "MedAPE": 7.26,
+        "MedianAE": 4.845,
+        "N": 1926
+      },
+      {
+        "seed": 44,
+        "MedAPE": 7.6861,
+        "MedianAE": 4.9936,
+        "N": 1933
+      }
+    ]
+  },
+  "svd_raw": {
+    "rank_1": {
+      "label": "SVD raw rank=1",
+      "MedAPE": 9.8369,
+      "MedianAE": 7.1077,
+      "MeanAE": 19.9069,
+      "Within_3": 24.81,
+      "Within_5": 38.29,
+      "Within_10": 62.79,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_2": {
+      "label": "SVD raw rank=2",
+      "MedAPE": 8.8746,
+      "MedianAE": 6.1528,
+      "MeanAE": 18.1691,
+      "Within_3": 28.79,
+      "Within_5": 43.05,
+      "Within_10": 67.29,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_3": {
+      "label": "SVD raw rank=3",
+      "MedAPE": 9.7403,
+      "MedianAE": 6.9814,
+      "MeanAE": 19.2515,
+      "Within_3": 24.91,
+      "Within_5": 38.76,
+      "Within_10": 62.38,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_5": {
+      "label": "SVD raw rank=5",
+      "MedAPE": 11.264,
+      "MedianAE": 7.7848,
+      "MeanAE": 22.4495,
+      "Within_3": 22.64,
+      "Within_5": 34.78,
+      "Within_10": 58.76,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_8": {
+      "label": "SVD raw rank=8",
+      "MedAPE": 13.4041,
+      "MedianAE": 9.438,
+      "MeanAE": 29.0552,
+      "Within_3": 18.76,
+      "Within_5": 30.23,
+      "Within_10": 51.89,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    }
+  },
+  "svd_logit": {
+    "rank_1": {
+      "label": "SVD-Logit rank=1",
+      "MedAPE": 8.2973,
+      "MedianAE": 5.9243,
+      "MeanAE": 17.7488,
+      "Within_3": 30.85,
+      "Within_5": 45.53,
+      "Within_10": 67.49,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_2": {
+      "label": "SVD-Logit rank=2",
+      "MedAPE": 7.9005,
+      "MedianAE": 5.2823,
+      "MeanAE": 17.4222,
+      "Within_3": 33.33,
+      "Within_5": 48.42,
+      "Within_10": 69.2,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_3": {
+      "label": "SVD-Logit rank=3",
+      "MedAPE": 8.5091,
+      "MedianAE": 5.7945,
+      "MeanAE": 18.8724,
+      "Within_3": 31.42,
+      "Within_5": 45.27,
+      "Within_10": 67.39,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_5": {
+      "label": "SVD-Logit rank=5",
+      "MedAPE": 10.4704,
+      "MedianAE": 6.9233,
+      "MeanAE": 21.8921,
+      "Within_3": 27.91,
+      "Within_5": 39.59,
+      "Within_10": 61.91,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "rank_8": {
+      "label": "SVD-Logit rank=8",
+      "MedAPE": 12.5919,
+      "MedianAE": 8.3637,
+      "MeanAE": 26.7304,
+      "Within_3": 22.48,
+      "Within_5": 33.9,
+      "Within_10": 55.35,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    }
+  },
+  "logit_benchreg": {
+    "label": "LogitBenchReg only",
+    "MedAPE": 6.8779,
+    "MedianAE": 4.8714,
+    "MeanAE": 19.7494,
+    "Within_3": 35.96,
+    "Within_5": 50.52,
+    "Within_10": 70.29,
+    "Coverage": 78.87,
+    "N": 1538,
+    "N_missing": 412
+  },
+  "blend_sweep": {
+    "alpha_00": {
+      "label": "Blend alpha=0.0",
+      "MedAPE": 7.9005,
+      "MedianAE": 5.2823,
+      "MeanAE": 17.4222,
+      "Within_3": 33.33,
+      "Within_5": 48.42,
+      "Within_10": 69.2,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_01": {
+      "label": "Blend alpha=0.1",
+      "MedAPE": 7.8402,
+      "MedianAE": 5.2257,
+      "MeanAE": 17.0583,
+      "Within_3": 34.11,
+      "Within_5": 49.04,
+      "Within_10": 69.82,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_02": {
+      "label": "Blend alpha=0.2",
+      "MedAPE": 7.7546,
+      "MedianAE": 5.1364,
+      "MeanAE": 16.7823,
+      "Within_3": 34.32,
+      "Within_5": 49.25,
+      "Within_10": 70.44,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_03": {
+      "label": "Blend alpha=0.3",
+      "MedAPE": 7.4132,
+      "MedianAE": 4.9473,
+      "MeanAE": 16.5506,
+      "Within_3": 35.25,
+      "Within_5": 50.18,
+      "Within_10": 70.9,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_04": {
+      "label": "Blend alpha=0.4",
+      "MedAPE": 7.4127,
+      "MedianAE": 4.9591,
+      "MeanAE": 16.3859,
+      "Within_3": 34.94,
+      "Within_5": 50.23,
+      "Within_10": 70.85,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_05": {
+      "label": "Blend alpha=0.5",
+      "MedAPE": 7.223,
+      "MedianAE": 4.8238,
+      "MeanAE": 16.2606,
+      "Within_3": 36.02,
+      "Within_5": 50.8,
+      "Within_10": 71.11,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_06": {
+      "label": "Blend alpha=0.6",
+      "MedAPE": 7.2476,
+      "MedianAE": 4.7268,
+      "MeanAE": 16.2374,
+      "Within_3": 36.23,
+      "Within_5": 51.47,
+      "Within_10": 70.85,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_07": {
+      "label": "Blend alpha=0.7",
+      "MedAPE": 7.5261,
+      "MedianAE": 4.7363,
+      "MeanAE": 16.3912,
+      "Within_3": 36.23,
+      "Within_5": 51.89,
+      "Within_10": 70.44,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_08": {
+      "label": "Blend alpha=0.8",
+      "MedAPE": 7.5094,
+      "MedianAE": 4.7535,
+      "MeanAE": 16.6209,
+      "Within_3": 35.81,
+      "Within_5": 51.37,
+      "Within_10": 70.54,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_09": {
+      "label": "Blend alpha=0.9",
+      "MedAPE": 7.4304,
+      "MedianAE": 4.7885,
+      "MeanAE": 16.9791,
+      "Within_3": 35.4,
+      "Within_5": 51.78,
+      "Within_10": 69.92,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "alpha_10": {
+      "label": "Blend alpha=1.0",
+      "MedAPE": 7.6849,
+      "MedianAE": 5.0001,
+      "MeanAE": 17.4757,
+      "Within_3": 34.78,
+      "Within_5": 49.97,
+      "Within_10": 70.18,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    }
+  },
+  "hiding_fractions": {
+    "hide_10": {
+      "label": "BenchPress hide=10%",
+      "MedAPE": 6.7776,
+      "MedianAE": 4.449,
+      "MeanAE": 14.8535,
+      "Within_3": 39.33,
+      "Within_5": 54.88,
+      "Within_10": 75.61,
+      "Coverage": 99.39,
+      "N": 328,
+      "N_missing": 2
+    },
+    "hide_20": {
+      "label": "BenchPress hide=20%",
+      "MedAPE": 6.4121,
+      "MedianAE": 4.3095,
+      "MeanAE": 13.1308,
+      "Within_3": 40.2,
+      "Within_5": 56.11,
+      "Within_10": 78.12,
+      "Coverage": 99.86,
+      "N": 704,
+      "N_missing": 1
+    },
+    "hide_30": {
+      "label": "BenchPress hide=30%",
+      "MedAPE": 5.7538,
+      "MedianAE": 3.9089,
+      "MeanAE": 13.1659,
+      "Within_3": 41.44,
+      "Within_5": 56.98,
+      "Within_10": 75.58,
+      "Coverage": 99.27,
+      "N": 1081,
+      "N_missing": 8
+    },
+    "hide_40": {
+      "label": "BenchPress hide=40%",
+      "MedAPE": 6.0932,
+      "MedianAE": 4.2952,
+      "MeanAE": 13.9671,
+      "Within_3": 40.11,
+      "Within_5": 55.31,
+      "Within_10": 75.23,
+      "Coverage": 99.21,
+      "N": 1506,
+      "N_missing": 12
+    },
+    "hide_50": {
+      "label": "BenchPress hide=50%",
+      "MedAPE": 7.2476,
+      "MedianAE": 4.7268,
+      "MeanAE": 16.2374,
+      "Within_3": 36.23,
+      "Within_5": 51.47,
+      "Within_10": 70.85,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    }
+  },
+  "components_by_fraction": {
+    "benchpress": {
+      "hide_10": {
+        "label": "benchpress hide=10%",
+        "MedAPE": 6.7776,
+        "MedianAE": 4.449,
+        "MeanAE": 14.8535,
+        "Within_3": 39.33,
+        "Within_5": 54.88,
+        "Within_10": 75.61,
+        "Coverage": 99.39,
+        "N": 328,
+        "N_missing": 2
+      },
+      "hide_20": {
+        "label": "benchpress hide=20%",
+        "MedAPE": 6.4121,
+        "MedianAE": 4.3095,
+        "MeanAE": 13.1308,
+        "Within_3": 40.2,
+        "Within_5": 56.11,
+        "Within_10": 78.12,
+        "Coverage": 99.86,
+        "N": 704,
+        "N_missing": 1
+      },
+      "hide_30": {
+        "label": "benchpress hide=30%",
+        "MedAPE": 5.7538,
+        "MedianAE": 3.9089,
+        "MeanAE": 13.1659,
+        "Within_3": 41.44,
+        "Within_5": 56.98,
+        "Within_10": 75.58,
+        "Coverage": 99.27,
+        "N": 1081,
+        "N_missing": 8
+      },
+      "hide_40": {
+        "label": "benchpress hide=40%",
+        "MedAPE": 6.0932,
+        "MedianAE": 4.2952,
+        "MeanAE": 13.9671,
+        "Within_3": 40.11,
+        "Within_5": 55.31,
+        "Within_10": 75.23,
+        "Coverage": 99.21,
+        "N": 1506,
+        "N_missing": 12
+      },
+      "hide_50": {
+        "label": "benchpress hide=50%",
+        "MedAPE": 7.2476,
+        "MedianAE": 4.7268,
+        "MeanAE": 16.2374,
+        "Within_3": 36.23,
+        "Within_5": 51.47,
+        "Within_10": 70.85,
+        "Coverage": 99.23,
+        "N": 1935,
+        "N_missing": 15
+      }
+    },
+    "svd_logit_r2": {
+      "hide_10": {
+        "label": "svd_logit_r2 hide=10%",
+        "MedAPE": 6.9668,
+        "MedianAE": 5.01,
+        "MeanAE": 16.1913,
+        "Within_3": 35.06,
+        "Within_5": 50.0,
+        "Within_10": 72.87,
+        "Coverage": 99.39,
+        "N": 328,
+        "N_missing": 2
+      },
+      "hide_20": {
+        "label": "svd_logit_r2 hide=20%",
+        "MedAPE": 6.6103,
+        "MedianAE": 4.3772,
+        "MeanAE": 13.1529,
+        "Within_3": 38.78,
+        "Within_5": 54.26,
+        "Within_10": 76.7,
+        "Coverage": 99.86,
+        "N": 704,
+        "N_missing": 1
+      },
+      "hide_30": {
+        "label": "svd_logit_r2 hide=30%",
+        "MedAPE": 6.3667,
+        "MedianAE": 4.1548,
+        "MeanAE": 13.6769,
+        "Within_3": 38.67,
+        "Within_5": 56.15,
+        "Within_10": 74.75,
+        "Coverage": 99.27,
+        "N": 1081,
+        "N_missing": 8
+      },
+      "hide_40": {
+        "label": "svd_logit_r2 hide=40%",
+        "MedAPE": 7.3876,
+        "MedianAE": 4.7107,
+        "MeanAE": 14.2833,
+        "Within_3": 37.58,
+        "Within_5": 51.46,
+        "Within_10": 73.51,
+        "Coverage": 99.21,
+        "N": 1506,
+        "N_missing": 12
+      },
+      "hide_50": {
+        "label": "svd_logit_r2 hide=50%",
+        "MedAPE": 7.9005,
+        "MedianAE": 5.2823,
+        "MeanAE": 17.4222,
+        "Within_3": 33.33,
+        "Within_5": 48.42,
+        "Within_10": 69.2,
+        "Coverage": 99.23,
+        "N": 1935,
+        "N_missing": 15
+      }
+    },
+    "logit_benchreg": {
+      "hide_10": {
+        "label": "logit_benchreg hide=10%",
+        "MedAPE": 6.0328,
+        "MedianAE": 4.1839,
+        "MeanAE": 15.6176,
+        "Within_3": 41.04,
+        "Within_5": 56.35,
+        "Within_10": 77.2,
+        "Coverage": 93.03,
+        "N": 307,
+        "N_missing": 23
+      },
+      "hide_20": {
+        "label": "logit_benchreg hide=20%",
+        "MedAPE": 6.3709,
+        "MedianAE": 4.0174,
+        "MeanAE": 14.578,
+        "Within_3": 41.24,
+        "Within_5": 56.69,
+        "Within_10": 77.55,
+        "Coverage": 89.08,
+        "N": 628,
+        "N_missing": 77
+      },
+      "hide_30": {
+        "label": "logit_benchreg hide=30%",
+        "MedAPE": 5.4778,
+        "MedianAE": 3.7276,
+        "MeanAE": 14.5749,
+        "Within_3": 42.72,
+        "Within_5": 58.85,
+        "Within_10": 77.38,
+        "Coverage": 87.7,
+        "N": 955,
+        "N_missing": 134
+      },
+      "hide_40": {
+        "label": "logit_benchreg hide=40%",
+        "MedAPE": 5.8188,
+        "MedianAE": 4.1392,
+        "MeanAE": 16.0477,
+        "Within_3": 40.23,
+        "Within_5": 55.49,
+        "Within_10": 75.8,
+        "Coverage": 84.65,
+        "N": 1285,
+        "N_missing": 233
+      },
+      "hide_50": {
+        "label": "logit_benchreg hide=50%",
+        "MedAPE": 6.8779,
+        "MedianAE": 4.8714,
+        "MeanAE": 19.7494,
+        "Within_3": 35.96,
+        "Within_5": 50.52,
+        "Within_10": 70.29,
+        "Coverage": 78.87,
+        "N": 1538,
+        "N_missing": 412
+      }
+    },
+    "column_mean": {
+      "hide_10": {
+        "label": "column_mean hide=10%",
+        "MedAPE": 14.7424,
+        "MedianAE": 10.2082,
+        "MeanAE": 27.203,
+        "Within_3": 15.85,
+        "Within_5": 28.96,
+        "Within_10": 49.7,
+        "Coverage": 99.39,
+        "N": 328,
+        "N_missing": 2
+      },
+      "hide_20": {
+        "label": "column_mean hide=20%",
+        "MedAPE": 13.225,
+        "MedianAE": 9.2251,
+        "MeanAE": 26.8807,
+        "Within_3": 17.47,
+        "Within_5": 28.98,
+        "Within_10": 52.84,
+        "Coverage": 99.86,
+        "N": 704,
+        "N_missing": 1
+      },
+      "hide_30": {
+        "label": "column_mean hide=30%",
+        "MedAPE": 14.1403,
+        "MedianAE": 9.488,
+        "MeanAE": 25.6831,
+        "Within_3": 14.52,
+        "Within_5": 25.72,
+        "Within_10": 51.62,
+        "Coverage": 99.27,
+        "N": 1081,
+        "N_missing": 8
+      },
+      "hide_40": {
+        "label": "column_mean hide=40%",
+        "MedAPE": 13.4469,
+        "MedianAE": 9.5702,
+        "MeanAE": 27.1062,
+        "Within_3": 15.8,
+        "Within_5": 27.29,
+        "Within_10": 51.53,
+        "Coverage": 99.21,
+        "N": 1506,
+        "N_missing": 12
+      },
+      "hide_50": {
+        "label": "column_mean hide=50%",
+        "MedAPE": 13.8394,
+        "MedianAE": 9.5333,
+        "MeanAE": 29.3961,
+        "Within_3": 16.38,
+        "Within_5": 27.24,
+        "Within_10": 52.09,
+        "Coverage": 99.23,
+        "N": 1935,
+        "N_missing": 15
+      }
+    }
+  },
+  "baselines": {
+    "B0_column_mean": {
+      "label": "Column Mean",
+      "MedAPE": 13.8394,
+      "MedianAE": 9.5333,
+      "MeanAE": 29.3961,
+      "Within_3": 16.38,
+      "Within_5": 27.24,
+      "Within_10": 52.09,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "B1_model_normalized": {
+      "label": "Model-Normalized",
+      "MedAPE": 10.1838,
+      "MedianAE": 7.3456,
+      "MeanAE": 22.0871,
+      "Within_3": 22.79,
+      "Within_5": 36.12,
+      "Within_10": 60.21,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "B2_knn": {
+      "label": "KNN k=5",
+      "MedAPE": 9.8864,
+      "MedianAE": 6.9587,
+      "MeanAE": 22.9971,
+      "Within_3": 26.98,
+      "Within_5": 40.26,
+      "Within_10": 61.45,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    },
+    "B3_bench_knn": {
+      "label": "Bench-KNN k=5",
+      "MedAPE": 9.0005,
+      "MedianAE": 6.5463,
+      "MeanAE": 18.9289,
+      "Within_3": 25.79,
+      "Within_5": 41.14,
+      "Within_10": 63.93,
+      "Coverage": 99.23,
+      "N": 1935,
+      "N_missing": 15
+    }
+  },
+  "claude_predictions": {
+    "claude_eval": {
+      "holdout": {
+        "claude": {
+          "medape": 6.077348066298343,
+          "mae": 12.288618181818181,
+          "within3": 41.45454545454545,
+          "within5": 56.36363636363636,
+          "medape_hi": 4.444444444444445,
+          "medape_lo": 19.375,
+          "bimodal_acc": 92.85714285714286,
+          "bimodal_n": 14,
+          "coverage": 100.0,
+          "n": 275,
+          "time": 372.73040103912354,
+          "tokens": {
+            "input_tokens": 100796,
+            "output_tokens": 36971
+          },
+          "est_cost": 0.856953
+        },
+        "baselines": {
+          "Benchmark Mean": {
+            "medape": 11.911709967989314,
+            "mae": 19.77211879485596,
+            "within3": 12.727272727272727,
+            "within5": 25.454545454545453,
+            "medape_hi": 8.802646916836414,
+            "medape_lo": 46.15962753227397,
+            "bimodal_acc": 42.857142857142854,
+            "bimodal_n": 14,
+            "coverage": 100.0,
+            "n": 275
+          },
+          "BenchReg": {
+            "medape": 6.3517155442449456,
+            "mae": 12.91732385727715,
+            "within3": 37.66233766233766,
+            "within5": 51.515151515151516,
+            "medape_hi": 4.043595377350914,
+            "medape_lo": 21.079849610069378,
+            "bimodal_acc": 100.0,
+            "bimodal_n": 9,
+            "coverage": 84.0,
+            "n": 231
+          },
+          "LogitSVD Blend": {
+            "medape": 5.811193822000726,
+            "mae": 11.070695772239207,
+            "within3": 40.72727272727273,
+            "within5": 58.18181818181818,
+            "medape_hi": 4.459008138267226,
+            "medape_lo": 23.24468390447113,
+            "bimodal_acc": 78.57142857142857,
+            "bimodal_n": 14,
+            "coverage": 100.0,
+            "n": 275
+          }
+        }
+      },
+      "model": "claude-sonnet-4-5-20250929"
+    },
+    "claude_comparison": {
+      "holdout": {
+        "seed": 42,
+        "frac": 0.2,
+        "n_cells": 275
+      },
+      "post_audit": {
+        "LogitSVD Blend": {
+          "medape": 5.811193822000726,
+          "mae": 11.070695772239207,
+          "within3": 40.72727272727273,
+          "within5": 58.18181818181818,
+          "medape_hi": 4.459008138267226,
+          "medape_lo": 23.24468390447113,
+          "bimodal_acc": 78.57142857142857,
+          "bimodal_n": 14,
+          "coverage": 100.0,
+          "n": 275
+        },
+        "BenchReg": {
+          "medape": 6.3517155442449456,
+          "mae": 12.91732385727715,
+          "within3": 37.66233766233766,
+          "within5": 51.515151515151516,
+          "medape_hi": 4.043595377350914,
+          "medape_lo": 21.079849610069378,
+          "bimodal_acc": 100.0,
+          "bimodal_n": 9,
+          "coverage": 84.0,
+          "n": 231
+        }
+      },
+      "pre_audit_claude": {
+        "full_matrix": {
+          "medape": 5.333008315051055,
+          "mae": 17.510688405797104,
+          "within3": 48.91304347826087,
+          "within5": 62.31884057971014,
+          "medape_hi": 3.3018867924528266,
+          "medape_lo": 24.0,
+          "bimodal_acc": 89.47368421052632,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        },
+        "row_only": {
+          "medape": 6.579883687328419,
+          "mae": 21.616847826086957,
+          "within3": 40.94202898550724,
+          "within5": 54.710144927536234,
+          "medape_hi": 4.060913705583756,
+          "medape_lo": 20.0,
+          "bimodal_acc": 78.94736842105263,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        }
+      },
+      "note": "Claude predictions are from pre-audit matrix. Statistical methods re-run on post-audit matrix."
+    },
+    "claude_analysis": {
+      "model": "claude-sonnet-4-5-20250929",
+      "holdout": {
+        "seed": 42,
+        "frac": 0.2,
+        "n_cells": 276,
+        "n_pct": 256,
+        "n_nonpct": 20
+      },
+      "full_matrix": {
+        "all": {
+          "medape": 5.333008315051055,
+          "mae": 17.510688405797104,
+          "within3": 48.91304347826087,
+          "within5": 62.31884057971014,
+          "medape_hi": 3.3018867924528266,
+          "medape_lo": 24.0,
+          "bimodal_acc": 89.47368421052632,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        },
+        "tokens": {
+          "input_tokens": 98795,
+          "output_tokens": 36538
+        },
+        "cost": 0.844455,
+        "time": 367.8203179836273
+      },
+      "row_only": {
+        "all": {
+          "medape": 6.579883687328419,
+          "mae": 21.616847826086957,
+          "within3": 40.94202898550724,
+          "within5": 54.710144927536234,
+          "medape_hi": 4.060913705583756,
+          "medape_lo": 20.0,
+          "bimodal_acc": 78.94736842105263,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        },
+        "tokens": {
+          "input_tokens": 37372,
+          "output_tokens": 37165
+        },
+        "cost": 0.669591,
+        "time": 377.9153468608856
+      },
+      "baselines": {
+        "LogitSVD Blend": {
+          "medape": 5.835357446969605,
+          "mae": 18.361036486631377,
+          "within3": 42.028985507246375,
+          "within5": 57.2463768115942,
+          "medape_hi": 3.996009844134416,
+          "medape_lo": 22.562226446500794,
+          "bimodal_acc": 89.47368421052632,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        },
+        "BenchReg": {
+          "medape": 6.466280502771986,
+          "mae": 23.3020793535933,
+          "within3": 38.01652892561984,
+          "within5": 53.30578512396694,
+          "medape_hi": 4.7366883948981515,
+          "medape_lo": 25.556005643167186,
+          "bimodal_acc": 94.44444444444444,
+          "bimodal_n": 18,
+          "coverage": 87.68115942028986,
+          "n": 242
+        },
+        "Benchmark Mean": {
+          "medape": 12.303055947091014,
+          "mae": 33.429175714346,
+          "within3": 15.942028985507244,
+          "within5": 26.08695652173913,
+          "medape_hi": 8.624141876430203,
+          "medape_lo": 53.572190232458915,
+          "bimodal_acc": 68.42105263157895,
+          "bimodal_n": 19,
+          "coverage": 100.0,
+          "n": 276
+        }
+      }
+    },
+    "claude_vs_algorithm": {
+      "claude-sonnet-4.6": {
+        "0": {
+          "algo_mean": 10.483084970287642,
+          "algo_std": 0.0,
+          "claude_mean": 4.3500000000000005,
+          "claude_std": 0.9721111047611792
+        },
+        "1": {
+          "algo_mean": 4.298739279418761,
+          "algo_std": 0.0,
+          "claude_mean": 4.033333333333334,
+          "claude_std": 0.04714045207910384
+        },
+        "2": {
+          "algo_mean": 6.705541373699128,
+          "algo_std": 2.745142989963163,
+          "claude_mean": 4.033333333333334,
+          "claude_std": 1.8263503375736974
+        },
+        "3": {
+          "algo_mean": 7.357017440035565,
+          "algo_std": 3.154037173078686,
+          "claude_mean": 5.5,
+          "claude_std": 2.5495097567963922
+        },
+        "5": {
+          "algo_mean": 4.781614432102849,
+          "algo_std": 1.4372766401400057,
+          "claude_mean": 5.599999999999999,
+          "claude_std": 1.6990193249832883
+        },
+        "7": {
+          "algo_mean": 3.5846956413323503,
+          "algo_std": 0.6714245674528792,
+          "claude_mean": 4.599999999999999,
+          "claude_std": 1.4445299120013637
+        },
+        "10": {
+          "algo_mean": 3.571648993756915,
+          "algo_std": 0.3853278239176335,
+          "claude_mean": 4.449999999999999,
+          "claude_std": 0.5338539126015655
+        },
+        "15": {
+          "algo_mean": 3.7068883481173933,
+          "algo_std": 1.201734019269542,
+          "claude_mean": 5.5,
+          "claude_std": 0.7071067811865476
+        }
+      },
+      "gemini-3.1-pro": {
+        "0": {
+          "algo_mean": 16.82600931871293,
+          "algo_std": 0.0,
+          "claude_mean": 2.4666666666666637,
+          "claude_std": 0.5185449728701388
+        },
+        "1": {
+          "algo_mean": 12.01854634021874,
+          "algo_std": 5.371280739773602,
+          "claude_mean": 2.933333333333328,
+          "claude_std": 0.6236095644623235
+        },
+        "2": {
+          "algo_mean": 7.20923163789887,
+          "algo_std": 5.543347683814295,
+          "claude_mean": 3.1833333333333322,
+          "claude_std": 0.5328122454381916
+        },
+        "3": {
+          "algo_mean": 4.929095937346079,
+          "algo_std": 1.712790693523948,
+          "claude_mean": 3.6666666666666665,
+          "claude_std": 0.23570226039551584
+        },
+        "5": {
+          "algo_mean": 4.897011772832997,
+          "algo_std": 1.9126200824527122,
+          "claude_mean": 4.666666666666664,
+          "claude_std": 0.7930251502246903
+        },
+        "7": {
+          "algo_mean": 3.6817905830018467,
+          "algo_std": 1.0441018079665816,
+          "claude_mean": 4.933333333333327,
+          "claude_std": 1.9293061504650375
+        },
+        "10": {
+          "algo_mean": 2.725436338246897,
+          "algo_std": 0.24796601324199705,
+          "claude_mean": 4.199999999999998,
+          "claude_std": 0.7449832212875686
+        },
+        "15": {
+          "algo_mean": 2.3930612922587997,
+          "algo_std": 0.6150151602172899,
+          "claude_mean": 4.699999999999998,
+          "claude_std": 0.4242640687119312
+        }
+      }
+    },
+    "claude_opus_nothinking": {
+      "model": "claude-opus-4-6",
+      "mode": "row-only-nothinking",
+      "all": {
+        "medape": 7.727797001153405,
+        "mae": 23.07146666666667,
+        "within3": 39.55555555555556,
+        "within5": 48.888888888888886,
+        "medape_hi": 5.027932960893847,
+        "medape_lo": 29.12498562722778,
+        "bimodal_acc": 100.0,
+        "bimodal_n": 11,
+        "coverage": 81.52173913043478,
+        "n": 225
+      },
+      "pct_only": {
+        "medape": 7.6923076923076925,
+        "mae": 8.166255924170615,
+        "within3": 42.18009478672986,
+        "within5": 52.13270142180095,
+        "medape_hi": 4.166666666666666,
+        "medape_lo": 29.12498562722778,
+        "bimodal_acc": 100.0,
+        "bimodal_n": 11,
+        "coverage": 82.421875,
+        "n": 211
+      },
+      "tokens": {
+        "input": 37380,
+        "output": 37304
+      },
+      "cost": 3.3585,
+      "time": 355.96052598953247
+    },
+    "claude_opus_rowonly": {
+      "model": "claude-opus-4-6",
+      "mode": "row-only",
+      "all": {
+        "medape": 9.014675052410896,
+        "mae": 20.54030303030303,
+        "within3": 33.939393939393945,
+        "within5": 46.06060606060606,
+        "medape_hi": 5.496003208956713,
+        "medape_lo": 25.71428571428571,
+        "bimodal_acc": 88.88888888888889,
+        "bimodal_n": 9,
+        "coverage": 59.78260869565217,
+        "n": 165
+      },
+      "pct_only": {
+        "medape": 9.090909090909092,
+        "mae": 8.073355263157893,
+        "within3": 36.84210526315789,
+        "within5": 50.0,
+        "medape_hi": 5.482041587901699,
+        "medape_lo": 25.71428571428571,
+        "bimodal_acc": 88.88888888888889,
+        "bimodal_n": 9,
+        "coverage": 59.375,
+        "n": 152
+      },
+      "tokens": {
+        "input": 37516,
+        "output": 196375
+      },
+      "cost": 15.290865,
+      "time": 2551.9007959365845
+    }
+  },
+  "matrix_stats": {
+    "n_models": 83,
+    "n_benchmarks": 49,
+    "observed_cells": 1375,
+    "total_cells": 4067,
+    "fill_rate": 33.81,
+    "missing_cells": 2692
+  },
+  "meta": {
+    "timestamp": "2026-02-24 20:37:26",
+    "elapsed_seconds": 11.7,
+    "primary_metric": "MedAPE = median(|pred - actual| / |actual| \u00d7 100) over held-out cells",
+    "primary_holdout": "per-model leave-50%-out, 3 folds, seed=42",
+    "MedianAE_note": "MedianAE = median(|pred - actual|) in raw score points",
+    "MeanAE_note": "MeanAE = mean(|pred - actual|) \u2014 inflated by non-percentage benchmarks (Elo, Codeforces)",
+    "method_name": "BenchPress = 0.6 \u00d7 LogitBenchReg + 0.4 \u00d7 SVD-Logit(rank=2)"
+  }
+}

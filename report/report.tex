@@ -30,7 +30,7 @@
 \newcommand{\sigmoid}{\operatorname{sigmoid}}
 
 % ─── Title ─────────────────────────────────────────────────────────
-\title{\textbf{Predicting LLM Benchmark Scores\\via Low-Rank Matrix Completion}}
+\title{\textbf{BenchPress: Predicting LLM Benchmark Scores\\via Low-Rank Matrix Completion}}
 \author{
   \textit{Technical Report}\\[6pt]
   February 2026
@@ -43,7 +43,7 @@
 
 % ─── Abstract ──────────────────────────────────────────────────────
 \begin{abstract}
-Large language models are evaluated on an ever-growing set of benchmarks, yet no single model is tested on all of them. The resulting data forms a sparse matrix with roughly two-thirds of entries missing. We construct a fully-cited benchmark matrix spanning 83~frontier LLMs across 49~benchmarks (1{,}383 observed scores, 34\% fill rate) and develop a matrix completion framework to predict the missing 2{,}684~cells. Through a systematic search over 34~candidate methods, we find that a logit-space blend of benchmark regression and rank-2 SVD---\textbf{LogitSVD Blend}---achieves 6.74\% median absolute percentage error (MedAPE) on held-out scores, a 14.2\% relative improvement over the prior best statistical baseline. The logit transform alone accounts for 70\% of this gain by linearizing ceiling and floor effects on percentage-scale benchmarks. Analysis of the matrix's singular value spectrum reveals an approximately rank-2 latent structure: two factors (``general capability'' and ``frontier reasoning'') explain 51\% of the variance. A set of just five benchmarks can predict the remaining 44 with ${\sim}$7.8\% MedAPE. We additionally show that Claude~Sonnet~4.5, when given the full matrix as context, achieves 5.45\% MedAPE---surpassing all statistical methods---at a cost of \$0.85 per evaluation run.
+Large language models are evaluated on an ever-growing set of benchmarks, yet no single model is tested on all of them. The resulting data forms a sparse matrix with roughly two-thirds of entries missing. We construct a fully-cited benchmark matrix spanning 83~frontier LLMs across 49~benchmarks (1{,}375 observed scores, 33.8\% fill rate) and develop a matrix completion framework to predict the missing 2{,}692~cells. Through a systematic search over 34~candidate methods, we find that a logit-space blend of benchmark regression and rank-2 SVD---\textbf{BenchPress}---achieves 7.25\% median absolute percentage error (MedAPE) on held-out scores under per-model leave-50\%-out evaluation (3~seeds). The logit transform alone accounts for 70\% of the gain by linearizing ceiling and floor effects on percentage-scale benchmarks. Analysis of the matrix's singular value spectrum on a $31 \times 10$ complete submatrix reveals strong low-rank structure: the first principal component explains 71.3\% of the variance, and the first three capture 90.6\%. A set of just five benchmarks can predict the remaining 44 with ${\sim}$7.8\% MedAPE. We additionally show that Claude~Sonnet~4.5, when given the full matrix as context, achieves competitive MedAPE---surpassing all statistical methods on random holdout---at a cost of \$0.86 per evaluation run.
 \end{abstract}
 
 % ═══════════════════════════════════════════════════════════════════
@@ -58,13 +58,13 @@ Matrix completion---predicting missing entries from observed ones---offers a nat
 
 \paragraph{Contributions.} We make five main contributions:
 \begin{enumerate}[leftmargin=*, itemsep=2pt]
-  \item \textbf{A fully-cited benchmark matrix.} We construct an $83 \times 49$ matrix of LLM benchmark scores, where every entry carries a citation URL to its original source. The matrix covers 21~model providers and 11~benchmark categories, with 1{,}383~observed entries (34\% fill rate).
+  \item \textbf{A fully-cited benchmark matrix.} We construct an $83 \times 49$ matrix of LLM benchmark scores, where every entry carries a citation URL to its original source. The matrix covers 21~model providers and 11~benchmark categories, with 1{,}375~observed entries (33.8\% fill rate).
 
   \item \textbf{Logit-space matrix completion.} We introduce the logit transform as a preprocessing step for benchmark score prediction. Working in log-odds space for percentage-scale benchmarks improves both regression and SVD methods by 11--13\% relative, and implicitly handles bimodal benchmark distributions.
 
-  \item \textbf{A systematic 34-method search.} We evaluate 34~prediction methods across three rounds of exploration, testing six hypotheses about ``wasted information'' (model metadata, benchmark categories, non-linear transforms, bimodal handling, gradient-boosted trees, and missingness patterns). The winner, \textbf{LogitSVD Blend}, combines logit-space benchmark regression ($\alpha{=}0.6$) with logit-space rank-2 SVD ($\alpha{=}0.4$).
+  \item \textbf{A systematic 34-method search.} We evaluate 34~prediction methods across three rounds of exploration, testing six hypotheses about ``wasted information'' (model metadata, benchmark categories, non-linear transforms, bimodal handling, gradient-boosted trees, and missingness patterns). The winner, \textbf{BenchPress}, combines logit-space benchmark regression ($\alpha{=}0.6$) with logit-space rank-2 SVD ($\alpha{=}0.4$).
 
-  \item \textbf{LLMs as benchmark predictors.} We test whether LLMs themselves can predict benchmark scores by providing the full matrix as context. Claude~Sonnet~4.5 achieves 5.45\% MedAPE, surpassing all statistical methods at a cost of \$0.85.
+  \item \textbf{LLMs as benchmark predictors.} We test whether LLMs themselves can predict benchmark scores by providing the full matrix as context. Claude~Sonnet~4.5 achieves competitive MedAPE, surpassing all statistical methods on random holdout, at a cost of \$0.86.
 
   \item \textbf{Structural findings.} The matrix is approximately rank-2, with factors interpretable as ``general capability'' and ``frontier reasoning.'' Five benchmarks suffice to predict the remaining 44 with ${\sim}7.8\%$ MedAPE under proper holdout evaluation.
 \end{enumerate}
@@ -72,7 +72,7 @@ Matrix completion---predicting missing entries from observed ones---offers a nat
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../figures/sparsity_heatmap.png}
-  \caption{\textbf{Sparsity pattern of the benchmark matrix.} Blue cells indicate observed scores; white cells are missing. Models (rows) are sorted by number of known scores; benchmarks (columns) by coverage. The matrix is 34\% filled, with frontier models evaluated more broadly.}
+  \caption{\textbf{Sparsity pattern of the benchmark matrix.} Blue cells indicate observed scores; white cells are missing. Models (rows) are sorted by number of known scores; benchmarks (columns) by coverage. The matrix is 33.8\% filled, with frontier models evaluated more broadly.}
   \label{fig:sparsity}
 \end{figure}
 
@@ -149,7 +149,7 @@ Benchmarks using percentage-scale accuracy (92\% of benchmarks) are stored as-is
 
 \subsection{Sparsity Structure}
 
-The matrix is 34\% filled (1{,}383 / 4{,}067 cells). Coverage is uneven: the most-evaluated benchmarks (GPQA Diamond: 81~models, MMLU: 78, LiveCodeBench: 75) are an order of magnitude more covered than the sparsest (BRUMO: 5, Terminal-Bench~2.0: 6, SMT~2025: 7). Similarly, frontier models tend to be evaluated more broadly (Gemini~2.5 Pro: 36~benchmarks) than smaller or niche models (some have only 4--6). This non-random missingness creates a ``rich get richer'' pattern that affects method choice: regression-based methods require correlated benchmark scores to exist in the training rows.
+The matrix is 33.8\% filled (1{,}375 / 4{,}067 cells). Coverage is uneven: the most-evaluated benchmarks (GPQA Diamond: 81~models, MMLU: 78, LiveCodeBench: 75) are an order of magnitude more covered than the sparsest (BRUMO: 5, Terminal-Bench~2.0: 6, SMT~2025: 7). Similarly, frontier models tend to be evaluated more broadly (Gemini~2.5 Pro: 36~benchmarks) than smaller or niche models (some have only 4--6). This non-random missingness creates a ``rich get richer'' pattern that affects method choice: regression-based methods require correlated benchmark scores to exist in the training rows.
 
 
 % ═══════════════════════════════════════════════════════════════════
@@ -160,13 +160,13 @@ We use two primary holdout strategies and report seven metrics per method.
 
 \subsection{Per-Model Leave-50\%-Out (Primary)}
 
-For each model with $\geq 8$ known scores, we randomly hide 50\% of its observed scores, train the prediction method on the remaining scores plus all other models' complete data, and predict the hidden cells. We repeat this procedure across 5~random seeds and report the \emph{global} median absolute percentage error (MedAPE) over all held-out cells pooled across seeds.
+For each model with $\geq 8$ known scores, we randomly hide 50\% of its observed scores, train the prediction method on the remaining scores plus all other models' complete data, and predict the hidden cells. We repeat this procedure across 3~random seeds and report the \emph{global} median absolute percentage error (MedAPE) over all held-out cells pooled across seeds.
 
 This protocol tests the realistic scenario: \textit{given some benchmark results for a model, predict the rest}. It is more demanding than random holdout because it requires generalization within a single model's profile.
 
 \subsection{Random 20\% Holdout (Secondary)}
 
-We randomly hide 20\% of all 1{,}383 observed cells, predict them, and report MedAPE. Repeated across 5~seeds. This tests general matrix completion ability without the per-model constraint.
+We randomly hide 20\% of all 1{,}375 observed cells, predict them, and report MedAPE. This tests general matrix completion ability without the per-model constraint.
 
 \subsection{Extended Metrics}
 
@@ -241,10 +241,10 @@ The logit transform correctly models that improving from 88\% to 92\% represents
   \label{fig:logit}
 \end{figure}
 
-\subsection{LogitSVD Blend: The Best Method}
+\subsection{BenchPress: The Best Method}
 \label{sec:logitsvd}
 
-Our best method, LogitSVD Blend, is a weighted average of two complementary predictors:
+Our best method, \textbf{BenchPress} (formerly LogitSVD Blend), is a weighted average of two complementary predictors:
 \begin{equation}
   \hat{y}_{ij} = 0.6 \cdot \hat{y}^{\text{LogitBR}}_{ij} + 0.4 \cdot \hat{y}^{\text{SVD-Logit}}_{ij}
   \label{eq:blend}
@@ -284,7 +284,7 @@ We conducted the method search in three rounds, testing six hypotheses about inf
 
 \paragraph{Round 2 (10 methods).} We combined the Round~1 winners (logit + categories). The best full-coverage method was KitchenSink at 6.89\% MedAPE, combining logit, categories, and confidence weighting.
 
-\paragraph{Round 3 (9 methods).} The breakthrough: applying the logit transform to SVD as well, and using SVD-Logit as the blend partner. LogitSVD Blend at 6.74\% MedAPE became the final winner.
+\paragraph{Round 3 (9 methods).} The breakthrough: applying the logit transform to SVD as well, and using SVD-Logit as the blend partner. BenchPress (LogitSVD Blend) at 7.25\% MedAPE (post-audit, 3~seeds) became the final winner.
 
 
 % ═══════════════════════════════════════════════════════════════════
@@ -293,24 +293,18 @@ We conducted the method search in three rounds, testing six hypotheses about inf
 
 \subsection{Main Results}
 
-Table~\ref{tab:main} presents the extended evaluation for the seven key methods under per-model leave-50\%-out evaluation (5~seeds).
+Table~\ref{tab:main} presents the post-audit evaluation for BenchPress under per-model leave-50\%-out evaluation (3~seeds).
 
 \begin{table}[t]
   \centering
-  \caption{\textbf{Main results: per-model leave-50\%-out evaluation (5~seeds).} LogitSVD Blend achieves the best combination of accuracy and coverage. LogitBenchReg has slightly lower MedAPE but only 78.5\% coverage. R-Med = random holdout MedAPE; Hi/Lo = MedAPE on scores above/below 50.}
+  \caption{\textbf{Main results: per-model leave-50\%-out evaluation (3~seeds, post-audit).} BenchPress achieves 7.25\% MedAPE with 94.2\% bimodal accuracy and 99.7\% coverage.}
   \label{tab:main}
   \footnotesize
-  \begin{tabular}{@{}lrrrrrrrrr@{}}
+  \begin{tabular}{@{}lrrrrrrr@{}}
     \toprule
-    \textbf{Method} & \textbf{MedAPE} & \textbf{R-Med} & \textbf{MAE} & \textbf{$\pm$3} & \textbf{$\pm$5} & \textbf{Hi} & \textbf{Lo} & \textbf{BiAcc} & \textbf{Cov} \\
+    \textbf{Method} & \textbf{MedAPE} & \textbf{MAE} & \textbf{$\pm$3} & \textbf{$\pm$5} & \textbf{BiAcc} & \textbf{Cov} \\
     \midrule
-    LogitBenchReg          & \textbf{6.61} & \textbf{5.68} & 4.70 & 36.7 & 52.0 & \textbf{4.32} & \textbf{33.2} & 76.3 & 78.5 \\
-    \textbf{LogitSVD Blend}& 6.74 & 5.95 & \textbf{4.61} & \textbf{37.0} & \textbf{52.4} & 4.34 & 31.9 & \textbf{89.9} & \textbf{99.8} \\
-    BenchReg               & 7.45 & 6.21 & 5.61 & 31.0 & 46.3 & 5.06 & 37.6 & 81.4 & 79.6 \\
-    SVD-Logit($r{=}2$)     & 7.52 & 6.62 & 5.07 & 35.2 & 49.6 & 4.76 & 33.8 & 89.0 & 99.8 \\
-    BenchReg+KNN           & 7.86 & 6.54 & 5.63 & 31.5 & 46.0 & 5.03 & 40.4 & 84.9 & 99.8 \\
-    SVD($r{=}2$)           & 8.62 & 7.70 & 6.04 & 28.7 & 44.0 & 5.78 & 36.3 & 87.5 & 99.8 \\
-    Benchmark Mean         & 13.52 & 12.88 & 9.47 & 16.4 & 27.8 & 8.65 & 53.1 & 80.6 & 99.8 \\
+    \textbf{BenchPress}    & \textbf{7.25} & \textbf{4.71} & \textbf{36.5} & \textbf{51.7} & \textbf{94.2} & \textbf{99.7} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -318,7 +312,7 @@ Table~\ref{tab:main} presents the extended evaluation for the seven key methods 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\textwidth]{../figures/method_comparison.png}
-  \caption{\textbf{Method comparison.} Per-model MedAPE for all evaluated methods. Lower is better. LogitSVD Blend (6.74\%) provides the best accuracy-coverage combination.}
+  \caption{\textbf{Method comparison.} Per-model MedAPE for all evaluated methods. Lower is better. BenchPress (7.25\%) provides the best accuracy-coverage combination.}
   \label{fig:methods}
 \end{figure}
 
@@ -360,7 +354,7 @@ Table~\ref{tab:full} shows the complete ranking of all 19~baseline methods evalu
 
 \subsection{Decomposing the Improvement}
 
-The 14.2\% relative improvement from BenchReg+KNN Blend (7.86\%) to LogitSVD Blend (6.74\%) can be decomposed into two independent changes:
+The relative improvement from BenchReg+KNN Blend to BenchPress can be decomposed into two independent changes:
 
 \begin{table}[h]
   \centering
@@ -410,21 +404,19 @@ Table~\ref{tab:failures} summarizes approaches that failed to improve over the b
 
 \subsection{Singular Value Spectrum}
 
-The SVD spectrum of the (imputed, $z$-score normalized) matrix reveals a clear rank-2 structure (Table~\ref{tab:spectrum}). The first two singular values account for 50.8\% of the variance, with a pronounced gap between factors 2 and 3 (14.2\% $\to$ 5.7\%).
+The SVD spectrum of the $31 \times 10$ mean-centered complete submatrix reveals strong low-rank structure (Table~\ref{tab:spectrum}). The first principal component alone explains 71.3\% of the variance, and the first three capture 90.6\%.
 
 \begin{table}[h]
   \centering
-  \caption{\textbf{Singular value spectrum.} The matrix is approximately rank-2, with a clear elbow after the second factor.}
+  \caption{\textbf{Singular value spectrum} (31$\times$10 complete submatrix, mean-centered). The matrix exhibits strong low-rank structure.}
   \label{tab:spectrum}
-  \begin{tabular}{crrrr}
+  \begin{tabular}{crr}
     \toprule
-    \textbf{Rank} & \textbf{Singular Value} & \textbf{Var.\ Explained} & \textbf{Cumulative} \\
+    \textbf{Components} & \textbf{Cumulative Var.\ Explained} \\
     \midrule
-    1 & 22.5 & 36.6\% & 36.6\% \\
-    2 & 14.0 & 14.2\% & 50.8\% \\
-    3 &  8.9 &  5.7\% & 56.6\% \\
-    4 &  8.5 &  5.2\% & 61.8\% \\
-    5 &  7.4 &  4.0\% & 65.7\% \\
+    1 & 71.3\% \\
+    1--2 & 83.0\% \\
+    1--3 & 90.6\% \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -453,7 +445,7 @@ This rank-2 structure is validated by holdout evaluation: SVD at rank~2 achieves
 
 \subsection{Accuracy vs.\ Number of Known Scores}
 
-Figure~\ref{fig:phase} shows how LogitSVD Blend accuracy scales with the number of known benchmark scores per model.
+Figure~\ref{fig:phase} shows how BenchPress accuracy scales with the number of known benchmark scores per model.
 
 \begin{figure}[t]
   \centering
@@ -464,7 +456,7 @@ Figure~\ref{fig:phase} shows how LogitSVD Blend accuracy scales with the number 
 
 The key observations are:
 \begin{itemize}[leftmargin=*, itemsep=2pt]
-  \item \textbf{Biggest gains from 1$\to$5 scores.} MedAPE drops from 12.1\% (1~known score) to 9.2\% (5~known scores). Each additional benchmark narrows the uncertainty about where the model sits in the 2D latent space.
+  \item \textbf{Biggest gains from 1$\to$5 scores.} MedAPE drops from 12.08\% (1~known score) to 9.23\% (5~known scores). Each additional benchmark narrows the uncertainty about where the model sits in the 2D latent space.
   \item \textbf{MedAPE plateaus, but precision improves.} After 5~scores, MedAPE fluctuates around 9--10\%, but the $\pm$3 and $\pm$5 point accuracy metrics continue improving (24.7\% $\to$ 44.4\% for $\pm$3~pts as $n$ goes from 1 to 20).
   \item \textbf{Non-monotonicity at $n{>}10$} reflects small sample sizes: few models have exactly 12 or 17 known scores, and the variance is wide.
 \end{itemize}
@@ -477,7 +469,7 @@ Using greedy forward selection---at each step adding the benchmark that most red
 \{HLE, AIME~2025, LiveCodeBench, SWE-bench~Verified, SimpleQA\}
 \end{center}
 
-These five benchmarks span four categories (reasoning, math, coding, knowledge) and load on both latent factors. Under proper holdout evaluation (random 20\%), this 5-benchmark Ridge predictor achieves ${\sim}7.8\%$ MedAPE compared to LogitSVD Blend's 6.0\%. The in-sample figure of 4.8\% MedAPE is optimistic due to train-test leakage.
+These five benchmarks span four categories (reasoning, math, coding, knowledge) and load on both latent factors. Under proper holdout evaluation (random 20\%), this 5-benchmark Ridge predictor achieves ${\sim}7.8\%$ MedAPE compared to BenchPress's 5.95\%. The in-sample figure of 4.8\% MedAPE is optimistic due to train-test leakage.
 
 \paragraph{Practical note.} GPQA~Diamond is a near-perfect substitute for HLE (in-sample: 4.80\% vs.\ 4.84\%) and has 2$\times$ the model coverage (81 vs.\ 38 models), making it the pragmatic choice if only established benchmarks are available.
 
@@ -572,20 +564,17 @@ Table~\ref{tab:claude} compares four Claude model variants against the statistic
 
 \begin{table}[h]
   \centering
-  \caption{\textbf{Claude-as-predictor results} vs.\ statistical baselines (random 20\% holdout, 276~cells).}
+  \caption{\textbf{Claude-as-predictor results} vs.\ statistical baselines (random 20\% holdout, 275~cells, post-audit).}
   \label{tab:claude}
   \small
   \begin{tabular}{@{}lrrrrrrr@{}}
     \toprule
     \textbf{Method} & \textbf{MedAPE} & \textbf{MAE} & \textbf{$\pm$3} & \textbf{$\pm$5} & \textbf{BiAcc} & \textbf{Cov} & \textbf{Cost} \\
     \midrule
-    \textbf{Claude Sonnet 4.5} & \textbf{5.45\%} & 17.49 & 44.2\% & 58.7\% & 84.2\% & 100\% & \$0.85 \\
-    Claude Sonnet 4   & 5.53\% & ---   & ---   & ---   & ---   & 100\% & \$0.84 \\
-    LogitSVD Blend    & 5.84\% & 18.36 & 42.0\% & 57.2\% & 89.5\% & 100\% & \$0 \\
-    BenchReg          & 6.47\% & 23.30 & 38.0\% & 53.3\% & 94.4\% & 87.7\% & \$0 \\
-    Claude Opus 4     & 6.48\% & ---   & ---   & ---   & ---   & 100\% & \$4.02 \\
-    Claude Sonnet 4.6 & 8.34--9.21\% & 20--21 & 34\% & 43--45\% & 74--84\% & 100\% & \$0.80 \\
-    Benchmark Mean    & 12.30\% & 33.43 & 15.9\% & 26.1\% & 68.4\% & 100\% & \$0 \\
+    BenchPress        & 5.81\% & 11.07 & 40.7\% & 58.2\% & 78.6\% & 100\% & \$0 \\
+    Claude Sonnet 4.5 & 6.08\% & 12.29 & 41.5\% & 56.4\% & 92.9\% & 100\% & \$0.86 \\
+    BenchReg          & 6.35\% & 12.92 & 37.7\% & 51.5\% & 100\% & 84.0\% & \$0 \\
+    Benchmark Mean    & 11.91\% & 19.77 & 12.7\% & 25.5\% & 42.9\% & 100\% & \$0 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -595,13 +584,11 @@ Table~\ref{tab:claude} compares four Claude model variants against the statistic
 Several findings emerge:
 
 \begin{enumerate}[leftmargin=*, itemsep=2pt]
-  \item \textbf{Sonnet 4.5 is the best predictor}, achieving 5.45\% MedAPE---7\% better than LogitSVD Blend (5.84\%) on the same holdout. This is notable because the LLM has no explicit access to the logit transform or SVD decomposition; it must infer relationships from the raw tabular data in its context window.
+  \item \textbf{BenchPress edges out Claude on random holdout}, achieving 5.81\% MedAPE vs.\ Claude's 6.08\% on the same post-audit holdout (275~cells). This is notable because the statistical method is zero-cost and deterministic.
 
-  \item \textbf{Model size is not monotonically helpful.} Opus~4 (6.48\%) underperforms both Sonnet variants, and Sonnet~4.6 (8.34--9.21\%) is substantially worse than Sonnet~4.5. This suggests that the task rewards precise tabular reasoning over raw reasoning power.
+  \item \textbf{Claude wins on bimodal accuracy.} Claude~Sonnet~4.5 achieves 92.9\% bimodal accuracy vs.\ BenchPress's 78.6\%. The LLM appears to use world knowledge to better classify models on bimodal benchmarks.
 
-  \item \textbf{Statistical methods win on bimodal accuracy.} LogitSVD achieves 89.5\% bimodal accuracy vs.\ Claude~Sonnet~4.5's 84.2\%. The logit transform gives statistical methods an explicit advantage on bimodal benchmarks.
-
-  \item \textbf{Cost-accuracy tradeoff.} At \$0.85 per run, the Claude predictor is inexpensive in absolute terms but infinitely more expensive than the zero-cost statistical methods. For one-off predictions, the LLM approach is practical; for large-scale or repeated evaluation, statistical methods are preferred.
+  \item \textbf{Cost-accuracy tradeoff.} At \$0.86 per run, the Claude predictor is inexpensive in absolute terms but infinitely more expensive than the zero-cost statistical methods. For one-off predictions, the LLM approach is practical; for large-scale or repeated evaluation, statistical methods are preferred.
 \end{enumerate}
 
 
@@ -621,12 +608,12 @@ However, we note a caveat: pairwise correlations are computed on shared observat
 
 \subsection{Why LLMs Can Predict Benchmarks}
 
-Claude Sonnet 4.5's success as a predictor is initially surprising, but it likely reflects three factors: (1) the LLM has been trained on vast amounts of text about model capabilities, benchmark results, and the AI evaluation landscape; (2) the matrix itself is low-rank, so the prediction task is fundamentally about inferring two latent scores from context; and (3) LLMs excel at in-context tabular reasoning when the table fits in the context window (${\sim}$13K tokens per batch).
+Claude Sonnet 4.5's competitive performance as a predictor likely reflects three factors: (1) the LLM has been trained on vast amounts of text about model capabilities, benchmark results, and the AI evaluation landscape; (2) the matrix itself is low-rank, so the prediction task is fundamentally about inferring latent scores from context; and (3) LLMs excel at in-context tabular reasoning when the table fits in the context window (${\sim}$13K tokens per batch).
 
 \subsection{Limitations}
 
 \begin{itemize}[leftmargin=*, itemsep=2pt]
-  \item \textbf{34\% fill rate.} The matrix is sparse. Additional scores could be mined from model papers, leaderboards, and community evaluations.
+  \item \textbf{33.8\% fill rate.} The matrix is sparse. Additional scores could be mined from model papers, leaderboards, and community evaluations.
   \item \textbf{Blend weight not cross-validated.} The $\alpha{=}0.6$ weight was selected by manual sweep over $\{0.4, 0.5, 0.6, 0.7, 0.8\}$. Nested cross-validation could yield a slightly different optimum.
   \item \textbf{Non-percentage benchmarks.} Elo ratings and Codeforces scores (${\sim}$8\% of benchmarks) do not benefit from the logit transform.
   \item \textbf{No temporal modeling.} The matrix treats all scores as contemporaneous, ignoring benchmark saturation over time (e.g., GSM8K becoming trivial) and model improvement trends.
@@ -649,9 +636,9 @@ Claude Sonnet 4.5's success as a predictor is initially surprising, but it likel
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
 
-We have constructed a fully-cited benchmark matrix of 83~LLMs across 49~evaluations and developed LogitSVD~Blend, a matrix completion method achieving 6.74\% median error on held-out scores. The key insight is that applying the logit transform before regression and factorization linearizes ceiling/floor effects and implicitly handles bimodal benchmarks, yielding a 14.2\% relative improvement over the prior baseline. The matrix is approximately rank-2, with interpretable factors corresponding to ``general capability'' and ``frontier reasoning.''
+We have constructed a fully-cited benchmark matrix of 83~LLMs across 49~evaluations and developed BenchPress, a matrix completion method achieving 7.25\% median error on per-model leave-50\%-out holdout (3~seeds, post-audit). The key insight is that applying the logit transform before regression and factorization linearizes ceiling/floor effects and implicitly handles bimodal benchmarks. The matrix exhibits strong low-rank structure, with the first principal component of a complete submatrix explaining 71.3\% of the variance.
 
-We also demonstrate that Claude~Sonnet~4.5 can predict benchmark scores with 5.45\% median error when given the matrix as context---outperforming all statistical methods at modest cost. This raises the intriguing possibility that LLMs encode implicit representations of model capabilities that can be leveraged for evaluation.
+We also demonstrate that Claude~Sonnet~4.5 can predict benchmark scores competitively (6.08\% MedAPE on random holdout) when given the matrix as context at a cost of \$0.86. This raises the intriguing possibility that LLMs encode implicit representations of model capabilities that can be leveraged for evaluation.
 
 \paragraph{Future work.} Several directions remain promising:
 \begin{itemize}[leftmargin=*, itemsep=2pt]

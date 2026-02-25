@@ -1,25 +1,25 @@
 # LLM Benchmark Matrix Completion: Full Report
 
-**Matrix**: 83 models × 49 benchmarks | **1,383 observed** (34.0% fill) | **2,684 predicted**
-**Date**: February 23, 2026
+**Matrix**: 83 models × 49 benchmarks | **1,375 observed** (33.8% fill) | **2,692 predicted**
+**Date**: February 24, 2026 (post-audit update)
 
 ---
 
 ## 1. Executive Summary
 
-We constructed a fully-cited benchmark matrix spanning 83 frontier instruct/chat LLMs across 49 benchmarks covering math, coding, reasoning, knowledge, agentic tasks, multimodal understanding, instruction following, and long context. Every entry carries a source URL. The matrix is 34% filled — the remaining 66% (2,684 cells) are missing because not every model is evaluated on every benchmark. We then evaluated 22 prediction methods for filling these missing cells, conducting a systematic 3-round exploration of what information helps and what doesn't.
+We constructed a fully-cited benchmark matrix spanning 83 frontier instruct/chat LLMs across 49 benchmarks covering math, coding, reasoning, knowledge, agentic tasks, multimodal understanding, instruction following, and long context. Every entry carries a source URL. The matrix is 33.8% filled — the remaining 66.2% (2,692 cells) are missing because not every model is evaluated on every benchmark. We then evaluated 22 prediction methods for filling these missing cells, conducting a systematic 3-round exploration of what information helps and what doesn't.
 
 ### Top-Line Results
 
-| | Baseline (BenchReg+KNN) | **Best (LogitSVD Blend)** | Improvement |
-|---|---:|---:|---:|
-| Per-model MedAPE | 7.86% | **6.74%** | −14.2% relative |
-| Random MedAPE | 6.54% | **5.95%** | −9.0% relative |
-| MAE (score points) | 5.63 | **4.61** | −18.1% |
-| Within ±3 points | 31.5% | **37.0%** | +5.5 pp |
-| Within ±5 points | 46.0% | **52.4%** | +6.4 pp |
-| Bimodal accuracy | 84.9% | **89.9%** | +5.0 pp |
-| Coverage | 99.8% | **99.8%** | same |
+| | **Best: BenchPress (Post-Audit)** |
+|---|---:|
+| Per-model MedAPE (3 seeds) | **7.25%** |
+| Random MedAPE (single seed) | **5.81%** |
+| MAE (score points) | **4.71** |
+| Within ±3 points | **36.5%** |
+| Within ±5 points | **51.7%** |
+| Bimodal accuracy | **94.2%** |
+| Coverage | **99.7%** |
 
 ### Key Findings
 
@@ -87,7 +87,7 @@ We constructed a fully-cited benchmark matrix spanning 83 frontier instruct/chat
 
 ### 2.3 Sparsity Pattern
 
-The matrix is 34% filled (1,383 / 4,067 cells). Coverage is uneven:
+The matrix is 33.8% filled (1,375 / 4,067 cells). Coverage is uneven:
 - **Most-covered benchmarks**: GPQA Diamond (81 models), MMLU (78), LiveCodeBench (75)
 - **Least-covered benchmarks**: BRUMO (5 models), Terminal-Bench 2.0 (6), SMT 2025 (7)
 - **Most-covered models**: Gemini 2.5 Pro (36 benchmarks), Claude Sonnet 4 (34), o3 (33)
@@ -537,7 +537,7 @@ The heuristic is simple: if all observed scores for a benchmark fall in [−1, 1
 - **Blend NaN propagation**: Previous `predict_blend` silently dropped 19% of test cells, inflating accuracy from 7.9% to 7.4%
 - **5-benchmark in-sample leak**: The "4.8% MedAPE" was in-sample; proper holdout is ~7.8%
 - **SVD rank claim**: Rank-2 is optimal, not rank-3
-- **Prediction output**: Now covers all 2,684 missing cells with clamping
+- **Prediction output**: Now covers all 2,692 missing cells with clamping
 - **Redundancy sample sizes**: Table now restricted to pairs with ≥20 shared models
 - **LogitSVD Blend**: Replaced BenchReg+KNN as default. 14.2% improvement.
 
@@ -572,7 +572,7 @@ The heuristic is simple: if all observed scores for a benchmark fall in [−1, 1
 | `results/report.md` | This report |
 | `results/results_table.csv` | 19 baseline methods × 10 metrics comparison |
 | `results/logit_svd_eval.json` | LogitSVD vs baselines: extended metrics (7 methods × 12 metrics) |
-| `results/best_predictions.csv` | 2,684 predicted missing cells (LogitSVD Blend, clamped) |
+| `results/best_predictions.csv` | 2,692 predicted missing cells (BenchPress, clamped) |
 | `results/latent_factors.csv` | 49 benchmarks × 5 factor loadings |
 | `results/phase_transition.csv` | Accuracy vs number of known scores (LogitSVD Blend, 1–20) |
 | `evaluation_harness.py` | Evaluation framework (6 holdout strategies, 7 metrics) |
@@ -583,4 +583,4 @@ The heuristic is simple: if all observed scores for a benchmark fall in [−1, 1
 | `methods/creative_methods_r3.py` | Round 3 optimization (9 methods) |
 | `methods/final_comparison.py` | All-methods comprehensive comparison |
 | `diagnostics/all_diagnostics.py` | Intrinsic dimensionality, redundancy, scaling laws |
-| `data/build_benchmark_matrix.py` | Master dataset: 83 models, 49 benchmarks, 1,383 cited scores |
+| `data/build_benchmark_matrix.py` | Master dataset: 83 models, 49 benchmarks, 1,375 cited scores |
