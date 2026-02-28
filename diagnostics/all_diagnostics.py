@@ -145,8 +145,8 @@ def analyze_benchmark_redundancy():
         print(f"  {BENCH_NAMES[BENCH_IDS[j1]]:<30s}  {BENCH_NAMES[BENCH_IDS[j2]]:<30s}  {r:>6.3f}  {ns:>4d}")
 
     print("\n  Least correlated / anti-correlated pairs:")
-    for r, j1, j2 in pairs[-10:]:
-        print(f"  {BENCH_NAMES[BENCH_IDS[j1]]:<30s}  {BENCH_NAMES[BENCH_IDS[j2]]:<30s}  {r:>6.3f}")
+    for r, j1, j2, ns in pairs[-10:]:
+        print(f"  {BENCH_NAMES[BENCH_IDS[j1]]:<30s}  {BENCH_NAMES[BENCH_IDS[j2]]:<30s}  {r:>6.3f}  {ns:>4d}")
 
     # Hierarchical clustering
     # Convert correlation to distance

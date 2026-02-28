@@ -55,7 +55,7 @@ for j in range(N_BENCH):
         ))
 
 # Sort by median absolute error descending
-results.sort(key=lambda x: -x[1])
+results.sort(key=lambda x: -x[2])
 
 for j, med_abs, med_ape, n, mean_abs, std_abs in results:
     bname = BENCH_NAMES.get(BENCH_IDS[j], BENCH_IDS[j])
@@ -63,8 +63,8 @@ for j, med_abs, med_ape, n, mean_abs, std_abs in results:
     print(f"  {bname:<35s} {med_abs:>10.1f} {ape_str:>8s} {n:>5d} {mean_abs:>7.1f}±{std_abs:.1f}")
 
 # Also print the easiest
-print(f"\n  EASIEST (lowest median absolute error):")
-results.sort(key=lambda x: x[1])
+print(f"\n  EASIEST (lowest median percentage error):")
+results.sort(key=lambda x: x[2])
 for j, med_abs, med_ape, n, mean_abs, std_abs in results[:10]:
     bname = BENCH_NAMES.get(BENCH_IDS[j], BENCH_IDS[j])
     ape_str = f"{med_ape:.1f}%" if not np.isnan(med_ape) else "N/A"
