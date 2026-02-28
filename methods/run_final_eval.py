@@ -7,6 +7,8 @@ Produces all numbers needed for the report and README update.
 import numpy as np
 import sys, warnings, os, time, csv, json
 
+from tqdm import tqdm
+
 warnings.filterwarnings('ignore')
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -241,9 +243,9 @@ if __name__ == "__main__":
 
     phase_data = {k: [] for k in range(1, max_reveal + 1)}  # n_known → list of MedAPEs
 
-    for seed in phase_seeds:
+    for seed in tqdm(phase_seeds):
         rng = np.random.RandomState(seed)
-        for i in eligible:
+        for i in tqdm(eligible):
             obs_j = np.where(OBSERVED[i])[0].copy()
             rng.shuffle(obs_j)
             n_total = len(obs_j)
