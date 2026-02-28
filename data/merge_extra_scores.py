@@ -58,7 +58,7 @@ print(f"Base DATA entries: {len(base_data)} ({len(existing)} unique cells)")
 
 # ── Step 2: Load all extra score files ──
 scores_all = []
-for fname in ['extra_scores_1', 'extra_scores_2', 'extra_scores_3', 'extra_scores_4', 'extra_scores_5']:
+for fname in ['extra_scores_1', 'extra_scores_2', 'extra_scores_3', 'extra_scores_4', 'extra_scores_5', 'extra_scores_6']:
     try:
         mod = importlib.import_module(fname)
         importlib.reload(mod)  # ensure fresh load
