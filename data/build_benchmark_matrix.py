@@ -216,6 +216,23 @@ BENCHMARKS = [
     ("livebench", "LiveBench", "Composite", "overall score", None, "https://livebench.ai/"),
     ("simplebench", "SimpleBench", "Reasoning", "% correct", 1000, "https://simple-bench.com/"),
     ("bigcodebench", "BigCodeBench", "Coding", "pass@1 %", 1140, "https://bigcode-bench.github.io/"),
+
+    # ── Benchmarks imported from benchmark-stitching ──
+    ("aider_polyglot", "Aider Polyglot", "Coding", "% correct", None, "https://aider.chat/docs/leaderboards/#polyglot-leaderboard"),
+    ("balrog", "BALROG", "Agentic", "average progress", None, "https://balrogai.com/"),
+    ("cadeval", "CAD-Eval", "Agentic", "overall pass %", None, "https://willpatrick.xyz/cadevalresults_20250422_095709/"),
+    ("cybench", "CyBench", "Agentic", "% solved", None, "https://cybench.github.io/"),
+    ("deepresearch", "Deep Research Bench", "Agentic", "average score", None, "https://drb.futuresearch.ai"),
+    ("gso_bench", "GSO-Bench", "Coding", "score OPT@1", None, "https://gso-bench.github.io/leaderboard.html"),
+    ("lech_mazur_writing", "Creative Writing (Mazur)", "Language", "mean score", None, "https://github.com/lechmazur/Writing"),
+    ("metr", "METR", "Agentic", "average score @ 50%", None, "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/"),
+    ("vpct", "VPCT", "Reasoning", "% correct", None, "https://cbrower.dev/vpct"),
+    ("weirdml", "WeirdML", "Coding", "% accuracy", None, "https://htihle.github.io/weirdml.html"),
+    ("the_agent_company", "The Agent Company", "Agentic", "% resolved", None, "https://the-agent-company.com/#/leaderboard"),
+    ("osuniverse", "OS-Universe", "Agentic", "weighted score", None, "https://arxiv.org/pdf/2505.03570"),
+    ("factorio", "Factorio Learning Environment", "Agentic", "lab success %", None, "https://jackhopkins.github.io/factorio-learning-environment/leaderboard/"),
+    ("fictionlivebench", "FictionLiveBench", "Language", "16K score", None, "https://fiction.live/stories/Fiction-liveBench-Mar-14-2025/oQdzQvKHw8JyXbN87/home"),
+    ("geobench", "GeoBench", "Multimodal", "ACW country %", None, "https://geobench.org/"),
 ]
 
 # ── Score data: (model_id, benchmark_id, score, reference_url) ────────────
